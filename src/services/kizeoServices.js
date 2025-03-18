@@ -35,17 +35,12 @@ async function subirActaService(data) {
     try {
         console.log("📥 Datos recibidos:", JSON.stringify(data, null, 2));
 
-        const { id: dataId, data: { form_id: form_id, fields } } = data;
-        const diligencia = fields?.acta_de_diligencia?.result?.value;
-        const zona = fields?.zonas?.result?.value?.code;
+        const { data: { form_id: form_id} } = data;
         
-        if (!diligencia) throw new Error('Diligencia no encontrada en los datos.');
-        
-        console.log('📝 Form ID:', form_id, '| Zona:', zona, '| Diligencia:', diligencia);
+        console.log('📝 Form ID:', form_id);
 
         let form_name = folderMap[form_id];
 
-        // Guardar datos del formulario en un JSON
         guardarLog(form_name, data);
 
     } catch (error) {

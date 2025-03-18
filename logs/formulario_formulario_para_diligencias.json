@@ -1,0 +1,562 @@
+{
+  "id": "224110940",
+  "eventType": "update",
+  "data": {
+    "answer_time": "2025-03-18T16:10:26-05:00",
+    "update_answer_time": "2025-03-18T16:10:26-05:00",
+    "id_tel": "web2",
+    "media": [
+      "c109463f1056420pu690618_20250318155745_240.jpg"
+    ],
+    "form_id": "1056420",
+    "origin": "web",
+    "fields": {
+      "asesor_de_cobro": {
+        "result": null,
+        "hidden": false
+      },
+      "fecha_de_la_solicitud": {
+        "result": {
+          "value": {
+            "date": "2025-03-18",
+            "hour": "15:57:00",
+            "timezone": "-05:00"
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "zonas": {
+        "result": {
+          "value": {
+            "code": "Zona 3",
+            "columns": [
+              "juan.munoz@affi.net",
+              "jmuñoz"
+            ]
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "email_lider": {
+        "result": {
+          "value": {
+            "text": "juan.munoz@affi.net",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "usuario_lider": {
+        "result": {
+          "value": {
+            "text": "jmuñoz",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "tipo_de_diligencia": {
+        "result": {
+          "value": {
+            "code": "Visita Ocular",
+            "columns": []
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "asesor_que_solicita_la_visita": {
+        "result": {
+          "value": {
+            "code": "Juan Munoz",
+            "columns": [
+              "jm0sp@yopmail.com"
+            ]
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "correo_del_asesor_que_solicit": {
+        "result": {
+          "value": {
+            "text": "jm0sp@yopmail.com",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "cuenta": {
+        "result": {
+          "value": {
+            "code": "1044",
+            "columns": [
+              "805000082",
+              "SOCIEDAD PRivaDA DEL ALQUILER SAS",
+              "16603671",
+              "JORGE ELIECER",
+              "HEREDIA MORENO",
+              "",
+              "0",
+              "CR 104 N 44 69 APTO 803 TORRE 8 CR K 112 MAPLE",
+              "CALI",
+              "Desocupado",
+              "COBRO JURIDICO"
+            ]
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "etapa_de_cobro": {
+        "result": {
+          "value": {
+            "text": "COBRO JURIDICO",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "nombre_inmobiliaria": {
+        "result": {
+          "value": {
+            "text": "SOCIEDAD PRivaDA DEL ALQUILER SAS",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "nombre_del_inquilino": {
+        "result": {
+          "value": {
+            "text": "JORGE ELIECER",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "apellido_del_inquilino": {
+        "result": {
+          "value": {
+            "text": "HEREDIA MORENO",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "id_inquilino": {
+        "result": {
+          "value": {
+            "text": "16603671",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "direccion_del_inmueble_arrend": {
+        "result": {
+          "value": {
+            "text": "CR 104 N 44 69 APTO 803 TORRE 8 CR K 112 MAPLE",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "ciudad_del_inmueble_arrendado": {
+        "result": {
+          "value": {
+            "text": "CALI",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "cambio_de_direccion_": {
+        "result": {
+          "value": false,
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "celular_del_inquilino": {
+        "result": {
+          "value": "3104056601",
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "datos_de_la_visita": {
+        "result": null,
+        "hidden": false
+      },
+      "tipo_de_solicitud": {
+        "result": {
+          "value": {
+            "code": "Visita general",
+            "columns": []
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "administrativa": {
+        "result": null,
+        "hidden": true
+      },
+      "juridica_administrativa1": {
+        "result": null,
+        "hidden": true
+      },
+      "juridica_inquilino": {
+        "result": null,
+        "hidden": true
+      },
+      "calidad_de_la_persona_a_visit": {
+        "result": {
+          "value": {
+            "code": "Inquilino",
+            "columns": []
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "nombre": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": true
+      },
+      "celular_no_": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": true
+      },
+      "lugar_de_la_visita": {
+        "result": {
+          "value": {
+            "code": "Visita al inmueble arrendado ",
+            "columns": []
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "direccion": {
+        "result": {
+          "value": "CR 104 N 44 69 APTO 803 TORRE 8 CR K 112 MAPLE",
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "ciudad": {
+        "result": {
+          "value": "CALI",
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "nombre_de_la_empresa1": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": true
+      },
+      "objetivo_de_la_visita": {
+        "result": {
+          "value": "asdasdasd",
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "asesor": {
+        "result": null,
+        "hidden": false
+      },
+      "gestor_de_campo_zona_11": {
+        "result": null,
+        "hidden": true
+      },
+      "gestor_de_campo_zona_2": {
+        "result": null,
+        "hidden": true
+      },
+      "gestor_de_campo_zona_3": {
+        "result": {
+          "value": {
+            "code": "jmuñoz",
+            "columns": [
+              "Juan Munoz - 1109184891",
+              "juan.munoz@affi.net"
+            ]
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "representante_affi_zona_1": {
+        "result": {
+          "value": {
+            "text": "",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": true
+      },
+      "representante_affi_zona_2": {
+        "result": {
+          "value": {
+            "text": "",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": true
+      },
+      "representante_zona_3": {
+        "result": {
+          "value": {
+            "text": "Juan Munoz - 1109184891",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "email_representante_zona_1": {
+        "result": {
+          "value": {
+            "text": "",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": true
+      },
+      "email_representante_zona_2": {
+        "result": {
+          "value": {
+            "text": "",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": true
+      },
+      "email_representante_zona_3": {
+        "result": {
+          "value": {
+            "text": "juan.munoz@affi.net",
+            "forced": false
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "resultado_de_la_visita": {
+        "result": null,
+        "hidden": false
+      },
+      "geolocalizacion1": {
+        "result": {
+          "value": {
+            "lat": 3.6569088,
+            "long": -76.2380288,
+            "alt": 0
+          },
+          "time": "2025-03-18T16:10:25-05:00"
+        },
+        "hidden": false
+      },
+      "foto_del_lugar_visita": {
+        "result": [
+          {
+            "value": {
+              "file": "c109463f1056420pu690618_20250318155745_240.jpg",
+              "original_name": "c109463f1056420pu690618_20250318155745_240.jpg"
+            },
+            "time": "2025-03-18T15:57:45-05:00"
+          }
+        ],
+        "hidden": false
+      },
+      "fecha_y_hora_de_la_visita": {
+        "result": {
+          "value": {
+            "date": "2025-03-18",
+            "hour": "15:57:00",
+            "timezone": "-05:00"
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "observacion_de_la_visita1": {
+        "result": {
+          "value": "asdasdas",
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "resultado_de_la_diligencia": {
+        "result": null,
+        "hidden": true
+      },
+      "estado_del_inmueble": {
+        "result": {
+          "value": {
+            "code": "Desocupado",
+            "columns": []
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "resultado_de_la_gestion": {
+        "result": {
+          "value": {
+            "code": "Estado del inmueble confirmado",
+            "columns": []
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "resultado_de_la_gestion_hab1": {
+        "result": null,
+        "hidden": true
+      },
+      "resultado_de_la_gestion_no_1": {
+        "result": null,
+        "hidden": true
+      },
+      "resultado_de_la_gestion_no_": {
+        "result": null,
+        "hidden": true
+      },
+      "estado_del_inmueble1": {
+        "result": null,
+        "hidden": true
+      },
+      "resultado_de_la_gestion1": {
+        "result": null,
+        "hidden": true
+      },
+      "resultado_de_la_gestion_hab11": {
+        "result": null,
+        "hidden": true
+      },
+      "resultado_de_la_gestion_no_11": {
+        "result": null,
+        "hidden": true
+      },
+      "resultado_de_la_gestion_vis1": {
+        "result": null,
+        "hidden": true
+      },
+      "visita_al_domicilio_contact": {
+        "result": null,
+        "hidden": true
+      },
+      "visita_al_domicilio_contact11": {
+        "result": null,
+        "hidden": true
+      },
+      "soport_pago": {
+        "result": null,
+        "hidden": true
+      },
+      "los_asistentes_aceptan_la_pol1": {
+        "result": {
+          "value": {
+            "code": "Si"
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "politica_de_tratamiento_de_da": {
+        "result": {
+          "value": {
+            "file": "c109463u690618_20250226204045.pdf",
+            "original_name": "c109463u690618_20250226204045.pdf"
+          },
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": true
+      },
+      "persona_que_atiende_la_visita": {
+        "result": null,
+        "hidden": false
+      },
+      "recibe_notificacion_": {
+        "result": {
+          "value": false,
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": false
+      },
+      "foto_de_notificacion": {
+        "result": null,
+        "hidden": true
+      },
+      "foto1": {
+        "result": null,
+        "hidden": true
+      },
+      "firma1": {
+        "result": null,
+        "hidden": true
+      },
+      "nombre1": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": true
+      },
+      "cedula1": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": true
+      },
+      "celular": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T16:10:26-05:00"
+        },
+        "hidden": true
+      }
+    },
+    "device_info": null,
+    "form_update_time": null,
+    "local_uuid": "",
+    "format": "4",
+    "record_number": "71",
+    "recipient_user_id": null,
+    "start_time": null,
+    "end_time": null,
+    "app_version": "4",
+    "id": "224110940",
+    "user_id": "690618"
+  }
+}

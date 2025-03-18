@@ -1,0 +1,657 @@
+{
+  "id": "224107239",
+  "eventType": "finished",
+  "data": {
+    "answer_time": "2025-03-18T15:03:27-05:00",
+    "update_answer_time": "2025-03-18T15:03:27-05:00",
+    "id_tel": "web2",
+    "media": [
+      "c109463f1041013pu690618_20250318150216_298.jpg",
+      "c109463f1041013pu690618_20250318150232_300.jpg",
+      "c109463f1041013su690618_20250318150313_324.png",
+      "c109463f1041013su690618_20250318150316_326.png",
+      "c109463f1041013su690618_20250318150318_328.png",
+      "c109463f1041013pu690618_20250318150247_302.jpg",
+      "c109463f1041013pu690618_20250318150302_304.jpg"
+    ],
+    "form_id": "1041013",
+    "origin": "web",
+    "fields": {
+      "zonas": {
+        "result": null,
+        "hidden": true
+      },
+      "email_lider": {
+        "result": {
+          "value": {
+            "text": "",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "acta_de_diligencia": {
+        "result": {
+          "value": "Diligencia toma de inmueble sin previsita",
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "fecha_y_hora_visita": {
+        "result": {
+          "value": {
+            "date": "2025-03-18",
+            "hour": "15:01:00",
+            "timezone": "-05:00"
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "tipo_de_diligencia": {
+        "result": {
+          "value": {
+            "code": "Por orden judicial.",
+            "columns": []
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "contrato_y_arrendatario": {
+        "result": {
+          "value": {
+            "code": "1031",
+            "columns": [
+              "SOCIEDAD PRivaDA DEL ALQUILER SAS",
+              "805000082",
+              "79887509",
+              "CARLOS ANDRES",
+              "PESCADOR GOMEZ",
+              "SERV PUB DAÑ/FALT",
+              "1000000",
+              "CR 53 NO 75 AA SUR 96 AP 1601 URB NATIVO",
+              "ITAGUI",
+              "Habitado"
+            ]
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "arrendador": {
+        "result": {
+          "value": {
+            "text": "SOCIEDAD PRivaDA DEL ALQUILER SAS",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "id": {
+        "result": {
+          "value": {
+            "text": "805000082",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "email_arrendador": {
+        "result": {
+          "value": "jm0sp@yopmail.com",
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "email_arrendador_2": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "email_arrendador_3": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "direccion": {
+        "result": {
+          "value": {
+            "text": "CR 53 NO 75 AA SUR 96 AP 1601 URB NATIVO",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "ciudad_inmueble_arrendado": {
+        "result": {
+          "value": {
+            "text": "ITAGUI",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "nombre_arrendatario": {
+        "result": {
+          "value": {
+            "text": "CARLOS ANDRES",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "arrendatario_": {
+        "result": {
+          "value": {
+            "text": "PESCADOR GOMEZ",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "id_arrendatario": {
+        "result": {
+          "value": {
+            "text": "79887509",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "email_arrendatario": {
+        "result": {
+          "value": "juan.munoz@affi.net",
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "garantia_serv": {
+        "result": {
+          "value": {
+            "text": "SERV PUB DAÑ/FALT",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "valor": {
+        "result": {
+          "value": {
+            "text": "1000000",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "fecha_y_hora_diligencia": {
+        "result": {
+          "value": {
+            "date": "2025-03-18",
+            "hour": "15:01:00",
+            "timezone": "-05:00"
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "geolocalizacion1": {
+        "result": {
+          "value": {
+            "lat": 3.6569088,
+            "long": -76.2380288,
+            "alt": 0
+          },
+          "time": "2025-03-18T15:02:01-05:00"
+        },
+        "hidden": false
+      },
+      "asiste_representante_de_la_in": {
+        "result": {
+          "value": {
+            "code": "Si",
+            "columns": []
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "foto_representante_inmobiliar": {
+        "result": {
+          "value": {
+            "file": "c109463f1041013pu690618_20250318150216_298.jpg",
+            "original_name": "c109463f1041013pu690618_20250318150216_298.jpg"
+          },
+          "time": "2025-03-18T15:02:16-05:00"
+        },
+        "hidden": false
+      },
+      "cargo": {
+        "result": {
+          "value": "Prueba",
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "nombre": {
+        "result": {
+          "value": "Deudor",
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "cedula": {
+        "result": {
+          "value": 234564,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "imagen_autorizacion": {
+        "result": null,
+        "hidden": true
+      },
+      "imagen_autorizacion2": {
+        "result": null,
+        "hidden": true
+      },
+      "archivo_adjunto_autorizacion": {
+        "result": null,
+        "hidden": true
+      },
+      "archivo_adjunto_autorizacion2": {
+        "result": null,
+        "hidden": true
+      },
+      "asiste_representante_del_arre": {
+        "result": {
+          "value": {
+            "code": "Arrendatario",
+            "columns": []
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "foto_arrendatario_representan": {
+        "result": {
+          "value": {
+            "file": "c109463f1041013pu690618_20250318150232_300.jpg",
+            "original_name": "c109463f1041013pu690618_20250318150232_300.jpg"
+          },
+          "time": "2025-03-18T15:02:32-05:00"
+        },
+        "hidden": false
+      },
+      "cargo1": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "nombre2": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "cedula2": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "celular": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "correo1": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "representante_affi": {
+        "result": {
+          "value": {
+            "text": "",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "aceptacion_de_la_politica_de_": {
+        "result": {
+          "value": {
+            "code": "Si"
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "politica_de_tratamiento_de_da": {
+        "result": {
+          "value": {
+            "file": "c109463_20241213173521675c705973787.pdf",
+            "original_name": "c109463_20241213173521675c705973787.pdf"
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "motivo_de_la_diligencia_esta": {
+        "result": {
+          "value": "MOTIVO DE LA DILIGENCIA: Esta diligencia se lleva a cabo por incumplimiento por parte del arrendatario de las obligaciones derivadas del contrato de arrendamiento del inmueble objeto de esta diligencia.",
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "tabla1": {
+        "result": [
+          {
+            "value": {
+              "checkbox2": {
+                "result": {
+                  "value": false,
+                  "time": "2025-03-18T15:03:27-05:00"
+                },
+                "hidden": true
+              },
+              "tipo_de_espacio1": {
+                "result": {
+                  "value": {
+                    "code": "Sala",
+                    "columns": []
+                  },
+                  "time": "2025-03-18T15:03:27-05:00"
+                },
+                "hidden": false
+              },
+              "otro_espacio": {
+                "result": null,
+                "hidden": true
+              },
+              "tipo_de_espacio": {
+                "result": [
+                  {
+                    "value": {
+                      "file": "c109463f1041013pu690618_20250318150247_302.jpg",
+                      "original_name": "c109463f1041013pu690618_20250318150247_302.jpg"
+                    },
+                    "time": "2025-03-18T15:02:47-05:00"
+                  },
+                  {
+                    "value": {
+                      "file": "c109463f1041013pu690618_20250318150302_304.jpg",
+                      "original_name": "c109463f1041013pu690618_20250318150302_304.jpg"
+                    },
+                    "time": "2025-03-18T15:03:02-05:00"
+                  }
+                ],
+                "hidden": false
+              },
+              "tipo_de_espacio_observaciones": {
+                "result": {
+                  "value": "qwertyhujikol",
+                  "time": "2025-03-18T15:03:27-05:00"
+                },
+                "hidden": false
+              }
+            },
+            "time": "2025-03-18T15:03:27-05:00"
+          }
+        ],
+        "hidden": false
+      },
+      "servicios_publicos": {
+        "result": [],
+        "hidden": false
+      },
+      "espacios_inspeccionados": {
+        "result": {
+          "value": {
+            "computed": "0",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "servicios_publicos_con_alerta1": {
+        "result": {
+          "value": {
+            "computed": "0",
+            "forced": false
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "llaves": {
+        "result": [],
+        "hidden": false
+      },
+      "observaciones_generales": {
+        "result": {
+          "value": "sdfghj",
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "resultado_de_la_previsita": {
+        "result": {
+          "value": {
+            "code": "Realizada – Se recibió el inmueble.",
+            "columns": []
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "fecha_probable_de_entrega_1": {
+        "result": {
+          "value": {
+            "date": "2025-03-18",
+            "hour": "15:01:00",
+            "timezone": "-05:00"
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "se_hace_entrega_de_las_llaves": {
+        "result": {
+          "value": {
+            "code": "Si",
+            "columns": []
+          },
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "para_constancia_se_firma_la_d": {
+        "result": {
+          "value": "Para constancia se firma la diligencia por los que intervienen en ella, luego de leída y aprobada.",
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "firma_representante_del_arren": {
+        "result": {
+          "value": {
+            "file": "c109463f1041013su690618_20250318150313_324.png",
+            "original_name": "c109463f1041013su690618_20250318150313_324.png"
+          },
+          "time": "2025-03-18T15:03:15-05:00"
+        },
+        "hidden": false
+      },
+      "firma_representante_de_la_inm": {
+        "result": {
+          "value": {
+            "file": "c109463f1041013su690618_20250318150316_326.png",
+            "original_name": "c109463f1041013su690618_20250318150316_326.png"
+          },
+          "time": "2025-03-18T15:03:17-05:00"
+        },
+        "hidden": false
+      },
+      "firma_representante_de_affi": {
+        "result": {
+          "value": {
+            "file": "c109463f1041013su690618_20250318150318_328.png",
+            "original_name": "c109463f1041013su690618_20250318150318_328.png"
+          },
+          "time": "2025-03-18T15:03:19-05:00"
+        },
+        "hidden": false
+      },
+      "propietario1": {
+        "result": {
+          "value": false,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "propietario": {
+        "result": null,
+        "hidden": true
+      },
+      "foto_propietario": {
+        "result": null,
+        "hidden": true
+      },
+      "nombre1": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "cedula1": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "celular_no_": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "asiste_testigo_1_": {
+        "result": {
+          "value": false,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "firma_testigo_1": {
+        "result": null,
+        "hidden": true
+      },
+      "foto_testigo_1": {
+        "result": null,
+        "hidden": true
+      },
+      "nombre_testigo_1": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "cedula_testigo_1": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "telefono_testigo_1": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "asiste_testigo_2_": {
+        "result": {
+          "value": false,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": false
+      },
+      "firma_testigo_2": {
+        "result": null,
+        "hidden": true
+      },
+      "foto_testigo_2": {
+        "result": null,
+        "hidden": true
+      },
+      "nombre_testigo_2": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "cedula_testigo_2": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "telefono_testigo_2": {
+        "result": {
+          "value": null,
+          "time": "2025-03-18T15:03:27-05:00"
+        },
+        "hidden": true
+      },
+      "tipo_de_espacio2": {
+        "result": null,
+        "hidden": false
+      }
+    },
+    "device_info": null,
+    "form_update_time": null,
+    "local_uuid": "",
+    "format": "4",
+    "record_number": "165",
+    "recipient_user_id": null,
+    "start_time": null,
+    "end_time": null,
+    "app_version": "4",
+    "draft_local_uuid": "a95c0ab7-cb92-4c18-84da-24d6714704b0",
+    "id": "224107239",
+    "user_id": "690618"
+  }
+}
