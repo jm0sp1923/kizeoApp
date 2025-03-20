@@ -17,10 +17,10 @@ const verificarCarpeta = async (parentPath, nombreCarpeta) => {
     });
 
     console.log(`✅ Carpeta ya existe: ${parentPath}/${nombreCarpeta}`);
-    return true; // La carpeta ya existe
+    return true; 
   } catch (error) {
     if (error.response?.status === 404) {
-      return false; // La carpeta no existe
+      return false; 
     }
     console.error(
       `❌ Error al verificar la carpeta ${parentPath}/${nombreCarpeta}:`,

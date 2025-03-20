@@ -3,7 +3,7 @@ import { previsitaService } from "./previsitaService.js";
 import { entregaConPrevisitaService } from "./entregaConPrevisitaService.js";
 import { entregaSinPrevisitaService } from "./entregaSinPrevisitaService.js";
 // import { subirActaInventarioService } from "./inventarioService.js";
-// import { subirActaDiligenciasService } from "./diligenciasService.js";
+import { diligenciaService } from "./diligenciasService.js";
 // import { subirActaVisitasMensualesService } from "./visitasMensualesService.js";
 
 const folderMap = {
@@ -20,7 +20,7 @@ const actaServices = {
   entrega_con_previsita: entregaConPrevisitaService,
   entrega_sin_previsita: entregaSinPrevisitaService,
 //   inventario_inmuebles: subirActaInventarioService,
-//   formulario_para_diligencias: subirActaDiligenciasService,
+ formulario_para_diligencias: diligenciaService,
 //   formulario_visitas_mensuales: subirActaVisitasMensualesService,
 };
 

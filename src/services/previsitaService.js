@@ -2,6 +2,7 @@ import { obtenExportId } from "../utils/getExportId.js";
 import getActaPdf from "../utils/getActaPdf.js";
 import  crearCarpeta  from "../utils/crearCarpetaSPO.js";
 import subirArchivoGraphAPI from "../utils/subirArchivoSPO.js";
+import { sacarMes } from "../utils/sacarMes.js";
 import "dotenv/config";
 
 async function previsitaService(data_id, form_id, data) {
@@ -11,13 +12,15 @@ async function previsitaService(data_id, form_id, data) {
     let tipoDiligencia = data.fields.acta_de_diligencia?.result?.value?.trim() ||"Diligencia Desconocida";
     let fechaDiligencia = data.fields.fecha_de_diligencia?.result?.value?.date || "0000-00-00";
     let [year, month] = fechaDiligencia.split("-");
-    let exportId = await obtenExportId(form_id);
-    const { buffer, fileName }= await getActaPdf(form_id, data_id, exportId);
+    
+    const mes = await sacarMes(parseInt(month));
+    const exportId = await obtenExportId(form_id);
+    const { buffer, fileName }= await getActaPdf(form_id, data_id, exportId[0].id);
 
-    let rutaBase = "Actas Kizeo";
+    let rutaBase = "Previsitas - Entregas";
     let rutaActual = rutaBase;
 
-    let carpetas = [zona, tipoDiligencia, year, month];
+    let carpetas = [zona, tipoDiligencia, year, mes];
 
     for (let carpeta of carpetas) {
       await crearCarpeta(rutaActual, carpeta);
