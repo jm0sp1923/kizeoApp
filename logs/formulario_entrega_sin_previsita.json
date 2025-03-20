@@ -18,7 +18,7 @@
     "origin": "web",
     "fields": {
       "zonas": {
-        "result": null,
+        "result": "Zona 2",
         "hidden": true
       },
       "email_lider": {

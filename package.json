@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@pnp/nodejs": "^4.11.0",
+    "@pnp/nodejs-commonjs": "^2.15.0",
     "@pnp/sp": "^4.11.0",
     "@pnp/sp-commonjs": "^2.15.0",
     "axios": "^1.8.3",

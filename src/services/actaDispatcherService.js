@@ -1,9 +1,7 @@
-import fs from 'fs';
-import path from 'path';
 
 import { previsitaService } from "./previsitaService.js";
-// import { subirActaEntregaConPrevisitaService } from "./entregaConPrevisitaService.js";
-// import { subirActaSinPrevisitaService } from "./entregaSinPrevisitaService.js";
+import { entregaConPrevisitaService } from "./entregaConPrevisitaService.js";
+import { entregaSinPrevisitaService } from "./entregaSinPrevisitaService.js";
 // import { subirActaInventarioService } from "./inventarioService.js";
 // import { subirActaDiligenciasService } from "./diligenciasService.js";
 // import { subirActaVisitasMensualesService } from "./visitasMensualesService.js";
@@ -19,8 +17,8 @@ const folderMap = {
 
 const actaServices = {
   previsita: previsitaService,
-//   entrega_con_previsita: subirActaEntregaConPrevisitaService,
-//   entrega_sin_previsita: subirActaSinPrevisitaService,
+  entrega_con_previsita: entregaConPrevisitaService,
+  entrega_sin_previsita: entregaSinPrevisitaService,
 //   inventario_inmuebles: subirActaInventarioService,
 //   formulario_para_diligencias: subirActaDiligenciasService,
 //   formulario_visitas_mensuales: subirActaVisitasMensualesService,
@@ -51,11 +49,13 @@ const procesarActa = async (data) => {
   
   const form_name = folderMap[data.form_id];
 
+  console.log("Servicio correspondiente:", form_name);
+
   if (!form_name || !actaServices[form_name]) {
     throw new Error("No se encontró un servicio para el formulario");
   }
 
-  return await actaServices[form_name](data.id, form_name, data.form_id,data);
+  return await actaServices[form_name](data.id, data.form_id,data);
 };
 
 export { procesarActa };

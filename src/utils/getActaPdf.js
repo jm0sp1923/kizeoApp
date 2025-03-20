@@ -12,10 +12,10 @@ const getActaPdf = async (formId, dataId, exportId) => {
       headers: { Authorization: apiKey },
       responseType: 'arraybuffer', 
     });
-
+    let fileName = response.headers.get('x-filename-custom').replace(/[^a-zA-Z0-9._-]/g, '');
     return {
       buffer: response.data, 
-      fileName: response.headers.get('x-filename-custom').replace(/[^a-zA-Z0-9._-]/g, '')
+      fileName: fileName
     };
 
   } catch (error) {

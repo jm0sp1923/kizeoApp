@@ -14,7 +14,6 @@ const obtenExportId = async (formId) => {
     const data = await response.data;
     if (data.status === "ok" && data.exports.length > 0) {
       let exportId = data.exports[0].id;
-      console.log("Export ID:", exportId);
       return exportId; 
     } else {
       throw new Error(
