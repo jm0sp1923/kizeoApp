@@ -12,18 +12,12 @@
   "author": "juan munoz",
   "license": "ISC",
   "dependencies": {
-    "@pnp/nodejs": "^4.11.0",
-    "@pnp/nodejs-commonjs": "^2.15.0",
-    "@pnp/sp": "^4.11.0",
-    "@pnp/sp-commonjs": "^2.15.0",
     "axios": "^1.8.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-list-routes": "^1.2.4",
-    "kizeoapp": "file:",
-    "node-fetch": "^3.3.2",
-    "node-sp-auth": "^3.0.9"
+    "kizeoapp": "file:"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

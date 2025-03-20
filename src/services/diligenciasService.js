@@ -22,7 +22,7 @@ async function diligenciaService(data_id, form_id, data) {
       exportId = exportList.find(exp => exp.name.includes("ocular"))?.id;
     } else if (tipoDiligencia === "Administrativa" || tipoDiligencia === "Jurídica Administrativa") {
       exportId = exportList.find(exp => exp.name.includes("Administrativas"))?.id;
-    } else if (tipoDiligencia === "Jurídica") {
+    } else if (tipoDiligencia === "Jurídica Inquilino") {
       exportId = exportList.find(exp => exp.name.includes("Juridica"))?.id;
     }
     if (!exportId) {
