@@ -31,10 +31,8 @@ jobs:
 
       - name: Zip artifact for deployment (excluding node_modules)
         run: |
-         zip -r release.zip . \
-         -x "node_modules/**" ".git/**" ".github/**" "logs/**"
-
-
+          zip -r release.zip . \
+          -x "node_modules/**" ".git/**" ".github/**" "logs/**"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -63,16 +61,13 @@ jobs:
       
       - name: Instalar dependencias en el servidor
         run: npm ci --omit=dev
-        working-directory: /home/site/wwwroot
-
-
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-        app-name: 'kizeoApp'
-        slot-name: 'Production'
-        package: release.zip
-        clean: true
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5D8C31C4C72A49CCAC5A2194030B03CB }}
+          app-name: 'kizeoApp'
+          slot-name: 'Production'
+          package: ./release.zip
+          clean: true
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5D8C31C4C72A49CCAC5A2194030B03CB }}
