@@ -4,7 +4,7 @@ import crearCarpeta from "../utils/crearCarpetaSPO.js";
 import { sacarMes } from "../utils/sacarMes.js";
 import subirArchivoGraphAPI from "../utils/subirArchivoSPO.js";
 import "dotenv/config";
-import e from "cors";
+
 
 async function diligenciaService(data_id, form_id, data) {
   try {
