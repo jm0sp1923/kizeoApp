@@ -2,14 +2,12 @@
   "name": "kizeoapp",
   "version": "1.0.0",
   "description": "App para el funcionamiento interno de kizeo en AFFI ",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js"
   },
-  "author": "juan munoz",
-  "license": "ISC",
   "dependencies": {
     "axios": "^1.8.3",
     "cors": "^2.8.5",
