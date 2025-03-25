@@ -25,14 +25,8 @@ jobs:
         run: |
           npm install
           npm run build --if-present
-
-      - name: Limpiar dependencias antes de empaquetar
-        run: rm -rf node_modules
-
       - name: Zip artifact for deployment (excluding node_modules)
-        run: |
-          zip -r release.zip . \
-          -x "node_modules/**" ".git/**" ".github/**" "logs/**"
+        run: zip -r release.zip . -x "node_modules/*" ".git/*" ".github/*" "logs/*"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
@@ -56,14 +50,8 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: Limpiar instalación previa en Azure
-        run: rm -rf node_modules
-
-      - name: Desactivar caché en Azure
-        run: echo "ENABLE_ORYX_BUILD=False" >> $GITHUB_ENV
-
-      - name: Instalar dependencias en el servidor
-        run: npm ci --omit=dev
+      - name: Set environment variable to force clean deployment
+        run: echo "SCM_DO_BUILD_DURING_DEPLOYMENT=true" >> $GITHUB_ENV
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
