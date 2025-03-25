@@ -53,6 +53,9 @@ jobs:
 
       - name: Set environment variable to force clean deployment
         run: echo "SCM_DO_BUILD_DURING_DEPLOYMENT=true" >> $GITHUB_ENV
+      
+      - name: Instalar dependencias en el servidor
+        run: npm install --omit=dev
 
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
