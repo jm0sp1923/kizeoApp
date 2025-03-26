@@ -26,28 +26,30 @@ const actaServices = {
 
 
 
-// const guardarLog = (form_name, data) => {
-//     try {
-//         const logDir = path.join(process.cwd(), 'logs');
-//         if (!fs.existsSync(logDir)) {
-//             fs.mkdirSync(logDir, { recursive: true });
-//         }
+const guardarLog = (form_name, data) => {
+    try {
+        const logDir = path.join(process.cwd(), 'logs');
+        if (!fs.existsSync(logDir)) {
+            fs.mkdirSync(logDir, { recursive: true });
+        }
 
-//         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-//         const filePath = path.join(logDir, `formulario_${form_name}_${timestamp}.json`);
+        const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+        const filePath = path.join(logDir, `formulario_${form_name}_${timestamp}.json`);
 
-//         fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+        fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
-//         console.log(`📁 Datos guardados en: ${filePath}`);
-//     } catch (error) {
-//         console.error('❌ Error guardando el log:', error.message);
-//     }
-// };
+        console.log(`📁 Datos guardados en: ${filePath}`);
+    } catch (error) {
+        console.error('❌ Error guardando el log:', error.message);
+    }
+};
 
 
 const procesarActa = async (data) => {
   
   const form_name = folderMap[data.form_id];
+
+  guardarLog(form_name, data);
 
   console.log("Servicio correspondiente:", form_name);
 
