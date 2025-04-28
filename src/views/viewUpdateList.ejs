@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subir Archivo Excel</title>
+    <link rel="icon" href="../public/img/logo.png" type="image/x-icon" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert -->
+    <style>
+      .btn-uniform {
+        width: 150px; /* Ajusta el ancho a tus necesidades */
+      }
+      #loader {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Botón "Volver al índice" alineado a la izquierda y con fondo rojo -->
+    <div class="container mt-5">
+      <div class="text-start mb-4">
+        <a href="/" class="btn btn-danger btn-uniform">Volver al índice</a>
+      </div>
+      <h1 class="text-center mb-4">Actualizar listas</h1>
+      <form
+        id="uploadForm"
+        action="/api/kizeo/updatelist"
+        method="post"
+        enctype="multipart/form-data"
+        class="bg-light p-4 rounded shadow"
+      >
+        <!-- Selector para tipo de lista -->
+        <div class="mb-3">
+          <label for="listType" class="form-label">
+            Seleccione el tipo de lista a actualizar:
+          </label>
+          <select id="listType" name="listType" class="form-select">
+            <option value="" disabled selected>Seleccione una opción</option>
+            <!-- Las opciones de lista se cargarán aquí desde la API -->
+          </select>
+        </div>
+
+        <!-- Input para subir archivo Excel -->
+        <div class="mb-3">
+          <label for="excelFile" class="form-label"
+            >Seleccione un archivo Excel:</label
+          >
+          <input
+            type="file"
+            id="excelFile"
+            name="excelFile"
+            accept=".xlsx"
+            required
+            class="form-control"
+          />
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary btn-uniform">Subir</button>
+        </div>
+      </form>
+
+      <!-- Loader mientras se procesan los archivos -->
+      <div id="loader" class="text-center mt-4">
+        <output class="spinner-border text-primary" aria-live="polite">
+          <span class="visually-hidden">Cargando...</span>
+        </output>
+
+        <p>Procesando archivo...</p>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Agregar SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      // Capturar el formulario
+      const form = document.getElementById("uploadForm");
+      const loader = document.getElementById("loader");
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevenir el envío normal del formulario
+
+        // Mostrar loader mientras se procesa el archivo
+        loader.style.display = "block";
+
+        const formData = new FormData(form);
+
+        try {
+          const response = await fetch(form.action, {
+            method: "POST",
+            body: formData,
+          });
+
+          const result = await response.json();
+
+          // Ocultar loader después de procesar
+          loader.style.display = "none";
+
+          if (result.success) {
+            // Mostrar alerta de éxito si la respuesta es exitosa
+            Swal.fire({
+              icon: "success",
+              title: "¡Archivo actualizado!",
+              text: result.message,
+            });
+          } else {
+            // Mostrar alerta de error si la respuesta no es exitosa
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: result.message,
+            });
+          }
+        } catch (error) {
+          // Ocultar loader en caso de error
+          loader.style.display = "none";
+
+          Swal.fire({
+            icon: "error",
+            title: "Error en la conexión",
+            text: "Hubo un problema al intentar subir el archivo.",
+          });
+        }
+      });
+    </script>
+    <script src="/getListApiKizeo.js"></script>
+  </body>
+</html>

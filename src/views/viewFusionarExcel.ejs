@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="../public/img/logo.png" type="image/x-icon" />
+    <title>Cargar y Convertir Archivos</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container mt-5">
+      <div class="text-start mb-4">
+        <a href="/" class="btn btn-danger">Volver al índice</a>
+      </div>
+
+      <h1 class="text-center mb-4">Subir Archivos Excel para Procesar</h1>
+
+      <form
+        id="uploadForm"
+        enctype="multipart/form-data"
+        class="bg-light p-4 rounded shadow"
+        action="/fucionarExcel"
+        method="post"
+      >
+        <!-- Campo para el archivo ReporteAfianzado -->
+        <div class="mb-3">
+          <label for="reporteAfianzado" class="form-label"
+            >Reporte Afianzado</label
+          >
+          <input
+            type="file"
+            name="reporteAfianzado"
+            id="reporteAfianzado"
+            accept=".xlsx"
+            required
+            class="form-control"
+          />
+        </div>
+
+        <!-- Campo para el archivo BaseCartera -->
+        <div class="mb-3">
+          <label for="baseCartera" class="form-label">Base General</label>
+          <input
+            type="file"
+            name="baseCartera"
+            id="baseCartera"
+            accept=".csv"
+            required
+            class="form-control"
+          />
+        </div>
+
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Subir Archivos</button>
+        </div>
+      </form>
+
+      <!-- Loader mientras se procesan los archivos -->
+      <div id="loader" class="text-center mt-4" style="display: none">
+        <output class="spinner-border text-primary" aria-live="polite">
+          <span class="visually-hidden">Cargando...</span>
+        </output>
+
+        <p>Procesando archivos...</p>
+      </div>
+
+      <!-- Sección de descarga, oculta inicialmente -->
+      <div id="downloadSection" class="mt-4" style="display: none">
+        <p class="text-center">
+          Los archivos han sido procesados. Puedes descargarlos aquí:
+        </p>
+        <div class="text-center">
+          <a id="downloadLink" href="#" download class="btn btn-success"
+            >Descargar archivo convertido</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- Agregar Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Agregar SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+      const form = document.getElementById("uploadForm");
+      const downloadSection = document.getElementById("downloadSection");
+      const downloadLink = document.getElementById("downloadLink");
+      const loader = document.getElementById("loader");
+
+      form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        // Mostrar loader mientras se procesan los archivos
+        loader.style.display = "block";
+
+        const formData = new FormData(form);
+        const response = await fetch("/fucionarExcel", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+
+        loader.style.display = "none"; // Ocultar el loader
+
+        if (data.success) {
+          Swal.fire({
+            icon: "success",
+            title: "¡Archivos procesados!",
+            text: data.message,
+          }).then(() => {
+            // Resetear la URL de descarga
+            downloadLink.href = data.downloadUrl;
+
+            // Mostrar la sección de descarga
+            downloadSection.style.display = "block";
+
+            // Restablecer el formulario
+            form.reset();
+
+            // Asegurar que el enlace de descarga siempre tenga una URL única
+            downloadLink.setAttribute(
+              "href",
+              data.downloadUrl + "?t=" + new Date().getTime()
+            );
+
+            // Cuando el enlace de descarga sea clickeado, esconder el formulario y botón
+            downloadLink.addEventListener("click", function () {
+              setTimeout(function () {
+                // Limpiar el formulario
+                form.reset();
+                // Ocultar la sección de descarga
+                downloadSection.style.display = "none";
+              }, 1000); // Esperar un segundo antes de ocultar el enlace
+            });
+          });
+        } else {
+          Swal.fire({  
+            icon: "error",
+            title: "Error al procesar los archivos",
+            text: data.message,
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

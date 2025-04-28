@@ -1,9 +1,9 @@
 
-import { previsitaService } from "./previsitaService.js";
-import { entregaConPrevisitaService } from "./entregaConPrevisitaService.js";
-import { entregaSinPrevisitaService } from "./entregaSinPrevisitaService.js";
+import { previsitaService } from "./servicesActas/previsitaService.js";
+import { entregaConPrevisitaService } from "./servicesActas/entregaConPrevisitaService.js";
+import { entregaSinPrevisitaService } from "./servicesActas/entregaSinPrevisitaService.js";
 // import { subirActaInventarioService } from "./inventarioService.js";
-import { diligenciaService } from "./diligenciasService.js";
+import { diligenciaService } from "./servicesActas/diligenciasService.js";
 // import { subirActaVisitasMensualesService } from "./visitasMensualesService.js";
 
 const folderMap = {
@@ -26,29 +26,29 @@ const actaServices = {
 
 
 
-// const guardarLog = (form_name, data) => {
-//     try {
-//         const logDir = path.join(process.cwd(), 'logs');
-//         if (!fs.existsSync(logDir)) {
-//             fs.mkdirSync(logDir, { recursive: true });
-//         }
+ const guardarLog = (form_name, data) => {
+     try {
+   const logDir = path.join(process.cwd(), 'logs');
+         if (!fs.existsSync(logDir)) {
+             fs.mkdirSync(logDir, { recursive: true });
+         }
 
-//         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-//         const filePath = path.join(logDir, `formulario_${form_name}_${timestamp}.json`);
+         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+         const filePath = path.join(logDir, `formulario_${form_name}_${timestamp}.json`);
 
-//         fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+         fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
-//         console.log(`📁 Datos guardados en: ${filePath}`);
-//     } catch (error) {
-//         console.error('❌ Error guardando el log:', error.message);
-//     }
-// };
+         console.log(`📁 Datos guardados en: ${filePath}`);
+     } catch (error) {
+         console.error('❌ Error guardando el log:', error.message);
+     }
+ };
 
 
 const procesarActa = async (data) => {
   
   const form_name = folderMap[data.form_id];
-
+  guardarLog(form_name,data)
   console.log("Servicio correspondiente:", form_name);
 
   if (!form_name || !actaServices[form_name]) {

@@ -1,6 +1,9 @@
 import express from "express";
 import cors from "cors";
 import routes from "./routes/index.js";
+import routesViews from "./routes/views/views.routes.js"; // <-- nuevo
+import path from "path";
+import { fileURLToPath } from 'url'; // <-- nuevo
 
 const app = express();
 
@@ -8,12 +11,22 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
+const __filename = fileURLToPath(import.meta.url); // <-- nuevo
+const __dirname = path.dirname(__filename);        // <-- nuevo
+
+
+// Motor de plantillas, ejemplo EJS:
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+// Para servir archivos estáticos (css, img, js)
+app.use(express.static(path.join(__dirname,'..', 'public')));
+
 // Rutas
 app.use("/api",routes);
+app.use(routesViews); 
 
-app.get("/", (req, res) => {
-  res.status(200).send("Hello world");
-});
 
 // Ruta de health check
 app.get("/health", (req, res) => {
@@ -31,4 +44,4 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Ocurrió un error interno en el servidor" });
 });
 
-export default app; // Exportamos sin iniciar el servidor
+export default app; 
