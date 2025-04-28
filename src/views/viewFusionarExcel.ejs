@@ -22,7 +22,7 @@
         id="uploadForm"
         enctype="multipart/form-data"
         class="bg-light p-4 rounded shadow"
-        action="/fucionarExcel"
+        action="/api/kizeo/fusionarExcel"
         method="post"
       >
         <!-- Campo para el archivo ReporteAfianzado -->
@@ -31,13 +31,13 @@
             >Reporte Afianzado</label
           >
           <input
-            type="file"
-            name="reporteAfianzado"
-            id="reporteAfianzado"
-            accept=".xlsx"
-            required
-            class="form-control"
-          />
+          type="file"
+          name="reporteAfianzado"
+          id="reporteAfianzado"
+          accept=".xlsx"
+          required
+          class="form-control"
+        />
         </div>
 
         <!-- Campo para el archivo BaseCartera -->
@@ -98,12 +98,13 @@
         loader.style.display = "block";
 
         const formData = new FormData(form);
-        const response = await fetch("/fucionarExcel", {
+        const response = await fetch(form.action, {
           method: "POST",
           body: formData,
         });
 
         const data = await response.json();
+        console.log("Datos front", data); // Para depuración
 
         loader.style.display = "none"; // Ocultar el loader
 

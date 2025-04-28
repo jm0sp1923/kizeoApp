@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
 import routes from "./routes/index.js";
-import routesViews from "./routes/views/views.routes.js"; // <-- nuevo
+import routesViews from "./routes/views/views.routes.js"; 
 import path from "path";
-import { fileURLToPath } from 'url'; // <-- nuevo
+import { fileURLToPath } from 'url'; 
 
 const app = express();
 
@@ -12,8 +12,8 @@ app.use(express.json());
 app.use(cors());
 
 
-const __filename = fileURLToPath(import.meta.url); // <-- nuevo
-const __dirname = path.dirname(__filename);        // <-- nuevo
+const __filename = fileURLToPath(import.meta.url); 
+const __dirname = path.dirname(__filename);        
 
 
 // Motor de plantillas, ejemplo EJS:
@@ -22,6 +22,8 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Para servir archivos estáticos (css, img, js)
 app.use(express.static(path.join(__dirname,'..', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'processed')));
+
 
 // Rutas
 app.use("/api",routes);

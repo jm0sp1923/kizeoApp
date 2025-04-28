@@ -1,6 +1,7 @@
 import { procesarActa } from "../services/actaDispatcherService.js";
 import getListServices from "../services/getListServices.js";
 import updateListServices from "../services/updateListServices.js";
+import fusionarExcel from "../services/fusionarExcelServices.js";
 
 const subirActaController = async (req, res) => {
   try {
@@ -10,7 +11,6 @@ const subirActaController = async (req, res) => {
     res.status(400).json({ message: "Error al subir el acta: " + error.message });
   }
 };
-
 
 const getListKizeoController = async (req, res) => {
   try {
@@ -33,4 +33,14 @@ const updateListController = async (req, res) => {
   }
 };
 
-export  { subirActaController,getListKizeoController,updateListController};
+async function fusionarArchivosController(req, res) {
+  try {
+    const result = await fusionarExcel(req.files);
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
+export  { subirActaController,getListKizeoController,updateListController, fusionarArchivosController };

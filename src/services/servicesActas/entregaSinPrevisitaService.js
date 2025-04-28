@@ -1,7 +1,7 @@
 import { obtenExportId } from "../../utils/getExportId.js";
 import getActaPdf from "../../utils/getActaPdf.js";
-import  crearCarpeta  from "../../utils/crearCarpetaSPO.js";
-import subirArchivoGraphAPI from "../../utils/subirArchivoSPO.js";
+import  crearCarpeta  from "../../utils/SharePoint/crearCarpetaSPO.js";
+import subirArchivoGraphAPI from "../../utils/SharePoint/subirArchivoSPO.js";
 import { sacarMes } from "../../utils/sacarMes.js";
 import "dotenv/config";
 
