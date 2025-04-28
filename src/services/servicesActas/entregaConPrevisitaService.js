@@ -7,6 +7,10 @@ import subirArchivoGraphAPI from "../../utils/subirArchivoSPO.js";
 import "dotenv/config";
 
 async function entregaConPrevisitaService(data_id, form_id, data) {
+
+  console.log("📂 Procesando entrega con previsita...");
+  console.log("📂 Data:",  JSON.stringify(data,2,null));
+
   try {
     // 📌 Extraer datos del formulario
     let zona = data.fields?.zonas?.result?.value?.code.trim() || "Zona Desconocida";
