@@ -34,7 +34,7 @@ async function diligenciaService(data_id, form_id, data) {
     console.log(`Datos acta"+ ${data_id} + ${form_id} + ${exportId}`);
     const { buffer, fileName } = await getActaPdf(form_id, data_id, exportId);
 
-    let rutaBase = "Visitas Generales";
+    let rutaBase = "Diligencias";
     let rutaActual = rutaBase;
 
     let carpetas = [zona, tipoDiligencia, year, mes];

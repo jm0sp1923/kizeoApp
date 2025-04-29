@@ -1,605 +1,605 @@
-{
-  "id": "224107434",
-  "eventType": "update",
-  "data": {
-    "answer_time": "2025-03-18T16:11:29-05:00",
-    "update_answer_time": "2025-03-18T16:11:29-05:00",
-    "id_tel": "web2",
-    "media": [
-      "c109463f1052165pu690618_20250318150649_588.jpg",
-      "c109463f1052165pu690618_20250318150701_590.jpg",
-      "c109463f1052165pu690618_20250318150716_592.jpg",
-      "c109463f1052165pu690618_20250318150716_594.jpg",
-      "c109463f1052165pu690618_20250318150741_617.jpg",
-      "c109463f1052165pu690618_20250318150741_619.jpg",
-      "c109463f1052165su690618_20250318150751_645.png",
-      "c109463f1052165su690618_20250318150759_647.png"
-    ],
-    "form_id": "1052165",
-    "origin": "web",
-    "fields": {
-      "inventario_inmuebles": {
-        "result": {
-          "value": "Inventario Inmuebles",
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "datos_inmueble": {
-        "result": null,
-        "hidden": false
-      },
-      "fecha_programacion": {
-        "result": {
-          "value": {
-            "date": "2025-03-18",
-            "hour": "15:06:00",
-            "timezone": "-05:00"
-          },
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "referencia_inmueble": {
-        "result": {
-          "value": "234532453dfs",
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "contrato_no_": {
-        "result": {
-          "value": 213123,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "direccion_del_inmueble": {
-        "result": {
-          "value": "Calle 5 #6-16",
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "nombre_arrendador": {
-        "result": {
-          "value": "rfdffyhgh",
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "representante_del_arrendador": {
-        "result": {
-          "value": {
-            "code": "Juan ",
-            "columns": []
-          },
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "correo": {
-        "result": {
-          "value": {
-            "code": "prueba@gmail.com",
-            "columns": []
-          },
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "datos_arrendatario": {
-        "result": null,
-        "hidden": false
-      },
-      "nombre_arrendatario": {
-        "result": {
-          "value": "dfgdfgdfg",
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "identificacion_arrendatario": {
-        "result": {
-          "value": 2131231,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "destino_del_inmueble": {
-        "result": {
-          "value": {
-            "code": "Comercial",
-            "columns": []
-          },
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "tipo_de_inmueble_vivienda": {
-        "result": {
-          "value": {
-            "code": "Casa",
-            "columns": []
-          },
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": true
-      },
-      "tipo_de_inmueble_comercial1": {
-        "result": {
-          "value": {
-            "code": "Bodega",
-            "columns": []
-          },
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "diligencia_gestor_de_campo": {
-        "result": null,
-        "hidden": false
-      },
-      "autorizacion": {
-        "result": {
-          "value": {
-            "file": "c109463f1052165pu690618_20250318150649_588.jpg",
-            "original_name": "c109463f1052165pu690618_20250318150649_588.jpg"
-          },
-          "time": "2025-03-18T15:06:49-05:00"
-        },
-        "hidden": false
-      },
-      "fecha_de_entrega": {
-        "result": {
-          "value": {
-            "date": "2025-03-18",
-            "hour": "15:06:00",
-            "timezone": "-05:00"
-          },
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "geolocalizacion1": {
-        "result": {
-          "value": {
-            "lat": 3.6569088,
-            "long": -76.2380288,
-            "alt": 0
-          },
-          "time": "2025-03-18T16:11:28-05:00"
-        },
-        "hidden": false
-      },
-      "quien_recibe_1": {
-        "result": {
-          "value": {
-            "code": "Arrendatario",
-            "columns": []
-          },
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "nombre": {
-        "result": {
-          "value": null,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": true
-      },
-      "identificacion_representante_": {
-        "result": {
-          "value": null,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": true
-      },
-      "parentesco_representante_arre": {
-        "result": {
-          "value": {
-            "code": "Padres",
-            "columns": []
-          },
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "celular_representante_arrenda": {
-        "result": {
-          "value": null,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": true
-      },
-      "foto_arrendatario_representan": {
-        "result": {
-          "value": {
-            "file": "c109463f1052165pu690618_20250318150701_590.jpg",
-            "original_name": "c109463f1052165pu690618_20250318150701_590.jpg"
-          },
-          "time": "2025-03-18T15:07:01-05:00"
-        },
-        "hidden": false
-      },
-      "espacios_": {
-        "result": null,
-        "hidden": false
-      },
-      "entrada": {
-        "result": {
-          "value": true,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "entrada1": {
-        "result": [
-          {
-            "value": {
-              "elementos_entrada": {
-                "result": {
-                  "value": {
-                    "code": "Puerta principal"
-                  },
-                  "time": "2025-03-18T16:11:29-05:00"
-                },
-                "hidden": false
-              },
-              "cantidada": {
-                "result": {
-                  "value": 2131,
-                  "time": "2025-03-18T16:11:29-05:00"
-                },
-                "hidden": false
-              },
-              "tipo_de_material": {
-                "result": {
-                  "value": "sdfsdf",
-                  "time": "2025-03-18T16:11:29-05:00"
-                },
-                "hidden": false
-              },
-              "foto_del_elemento": {
-                "result": [
-                  {
-                    "value": {
-                      "file": "c109463f1052165pu690618_20250318150716_592.jpg",
-                      "original_name": "c109463f1052165pu690618_20250318150716_592.jpg"
-                    },
-                    "time": "2025-03-18T15:07:16-05:00"
-                  },
-                  {
-                    "value": {
-                      "file": "c109463f1052165pu690618_20250318150716_594.jpg",
-                      "original_name": "c109463f1052165pu690618_20250318150716_594.jpg"
-                    },
-                    "time": "2025-03-18T15:07:16-05:00"
-                  }
-                ],
-                "hidden": false
-              },
-              "estado_de_entrega_inicial": {
-                "result": {
-                  "value": {
-                    "code": "Bueno"
-                  },
-                  "time": "2025-03-18T16:11:29-05:00"
-                },
-                "hidden": false
-              },
-              "observaciones_": {
-                "result": {
-                  "value": "asdadsad",
-                  "time": "2025-03-18T16:11:29-05:00"
-                },
-                "hidden": false
-              }
-            },
-            "time": "2025-03-18T16:11:29-05:00"
-          }
-        ],
-        "hidden": false
-      },
-      "elementos_electronicos": {
-        "result": {
-          "value": true,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "elementos_electronicos1": {
-        "result": [
-          {
-            "value": {
-              "elementos_entrada1": {
-                "result": {
-                  "value": {
-                    "code": "Telefonos"
-                  },
-                  "time": "2025-03-18T16:11:29-05:00"
-                },
-                "hidden": false
-              },
-              "cantidada1": {
-                "result": {
-                  "value": 43,
-                  "time": "2025-03-18T16:11:29-05:00"
-                },
-                "hidden": false
-              },
-              "tipo_de_material1": {
-                "result": {
-                  "value": "sdfsdf",
-                  "time": "2025-03-18T16:11:29-05:00"
-                },
-                "hidden": false
-              },
-              "foto_del_elemento1": {
-                "result": [
-                  {
-                    "value": {
-                      "file": "c109463f1052165pu690618_20250318150741_617.jpg",
-                      "original_name": "c109463f1052165pu690618_20250318150741_617.jpg"
-                    },
-                    "time": "2025-03-18T15:07:41-05:00"
-                  },
-                  {
-                    "value": {
-                      "file": "c109463f1052165pu690618_20250318150741_619.jpg",
-                      "original_name": "c109463f1052165pu690618_20250318150741_619.jpg"
-                    },
-                    "time": "2025-03-18T15:07:41-05:00"
-                  }
-                ],
-                "hidden": false
-              },
-              "estado_de_entrega_inicial1": {
-                "result": {
-                  "value": {
-                    "code": "Bueno"
-                  },
-                  "time": "2025-03-18T16:11:29-05:00"
-                },
-                "hidden": false
-              },
-              "observaciones_1": {
-                "result": {
-                  "value": "asdadsad",
-                  "time": "2025-03-18T16:11:29-05:00"
-                },
-                "hidden": false
-              }
-            },
-            "time": "2025-03-18T16:11:29-05:00"
-          }
-        ],
-        "hidden": false
-      },
-      "comedor_auxiliar": {
-        "result": {
-          "value": false,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "elementos_comedor_auxiliar": {
-        "result": [],
-        "hidden": true
-      },
-      "sala_comedor": {
-        "result": {
-          "value": false,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "elementos_espacio_sala_comedo": {
-        "result": [],
-        "hidden": true
-      },
-      "bano_de_emergencia_o_auxiliar": {
-        "result": {
-          "value": false,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "elementos_bano_emergencia_o_a": {
-        "result": [],
-        "hidden": true
-      },
-      "hall": {
-        "result": {
-          "value": false,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "elementos_hall": {
-        "result": [],
-        "hidden": true
-      },
-      "cocina": {
-        "result": {
-          "value": false,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "elementos_cocina": {
-        "result": [],
-        "hidden": true
-      },
-      "alcoba_principal": {
-        "result": {
-          "value": false,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "elementos_alcoba_principal": {
-        "result": [],
-        "hidden": true
-      },
-      "bano_alcoba_principal": {
-        "result": {
-          "value": false,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "elementos_bano_alcoba_princip": {
-        "result": [],
-        "hidden": true
-      },
-      "alcoba": {
-        "result": {
-          "value": false,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "elementos_alcoba": {
-        "result": [],
-        "hidden": true
-      },
-      "bano_principal": {
-        "result": {
-          "value": false,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "elementos_bano_principal1": {
-        "result": [],
-        "hidden": true
-      },
-      "patio": {
-        "result": {
-          "value": false,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "elementos_patio": {
-        "result": [],
-        "hidden": true
-      },
-      "garaje_y_o_deposito": {
-        "result": {
-          "value": false,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "elementos_garaje_deposito": {
-        "result": [],
-        "hidden": true
-      },
-      "otros": {
-        "result": {
-          "value": false,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "otros1": {
-        "result": [],
-        "hidden": true
-      },
-      "recibos_publicos": {
-        "result": [],
-        "hidden": false
-      },
-      "observaciones_generales": {
-        "result": {
-          "value": "asdadasda",
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "las_partes_expresamente_decla": {
-        "result": {
-          "value": "Las partes expresamente declaran, que el inmueble objeto del contrato de arrendamiento ha sido entregado por el arrendador conforme al presente inventario, a la persona delegada por el arrendatario para recibirlo. \n\nLos arrendatarios se comprometen a conservar y mantener el inmueble y su correspondiente dotación, en el mismo estado en el que lo reciben, salvo los deterioros naturales originados por el adecuado uso del mismo. El arreglo de los daños resultantes del inadecuado uso o del descuido durante el tiempo de la tenencia será asumido por el arrendatario. Si estos arreglos no se realizaran, queda el arrendador autorizado para hacerlos por su cuenta y para cobrar ejecutivamente las sumas correspondientes a los arrendatarios; para este efecto convienen las partes en que las facturas de reparación de daños o reposición de faltantes junto con el contrato de arrendamientos prestaran merito ejecutivo suficiente. \n\nPara constancia de nuestra conformidad firmamos el presente documento.",
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "firma_del_arrendador": {
-        "result": {
-          "value": {
-            "file": "c109463f1052165su690618_20250318150751_645.png",
-            "original_name": "c109463f1052165su690618_20250318150751_645.png"
-          },
-          "time": "2025-03-18T15:07:54-05:00"
-        },
-        "hidden": false
-      },
-      "nombre1": {
-        "result": {
-          "value": "Juan",
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "identificacion_": {
-        "result": {
-          "value": 123133,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "celular": {
-        "result": {
-          "value": "3104542223",
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "firma_del_arrendatario": {
-        "result": {
-          "value": {
-            "file": "c109463f1052165su690618_20250318150759_647.png",
-            "original_name": "c109463f1052165su690618_20250318150759_647.png"
-          },
-          "time": "2025-03-18T15:08:01-05:00"
-        },
-        "hidden": false
-      },
-      "nombre2": {
-        "result": {
-          "value": "sdfsdfsfesfes",
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "identificacion_1": {
-        "result": {
-          "value": 213123,
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      },
-      "celular1": {
-        "result": {
-          "value": "313124145124",
-          "time": "2025-03-18T16:11:29-05:00"
-        },
-        "hidden": false
-      }
-    },
-    "device_info": null,
-    "form_update_time": null,
-    "local_uuid": "",
-    "format": "4",
-    "record_number": "3",
-    "recipient_user_id": null,
-    "start_time": null,
-    "end_time": null,
-    "app_version": "4",
+  {
     "id": "224107434",
-    "user_id": "690618"
+    "eventType": "update",
+    "data": {
+      "answer_time": "2025-03-18T16:11:29-05:00",
+      "update_answer_time": "2025-03-18T16:11:29-05:00",
+      "id_tel": "web2",
+      "media": [
+        "c109463f1052165pu690618_20250318150649_588.jpg",
+        "c109463f1052165pu690618_20250318150701_590.jpg",
+        "c109463f1052165pu690618_20250318150716_592.jpg",
+        "c109463f1052165pu690618_20250318150716_594.jpg",
+        "c109463f1052165pu690618_20250318150741_617.jpg",
+        "c109463f1052165pu690618_20250318150741_619.jpg",
+        "c109463f1052165su690618_20250318150751_645.png",
+        "c109463f1052165su690618_20250318150759_647.png"
+      ],
+      "form_id": "1052165",
+      "origin": "web",
+      "fields": {
+        "inventario_inmuebles": {
+          "result": {
+            "value": "Inventario Inmuebles",
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "datos_inmueble": {
+          "result": null,
+          "hidden": false
+        },
+        "fecha_programacion": {
+          "result": {
+            "value": {
+              "date": "2025-03-18",
+              "hour": "15:06:00",
+              "timezone": "-05:00"
+            },
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "referencia_inmueble": {
+          "result": {
+            "value": "234532453dfs",
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "contrato_no_": {
+          "result": {
+            "value": 213123,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "direccion_del_inmueble": {
+          "result": {
+            "value": "Calle 5 #6-16",
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "nombre_arrendador": {
+          "result": {
+            "value": "SOCIEDAD PRivaDA DEL ALQUILER SAS",
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "representante_del_arrendador": {
+          "result": {
+            "value": {
+              "code": "Juan ",
+              "columns": []
+            },
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "correo": {
+          "result": {
+            "value": {
+              "code": "prueba@gmail.com",
+              "columns": []
+            },
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "datos_arrendatario": {
+          "result": null,
+          "hidden": false
+        },
+        "nombre_arrendatario": {
+          "result": {
+            "value": "dfgdfgdfg",
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "identificacion_arrendatario": {
+          "result": {
+            "value": 2131231,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "destino_del_inmueble": {
+          "result": {
+            "value": {
+              "code": "Comercial",
+              "columns": []
+            },
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "tipo_de_inmueble_vivienda": {
+          "result": {
+            "value": {
+              "code": "Casa",
+              "columns": []
+            },
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": true
+        },
+        "tipo_de_inmueble_comercial1": {
+          "result": {
+            "value": {
+              "code": "Bodega",
+              "columns": []
+            },
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "diligencia_gestor_de_campo": {
+          "result": null,
+          "hidden": false
+        },
+        "autorizacion": {
+          "result": {
+            "value": {
+              "file": "c109463f1052165pu690618_20250318150649_588.jpg",
+              "original_name": "c109463f1052165pu690618_20250318150649_588.jpg"
+            },
+            "time": "2025-03-18T15:06:49-05:00"
+          },
+          "hidden": false
+        },
+        "fecha_de_entrega": {
+          "result": {
+            "value": {
+              "date": "2025-03-18",
+              "hour": "15:06:00",
+              "timezone": "-05:00"
+            },
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "geolocalizacion1": {
+          "result": {
+            "value": {
+              "lat": 3.6569088,
+              "long": -76.2380288,
+              "alt": 0
+            },
+            "time": "2025-03-18T16:11:28-05:00"
+          },
+          "hidden": false
+        },
+        "quien_recibe_1": {
+          "result": {
+            "value": {
+              "code": "Arrendatario",
+              "columns": []
+            },
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "nombre": {
+          "result": {
+            "value": null,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": true
+        },
+        "identificacion_representante_": {
+          "result": {
+            "value": null,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": true
+        },
+        "parentesco_representante_arre": {
+          "result": {
+            "value": {
+              "code": "Padres",
+              "columns": []
+            },
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "celular_representante_arrenda": {
+          "result": {
+            "value": null,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": true
+        },
+        "foto_arrendatario_representan": {
+          "result": {
+            "value": {
+              "file": "c109463f1052165pu690618_20250318150701_590.jpg",
+              "original_name": "c109463f1052165pu690618_20250318150701_590.jpg"
+            },
+            "time": "2025-03-18T15:07:01-05:00"
+          },
+          "hidden": false
+        },
+        "espacios_": {
+          "result": null,
+          "hidden": false
+        },
+        "entrada": {
+          "result": {
+            "value": true,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "entrada1": {
+          "result": [
+            {
+              "value": {
+                "elementos_entrada": {
+                  "result": {
+                    "value": {
+                      "code": "Puerta principal"
+                    },
+                    "time": "2025-03-18T16:11:29-05:00"
+                  },
+                  "hidden": false
+                },
+                "cantidada": {
+                  "result": {
+                    "value": 2131,
+                    "time": "2025-03-18T16:11:29-05:00"
+                  },
+                  "hidden": false
+                },
+                "tipo_de_material": {
+                  "result": {
+                    "value": "sdfsdf",
+                    "time": "2025-03-18T16:11:29-05:00"
+                  },
+                  "hidden": false
+                },
+                "foto_del_elemento": {
+                  "result": [
+                    {
+                      "value": {
+                        "file": "c109463f1052165pu690618_20250318150716_592.jpg",
+                        "original_name": "c109463f1052165pu690618_20250318150716_592.jpg"
+                      },
+                      "time": "2025-03-18T15:07:16-05:00"
+                    },
+                    {
+                      "value": {
+                        "file": "c109463f1052165pu690618_20250318150716_594.jpg",
+                        "original_name": "c109463f1052165pu690618_20250318150716_594.jpg"
+                      },
+                      "time": "2025-03-18T15:07:16-05:00"
+                    }
+                  ],
+                  "hidden": false
+                },
+                "estado_de_entrega_inicial": {
+                  "result": {
+                    "value": {
+                      "code": "Bueno"
+                    },
+                    "time": "2025-03-18T16:11:29-05:00"
+                  },
+                  "hidden": false
+                },
+                "observaciones_": {
+                  "result": {
+                    "value": "asdadsad",
+                    "time": "2025-03-18T16:11:29-05:00"
+                  },
+                  "hidden": false
+                }
+              },
+              "time": "2025-03-18T16:11:29-05:00"
+            }
+          ],
+          "hidden": false
+        },
+        "elementos_electronicos": {
+          "result": {
+            "value": true,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "elementos_electronicos1": {
+          "result": [
+            {
+              "value": {
+                "elementos_entrada1": {
+                  "result": {
+                    "value": {
+                      "code": "Telefonos"
+                    },
+                    "time": "2025-03-18T16:11:29-05:00"
+                  },
+                  "hidden": false
+                },
+                "cantidada1": {
+                  "result": {
+                    "value": 43,
+                    "time": "2025-03-18T16:11:29-05:00"
+                  },
+                  "hidden": false
+                },
+                "tipo_de_material1": {
+                  "result": {
+                    "value": "sdfsdf",
+                    "time": "2025-03-18T16:11:29-05:00"
+                  },
+                  "hidden": false
+                },
+                "foto_del_elemento1": {
+                  "result": [
+                    {
+                      "value": {
+                        "file": "c109463f1052165pu690618_20250318150741_617.jpg",
+                        "original_name": "c109463f1052165pu690618_20250318150741_617.jpg"
+                      },
+                      "time": "2025-03-18T15:07:41-05:00"
+                    },
+                    {
+                      "value": {
+                        "file": "c109463f1052165pu690618_20250318150741_619.jpg",
+                        "original_name": "c109463f1052165pu690618_20250318150741_619.jpg"
+                      },
+                      "time": "2025-03-18T15:07:41-05:00"
+                    }
+                  ],
+                  "hidden": false
+                },
+                "estado_de_entrega_inicial1": {
+                  "result": {
+                    "value": {
+                      "code": "Bueno"
+                    },
+                    "time": "2025-03-18T16:11:29-05:00"
+                  },
+                  "hidden": false
+                },
+                "observaciones_1": {
+                  "result": {
+                    "value": "asdadsad",
+                    "time": "2025-03-18T16:11:29-05:00"
+                  },
+                  "hidden": false
+                }
+              },
+              "time": "2025-03-18T16:11:29-05:00"
+            }
+          ],
+          "hidden": false
+        },
+        "comedor_auxiliar": {
+          "result": {
+            "value": false,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "elementos_comedor_auxiliar": {
+          "result": [],
+          "hidden": true
+        },
+        "sala_comedor": {
+          "result": {
+            "value": false,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "elementos_espacio_sala_comedo": {
+          "result": [],
+          "hidden": true
+        },
+        "bano_de_emergencia_o_auxiliar": {
+          "result": {
+            "value": false,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "elementos_bano_emergencia_o_a": {
+          "result": [],
+          "hidden": true
+        },
+        "hall": {
+          "result": {
+            "value": false,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "elementos_hall": {
+          "result": [],
+          "hidden": true
+        },
+        "cocina": {
+          "result": {
+            "value": false,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "elementos_cocina": {
+          "result": [],
+          "hidden": true
+        },
+        "alcoba_principal": {
+          "result": {
+            "value": false,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "elementos_alcoba_principal": {
+          "result": [],
+          "hidden": true
+        },
+        "bano_alcoba_principal": {
+          "result": {
+            "value": false,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "elementos_bano_alcoba_princip": {
+          "result": [],
+          "hidden": true
+        },
+        "alcoba": {
+          "result": {
+            "value": false,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "elementos_alcoba": {
+          "result": [],
+          "hidden": true
+        },
+        "bano_principal": {
+          "result": {
+            "value": false,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "elementos_bano_principal1": {
+          "result": [],
+          "hidden": true
+        },
+        "patio": {
+          "result": {
+            "value": false,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "elementos_patio": {
+          "result": [],
+          "hidden": true
+        },
+        "garaje_y_o_deposito": {
+          "result": {
+            "value": false,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "elementos_garaje_deposito": {
+          "result": [],
+          "hidden": true
+        },
+        "otros": {
+          "result": {
+            "value": false,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "otros1": {
+          "result": [],
+          "hidden": true
+        },
+        "recibos_publicos": {
+          "result": [],
+          "hidden": false
+        },
+        "observaciones_generales": {
+          "result": {
+            "value": "asdadasda",
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "las_partes_expresamente_decla": {
+          "result": {
+            "value": "Las partes expresamente declaran, que el inmueble objeto del contrato de arrendamiento ha sido entregado por el arrendador conforme al presente inventario, a la persona delegada por el arrendatario para recibirlo. \n\nLos arrendatarios se comprometen a conservar y mantener el inmueble y su correspondiente dotación, en el mismo estado en el que lo reciben, salvo los deterioros naturales originados por el adecuado uso del mismo. El arreglo de los daños resultantes del inadecuado uso o del descuido durante el tiempo de la tenencia será asumido por el arrendatario. Si estos arreglos no se realizaran, queda el arrendador autorizado para hacerlos por su cuenta y para cobrar ejecutivamente las sumas correspondientes a los arrendatarios; para este efecto convienen las partes en que las facturas de reparación de daños o reposición de faltantes junto con el contrato de arrendamientos prestaran merito ejecutivo suficiente. \n\nPara constancia de nuestra conformidad firmamos el presente documento.",
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "firma_del_arrendador": {
+          "result": {
+            "value": {
+              "file": "c109463f1052165su690618_20250318150751_645.png",
+              "original_name": "c109463f1052165su690618_20250318150751_645.png"
+            },
+            "time": "2025-03-18T15:07:54-05:00"
+          },
+          "hidden": false
+        },
+        "nombre1": {
+          "result": {
+            "value": "Juan",
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "identificacion_": {
+          "result": {
+            "value": 123133,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "celular": {
+          "result": {
+            "value": "3104542223",
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "firma_del_arrendatario": {
+          "result": {
+            "value": {
+              "file": "c109463f1052165su690618_20250318150759_647.png",
+              "original_name": "c109463f1052165su690618_20250318150759_647.png"
+            },
+            "time": "2025-03-18T15:08:01-05:00"
+          },
+          "hidden": false
+        },
+        "nombre2": {
+          "result": {
+            "value": "sdfsdfsfesfes",
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "identificacion_1": {
+          "result": {
+            "value": 213123,
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        },
+        "celular1": {
+          "result": {
+            "value": "313124145124",
+            "time": "2025-03-18T16:11:29-05:00"
+          },
+          "hidden": false
+        }
+      },
+      "device_info": null,
+      "form_update_time": null,
+      "local_uuid": "",
+      "format": "4",
+      "record_number": "3",
+      "recipient_user_id": null,
+      "start_time": null,
+      "end_time": null,
+      "app_version": "4",
+      "id": "224107434",
+      "user_id": "690618"
+    }
   }
-}

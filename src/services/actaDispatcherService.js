@@ -2,7 +2,7 @@
 import { previsitaService } from "./servicesActas/previsitaService.js";
 import { entregaConPrevisitaService } from "./servicesActas/entregaConPrevisitaService.js";
 import { entregaSinPrevisitaService } from "./servicesActas/entregaSinPrevisitaService.js";
-// import { subirActaInventarioService } from "./inventarioService.js";
+import { subirActaInventarioService } from "./servicesActas/inventarioService.js";
 import { diligenciaService } from "./servicesActas/diligenciasService.js";
 // import { subirActaVisitasMensualesService } from "./visitasMensualesService.js";
 
@@ -19,7 +19,7 @@ const actaServices = {
   previsita: previsitaService,
   entrega_con_previsita: entregaConPrevisitaService,
   entrega_sin_previsita: entregaSinPrevisitaService,
-//   inventario_inmuebles: subirActaInventarioService,
+  inventario_inmuebles: subirActaInventarioService,
  formulario_para_diligencias: diligenciaService,
 //   formulario_visitas_mensuales: subirActaVisitasMensualesService,
 };
