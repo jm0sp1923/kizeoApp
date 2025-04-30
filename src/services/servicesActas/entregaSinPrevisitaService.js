@@ -7,9 +7,10 @@ import "dotenv/config";
 
 async function entregaSinPrevisitaService(data_id, form_id, data) {
   try {
-    let zona = data.fields?.zonas?.result?.trim() || "Zona Desconocida";
+    let zona = data.fields?.zonas?.result.value.code.trim() || "Zona Desconocida";
+    console.log("Zona:", zona);
     let tipoDiligencia = data.fields.acta_de_diligencia?.result?.value?.trim() ||"Diligencia Desconocida";
-    let fechaDiligencia = data.fields.fecha_y_hora_diligencia?.result?.value?.date || "0000-00-00";
+    let fechaDiligencia = data.fields.fecha_y_hora_visita?.result?.value?.date || "0000-00-00";
     let [year, month] = fechaDiligencia.split("-");
 
     const mes = await sacarMes(parseInt(month));

@@ -8,14 +8,11 @@ import "dotenv/config";
 
 async function entregaConPrevisitaService(data_id, form_id, data) {
 
-  console.log("📂 Procesando entrega con previsita...");
-  console.log("📂 Data:",  JSON.stringify(data,2,null));
-
   try {
     // 📌 Extraer datos del formulario
     let zona = data.fields?.zonas?.result?.value?.code.trim() || "Zona Desconocida";
     let tipoDiligencia = data.fields.acta_de_diligencia?.result?.value?.trim() ||"Diligencia Desconocida";
-    let fechaDiligencia = data.fields.fecha_de_diligencia?.result?.value?.date || "0000-00-00";
+    let fechaDiligencia = data.fields.fecha_y_hora_visita?.result?.value?.date || "0000-00-00";
     let [year, month] = fechaDiligencia.split("-");
     
     const mes = await sacarMes(parseInt(month));

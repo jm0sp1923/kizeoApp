@@ -8,9 +8,12 @@ import "dotenv/config";
 async function previsitaService(data_id, form_id, data) {
   try {
     // 📌 Extraer datos del formulario
-    let zona = data?.fields?.zonas?.result?.trim() || "Zona Desconocida";
-    let tipoDiligencia = data.fields.acta_de_diligencia?.result?.value?.trim() ||"Diligencia Desconocida";
+    let zona = data?.fields?.zonas?.result?.value?.code || "Zona Desconocida";
+    console.log("Zona:", zona);
+    let tipoDiligencia = data.fields.acta_de_diligencia?.result?.value ||"Diligencia Desconocida";
+    console.log("Tipo de diligencia:", tipoDiligencia);
     let fechaDiligencia = data.fields.fecha_de_diligencia?.result?.value?.date || "0000-00-00";
+    console.log("Fecha de diligencia:", fechaDiligencia);
     let [year, month] = fechaDiligencia.split("-");
     
     const mes = await sacarMes(parseInt(month));
