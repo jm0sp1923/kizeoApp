@@ -10,8 +10,9 @@ async function subirActaInventarioService(data_id, form_id, data) {
   try {
     // 📌 Extraer datos del formulario
     let arrendador =
-      data.fields?.nombre_arrendador?.result?.value.trim() ||
+      data.fields?.nombre_del_arrendador?.result?.value?.code.trim() ||
       "Arrendador Desconocido";
+      console.log("Arrendador", arrendador);    
     let fechaEntrega =
       data.fields.fecha_de_entrega?.result?.value?.date || "0000-00-00";
     let referencia_inmueble =
