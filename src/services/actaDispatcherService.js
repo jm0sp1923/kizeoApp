@@ -9,9 +9,9 @@ import { diligenciaService } from "./servicesActas/diligenciasService.js";
 import { guardarLog } from "../utils/guardarLogs.js";
 
 const folderMap = {
-  1022053: "previsita",
-  1037778: "entrega_con_previsita",
-  1041013: "entrega_sin_previsita",
+  1071447: "previsita",
+  1071742: "entrega_con_previsita",
+  1071029: "entrega_sin_previsita",
   1052165: "inventario_inmuebles",
   1056420: "formulario_para_diligencias",
   1066665: "formulario_visitas_mensuales",
