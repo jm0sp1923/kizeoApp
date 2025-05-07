@@ -25,8 +25,6 @@ async function subirActaInventarioService(data_id, form_id, data) {
 
     const exportId = await obtenExportId(form_id);
 
-    console.log("Imagenes", imagenes);
-
     const { buffer, fileName } = await getActaPdf(
       form_id,
       data_id,

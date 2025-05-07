@@ -22,7 +22,7 @@ const actaServices = {
   entrega_con_previsita: entregaConPrevisitaService,
   entrega_sin_previsita: entregaSinPrevisitaService,
   inventario_inmuebles: subirActaInventarioService,
- formulario_para_diligencias: diligenciaService,
+  formulario_para_diligencias: diligenciaService,
 //   formulario_visitas_mensuales: subirActaVisitasMensualesService,
 };
 
@@ -32,7 +32,7 @@ const procesarActa = async (data) => {
   
   const form_name = folderMap[data.form_id];
 
-  guardarLog(form_name, data);
+  //guardarLog(form_name, data);
 
   console.log("Servicio correspondiente:", form_name);
 
