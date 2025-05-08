@@ -32,7 +32,7 @@ const procesarActa = async (data) => {
   
   const form_name = folderMap[data.form_id];
 
-  //guardarLog(form_name, data);
+  guardarLog(form_name, data);
 
   console.log("Servicio correspondiente:", form_name);
 
