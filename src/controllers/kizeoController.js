@@ -15,7 +15,7 @@ const subirActaController = async (req, res) => {
 
 const logsController = async (req, res) => {
   try {
-    const response = await guardarLog(req.body);
+    const response = await guardarLog(req.body.data);
     res.status(200).json({ message: response });
   } catch (error) {
     res.status(400).json({ message: error.message });
