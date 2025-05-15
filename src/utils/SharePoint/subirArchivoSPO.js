@@ -1,5 +1,5 @@
 import axios from "axios";
-import  getAccessToken  from "./getTokenSPO.js";
+import  getAccessToken  from "../../config/tokenTenant.js";
 import "dotenv/config";
 
 const { SITE_ID, DRIVE_ID } = process.env;

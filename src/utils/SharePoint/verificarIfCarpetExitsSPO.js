@@ -1,6 +1,6 @@
 import axios from "axios";
 import "dotenv/config";
-import  getAccessToken  from "./getTokenSPO.js";
+import  getAccessToken  from "../../config/tokenTenant.js";
 const { SITE_ID, DRIVE_ID } = process.env;
 
 // 🔹 Verificar si una carpeta ya existe en SharePoint

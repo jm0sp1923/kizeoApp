@@ -16,7 +16,7 @@ async function crearReporte(data) {
 
     
     const result = await reportes.insertOne(reporte);
-    //console.log(`✅ Reporte guardado en MongoDB con ID: ${result.id}`);
+    return(`✅ Reporte guardado en MongoDB con ID: ${result.id}`);
 
   } catch (error) {
     throw new Error("Error al crear el reporte: " + error.message);

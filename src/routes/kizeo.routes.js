@@ -1,27 +1,39 @@
 import express from "express";
-import multer from 'multer';
+import multer from "multer";
 
 const router = express.Router();
 
+const upload = multer({ dest: "uploads/" }); // Guarda en carpeta temporal "uploads/"
 
-const upload = multer({ dest: 'uploads/' }); // Guarda en carpeta temporal "uploads/"
-
-import { subirActaController,getListKizeoController,updateListController,fusionarArchivosController,reportesController } from "../controllers/kizeoController.js";
+import {
+  subirActaController,
+  getListKizeoController,
+  updateListController,
+  fusionarArchivosController,
+  crearReporteController,
+  enviarReporteController,
+} from "../controllers/kizeoController.js";
 
 //Ruta para el manejo de las actas al sharepoint
 router.post("/webhook", subirActaController);
 
-router.post("/reportes", reportesController);
+router.post("/reportes", crearReporteController);
+
+router.post("/enviar_reportes", enviarReporteController);
 
 // Ruta para obtener las listas desde la API externa
-router.get('/lists',getListKizeoController )
+router.get("/lists", getListKizeoController);
 
-// Ruta para actualizar la lista de kizeo desde un archivo excel 
-router.post('/updatelist',upload.single('excelFile'), updateListController)
+// Ruta para actualizar la lista de kizeo desde un archivo excel
+router.post("/updatelist", upload.single("excelFile"), updateListController);
 
-router.post('/fusionarExcel',upload.fields([
+router.post(
+  "/fusionarExcel",
+  upload.fields([
     { name: "reporteAfianzado", maxCount: 1 },
     { name: "baseCartera", maxCount: 1 },
-  ]),fusionarArchivosController)
+  ]),
+  fusionarArchivosController
+);
 
 export default router;

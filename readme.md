@@ -67,9 +67,9 @@ MONGODB_COLLECTION_NAME=logs
 ### 🔸 Azure Active Directory
 
 ```
-CLIENT_SECRET=abcd1234~Xyz9876_example_secret_key
-CLIENT_ID=12345678-90ab-cdef-1234-567890abcdef
-TENANT_ID=abcdef12-3456-7890-abcd-ef1234567890
+CLIENT_SECRET_AD=abcd1234~Xyz9876_example_secret_key
+CLIENT_ID_AD=12345678-90ab-cdef-1234-567890abcdef
+TENANT_ID_AD=abcdef12-3456-7890-abcd-ef1234567890
 ```
 
 #### Requisitos:
