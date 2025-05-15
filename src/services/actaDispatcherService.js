@@ -6,7 +6,6 @@ import { subirActaInventarioService } from "./servicesActas/inventarioService.js
 import { diligenciaService } from "./servicesActas/diligenciasService.js";
 // import { subirActaVisitasMensualesService } from "./visitasMensualesService.js";
 
-import { guardarLog } from "../utils/guardarLogs.js";
 
 const folderMap = {
   1071447: "previsita",
@@ -31,8 +30,6 @@ const actaServices = {
 const procesarActa = async (data) => {
   
   const form_name = folderMap[data.form_id];
-
-  guardarLog(form_name, data);
 
   console.log("Servicio correspondiente:", form_name);
 
