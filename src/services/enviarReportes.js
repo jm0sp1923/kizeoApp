@@ -8,26 +8,31 @@ import emailReporte from "../template/emailReportesTemplate.js";
 async function generarReporte() {
   try {
     const hoy = new Date();
-
-
     const fechasValidas = [];
-    let dia = new Date(hoy);
+    let diasRetroceso = 1;
 
     while (fechasValidas.length < 6) {
-      dia.setDate(dia.getDate() - 1);
-      if (dia.getDay() !== 0) {
-        // 0 es domingo
-        fechasValidas.push(new Date(dia)); // Clonar la fecha
+      const fecha = new Date(hoy);
+      fecha.setDate(hoy.getDate() - diasRetroceso);
+
+      // Excluir domingos (getDay() === 0)
+      if (fecha.getDay() !== 0) {
+        fechasValidas.push(fecha);
       }
+
+      diasRetroceso++;
     }
 
-    // Obtener los extremos del rango
+    // Obtener los extremos del rango (inicio y fin del día en UTC)
     const desdeFecha = new Date(fechasValidas[fechasValidas.length - 1]);
-
+    desdeFecha.setUTCHours(0, 0, 0, 0);
 
     const hastaFecha = new Date(fechasValidas[0]);
-    
-    
+    hastaFecha.setUTCHours(23, 59, 59, 999);
+
+    console.log("Buscando reportes desde:", desdeFecha.toISOString());
+    console.log("Hasta:", hastaFecha.toISOString());
+
     // Buscar reportes en ese rango de fechas
     const reportes_errores = await reportes.find({
       fecha_solicitud: {
@@ -36,15 +41,15 @@ async function generarReporte() {
       },
     });
 
-    
+    console.log("Reportes encontrados:", reportes_errores);
+
     if (reportes_errores.length === 0) {
       console.log("No hay reportes para enviar.");
       return;
     }
 
     const fecha = new Date().toLocaleDateString();
-    const htmlContent = emailReporte(fecha); 
-
+    const htmlContent = emailReporte(fecha);
     const archivoExcel = generarExcelReportes(reportes_errores);
     const destinatarioEmail = "juan.munoz@affi.net";
 
