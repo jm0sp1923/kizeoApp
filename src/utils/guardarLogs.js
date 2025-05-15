@@ -7,10 +7,7 @@ const guardarLog = async (data) => {
     let form_id = data.form_id;
 
     const logEntry = {
-      form_name: form_name,
-      form_id: form_id,
       data: data,
-      created_at: new Date()
     };
 
     const result = await Logs.insertOne(logEntry);
