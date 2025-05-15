@@ -17,6 +17,7 @@
     "express-list-routes": "^1.2.4",
     "kizeoapp": "file:",
     "mongodb": "^6.16.0",
+    "mongoose": "^8.14.3",
     "multer": "^1.4.5-lts.1",
     "xlsx": "^0.18.5"
   },

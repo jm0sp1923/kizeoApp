@@ -1,7 +1,6 @@
-
 # 📄 Webhook Kizeo + SharePoint
 
-**Este proyecto funciona como un ****webhook para Kizeo** encargado de **subir automáticamente las actas a SharePoint**, donde estarán disponibles para el área de **RCI**. Además, ofrece una **interfaz amigable** para la **actualización de listas** dentro de Kizeo.
+**Este proyecto funciona como un** **webhook para Kizeo** encargado de **subir automáticamente las actas a SharePoint**, donde estarán disponibles para el área de **RCI**. Además, ofrece una **interfaz amigable** para la **actualización de listas** dentro de Kizeo.
 
 ---
 
