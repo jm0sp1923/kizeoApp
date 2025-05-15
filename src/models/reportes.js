@@ -37,7 +37,8 @@ const reportes = new mongoose.Schema({
     },
     cuenta: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
 
 });

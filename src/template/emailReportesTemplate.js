@@ -22,12 +22,6 @@ const emailReporte = (fecha) => `
                 <p style="font-size:13px; color:#999; text-align:center; margin-top:20px;">
                   Siempre Moviéndonos Hacia Adelante
                 </p>
-                <p style="font-size:12px; text-align:center;">
-                  <a href="#" style="margin: 0 10px; text-decoration:none; color:#4a90e2;">Facebook</a> |
-                  <a href="#" style="margin: 0 10px; text-decoration:none; color:#4a90e2;">LinkedIn</a> |
-                  <a href="#" style="margin: 0 10px; text-decoration:none; color:#4a90e2;">X</a> |
-                  <a href="#" style="margin: 0 10px; text-decoration:none; color:#4a90e2;">Instagram</a>
-                </p>
               </td>
             </tr>
           </table>

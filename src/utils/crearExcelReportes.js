@@ -4,12 +4,23 @@ import path from "path";
 import os from "os"; // Agregado
 
 function generarExcelReportes(lista_reportes) {
+
+  console.log("Lista de reportes:", lista_reportes);
+
+  function formatFecha(fecha) {
+    const d = new Date(fecha);
+    const dia = String(d.getUTCDate()).padStart(2, "0");
+    const mes = String(d.getUTCMonth() + 1).padStart(2, "0");
+    const año = d.getUTCFullYear();
+    return `${dia}/${mes}/${año}`;
+  }
+
   const data = lista_reportes.map((r) => ({
     historico_id: r.record_id,
     Solicitante: r.solicitante,
     Email: r.email_solicitante,
     Cuenta: r.cuenta,
-    Fecha: new Date(r.fecha_solicitud).toLocaleDateString(),
+    Fecha: formatFecha(r.fecha_solicitud),
     Direccion_anterior: r.old_direccion,
     Ciudad_Anterior: r.old_ciudad,
     Direccion_nueva: r.new_direccion,
