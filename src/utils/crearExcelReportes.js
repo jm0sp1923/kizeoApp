@@ -5,8 +5,6 @@ import os from "os"; // Agregado
 
 function generarExcelReportes(lista_reportes) {
 
-  console.log("Lista de reportes:", lista_reportes);
-
   function formatFecha(fecha) {
     const d = new Date(fecha);
     const dia = String(d.getUTCDate()).padStart(2, "0");

@@ -4,6 +4,7 @@ import fs from "fs";
 import reportes from "../models/reportes.js";
 import generarExcelReportes from "../utils/crearExcelReportes.js";
 import emailReporte from "../template/emailReportesTemplate.js";
+import remitentes from "../models/remitentes.js";
 
 async function generarReporte() {
   try {
@@ -11,7 +12,7 @@ async function generarReporte() {
     const fechasValidas = [];
     let diasRetroceso = 1;
 
-    while (fechasValidas.length < 6) {
+    while (fechasValidas.length < 1) {
       const fecha = new Date(hoy);
       fecha.setDate(hoy.getDate() - diasRetroceso);
 
@@ -30,9 +31,6 @@ async function generarReporte() {
     const hastaFecha = new Date(fechasValidas[0]);
     hastaFecha.setUTCHours(23, 59, 59, 999);
 
-    console.log("Buscando reportes desde:", desdeFecha.toISOString());
-    console.log("Hasta:", hastaFecha.toISOString());
-
     // Buscar reportes en ese rango de fechas
     const reportes_errores = await reportes.find({
       fecha_solicitud: {
@@ -40,8 +38,6 @@ async function generarReporte() {
         $lte: hastaFecha,
       },
     });
-
-    console.log("Reportes encontrados:", reportes_errores);
 
     if (reportes_errores.length === 0) {
       console.log("No hay reportes para enviar.");
@@ -64,12 +60,19 @@ async function generarReporte() {
 
 async function enviarCorreo(htmlContent, attachmentPath) {
   
+  const remitenteData = await remitentes.findOne({});
+
+  if (!remitenteData) {
+    throw new Error("No se encontró un remitente configurado en la base de datos.");
+  }
+
+  console.log("Destinatario:", remitenteData.email);
+
   const token = await getAccessToken();
-  const destinatarioEmail = "operaciones@affi.net";
+  const destinatarioEmail = remitenteData.email;
   const sender = "comercial@affi.net";
   const urlMailSend = `https://graph.microsoft.com/v1.0/users/${sender}/sendMail`;
 
-  // Leer archivo y convertir a base64
   const fileBuffer = fs.readFileSync(attachmentPath);
   const base64File = fileBuffer.toString("base64");
 

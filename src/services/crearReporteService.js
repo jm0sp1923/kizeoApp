@@ -10,8 +10,8 @@ async function crearReporte(data) {
       email_solicitante: data.fields.correo_del_asesor_que_solicit.result.value.text,
       old_direccion: data.fields.direccion_del_inmueble_arrend.result.value.text,
       old_ciudad: data.fields.ciudad_del_inmueble_arrendado.result.value.text,
-      new_direccion: data.fields.direccion.result.value,
-      new_ciudad: data.fields.ciudad.result.value,
+      new_direccion: data.fields.direccion_a_corregir.result.value,
+      new_ciudad: data.fields.ciudad_a_corregir.result.value,
       fecha_solicitud: data.fields.fecha_de_la_solicitud.result.value.date,
       cuenta: cuenta,
     };
