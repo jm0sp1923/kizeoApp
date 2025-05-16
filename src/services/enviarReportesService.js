@@ -4,7 +4,7 @@ import fs from "fs";
 import reportes from "../models/reportes.js";
 import generarExcelReportes from "../utils/crearExcelReportes.js";
 import emailReporte from "../template/emailReportesTemplate.js";
-import emailSinReportes from "../template/emailNoReportes.js";
+import emailSinReportes from "../template/emailSinReportesTemplate.js";
 import remitentes from "../models/remitentes.js";
 
 async function generarReporte() {
