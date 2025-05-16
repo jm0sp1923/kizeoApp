@@ -1,4 +1,4 @@
-const emailReporte = (fecha) => `
+const emailSinReportes = (fecha) => `
   <body>
     <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f2f4f7; padding:40px 20px;">
       <tr>
@@ -8,7 +8,7 @@ const emailReporte = (fecha) => `
               <td>
                 <h2 style="color:#1a202c; margin-bottom:20px;"><strong>¡Hola!</strong>,</h2>
                 <p style="font-size:16px; line-height:1.6;">
-                  Adjunto encontrarás el resumen de cambios de dirección procesados al <strong>${fecha}</strong>.
+                  No se encontraron cambios de dirección procesados el <strong>${fecha}</strong>.
                 </p>
               </td>
             </tr>
@@ -20,7 +20,7 @@ const emailReporte = (fecha) => `
                   Siempre Moviéndonos Hacia Adelante
                 </p>
                 <p style="font-size:13px; color:#999; text-align:center; margin-top:20px;">
-                  Este archivo fue generado automáticamente por el sistema.
+                  Este mensaje fue generado automáticamente por el sistema.
                 </p>
               </td>
             </tr>
@@ -31,4 +31,4 @@ const emailReporte = (fecha) => `
   </body>
 `;
 
-export default emailReporte;
+export default emailSinReportes;

@@ -4,6 +4,7 @@ import fs from "fs";
 import reportes from "../models/reportes.js";
 import generarExcelReportes from "../utils/crearExcelReportes.js";
 import emailReporte from "../template/emailReportesTemplate.js";
+import emailSinReportes from "../template/emailNoReportes.js";
 import remitentes from "../models/remitentes.js";
 
 async function generarReporte() {
@@ -39,15 +40,17 @@ async function generarReporte() {
       },
     });
 
+    const fecha = new Date().toLocaleDateString();
+
     if (reportes_errores.length === 0) {
-      console.log("No hay reportes para enviar.");
-      return;
+      const htmlSinReporte = emailSinReportes(fecha);
+      await enviarCorreo(htmlSinReporte); // Sin adjunto
+      console.log("Correo de reporte vacío enviado exitosamente.");
+      return "Correo de reporte vacío enviado exitosamente.";
     }
 
-    const fecha = new Date().toLocaleDateString();
     const htmlContent = emailReporte(fecha);
     const archivoExcel = generarExcelReportes(reportes_errores);
- 
 
     await enviarCorreo(htmlContent, archivoExcel);
 
@@ -58,8 +61,7 @@ async function generarReporte() {
   }
 }
 
-async function enviarCorreo(htmlContent, attachmentPath) {
-  
+async function enviarCorreo(htmlContent, attachmentPath = null) {
   const remitenteData = await remitentes.findOne({});
 
   if (!remitenteData) {
@@ -73,26 +75,29 @@ async function enviarCorreo(htmlContent, attachmentPath) {
   const sender = "comercial@affi.net";
   const urlMailSend = `https://graph.microsoft.com/v1.0/users/${sender}/sendMail`;
 
-  const fileBuffer = fs.readFileSync(attachmentPath);
-  const base64File = fileBuffer.toString("base64");
-
   const jsonBody = {
     message: {
       subject: "Resumen de Cambios de Dirección",
       body: { contentType: "HTML", content: htmlContent },
       toRecipients: [{ emailAddress: { address: destinatarioEmail } }],
-      attachments: [
-        {
-          "@odata.type": "#microsoft.graph.fileAttachment",
-          name: "reporte_direcciones.xlsx",
-          contentType:
-            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-          contentBytes: base64File,
-        },
-      ],
     },
     saveToSentItems: false,
   };
+
+  // Solo si hay archivo adjunto
+  if (attachmentPath) {
+    const fileBuffer = fs.readFileSync(attachmentPath);
+    const base64File = fileBuffer.toString("base64");
+
+    jsonBody.message.attachments = [
+      {
+        "@odata.type": "#microsoft.graph.fileAttachment",
+        name: "reporte_direcciones.xlsx",
+        contentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        contentBytes: base64File,
+      },
+    ];
+  }
 
   return axios.post(urlMailSend, jsonBody, {
     headers: {
@@ -101,5 +106,6 @@ async function enviarCorreo(htmlContent, attachmentPath) {
     },
   });
 }
+
 
 export default generarReporte;
