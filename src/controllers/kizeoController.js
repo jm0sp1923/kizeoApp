@@ -2,8 +2,8 @@ import { procesarActa } from "../services/actaDispatcherService.js";
 import getListServices from "../services/getListServices.js";
 import updateListServices from "../services/updateListServices.js";
 import fusionarExcel from "../services/fusionarExcelServices.js";
-import { crearReporte } from "../services/reportesService.js";
-import generarReporte from "../services/enviarReportes.js";
+import { crearReporte } from "../services/crearReporteService.js";
+import generarReporte from "../services/enviarReportesService.js";
 
 const subirActaController = async (req, res) => {
   try {

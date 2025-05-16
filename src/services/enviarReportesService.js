@@ -51,9 +51,9 @@ async function generarReporte() {
     const fecha = new Date().toLocaleDateString();
     const htmlContent = emailReporte(fecha);
     const archivoExcel = generarExcelReportes(reportes_errores);
-    const destinatarioEmail = "juan.munoz@affi.net";
+ 
 
-    await enviarCorreo(destinatarioEmail, htmlContent, archivoExcel);
+    await enviarCorreo(htmlContent, archivoExcel);
 
     console.log("Correo con reporte enviado exitosamente.");
     return "Correo con reporte enviado exitosamente.";
@@ -62,8 +62,10 @@ async function generarReporte() {
   }
 }
 
-async function enviarCorreo(destinatarioEmail, htmlContent, attachmentPath) {
+async function enviarCorreo(htmlContent, attachmentPath) {
+  
   const token = await getAccessToken();
+  const destinatarioEmail = "operaciones@affi.net";
   const sender = "comercial@affi.net";
   const urlMailSend = `https://graph.microsoft.com/v1.0/users/${sender}/sendMail`;
 
