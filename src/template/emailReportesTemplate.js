@@ -8,7 +8,7 @@ const emailReporte = (fecha) => `
               <td>
                 <h2 style="color:#1a202c; margin-bottom:20px;"><strong>¡Hola!</strong>,</h2>
                 <p style="font-size:16px; line-height:1.6;">
-                  Adjunto encontrarás el resumen de cambios de dirección procesados al <strong>${fecha}</strong>.
+                  Adjunto encontrarás el resumen de cambios de dirección procesados al dia<strong>${fecha}</strong>.
                 </p>
               </td>
             </tr>

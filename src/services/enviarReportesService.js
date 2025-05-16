@@ -40,16 +40,19 @@ async function generarReporte() {
       },
     });
 
-    const fecha = new Date().toLocaleDateString();
+    const ayer = new Date(hoy); // copia la fecha actual
+    ayer.setDate(hoy.getDate() - 1);
+
+    const fechaFormateada = ayer.toLocaleDateString(); // si quieres el string formateado
 
     if (reportes_errores.length === 0) {
-      const htmlSinReporte = emailSinReportes(fecha);
+      const htmlSinReporte = emailSinReportes(fechaFormateada);
       await enviarCorreo(htmlSinReporte); // Sin adjunto
       console.log("Correo de reporte vacío enviado exitosamente.");
       return "Correo de reporte vacío enviado exitosamente.";
     }
 
-    const htmlContent = emailReporte(fecha);
+    const htmlContent = emailReporte(fechaFormateada);
     const archivoExcel = generarExcelReportes(reportes_errores);
 
     await enviarCorreo(htmlContent, archivoExcel);
@@ -65,7 +68,9 @@ async function enviarCorreo(htmlContent, attachmentPath = null) {
   const remitenteData = await remitentes.findOne({});
 
   if (!remitenteData) {
-    throw new Error("No se encontró un remitente configurado en la base de datos.");
+    throw new Error(
+      "No se encontró un remitente configurado en la base de datos."
+    );
   }
 
   console.log("Destinatario:", remitenteData.email);
@@ -93,7 +98,8 @@ async function enviarCorreo(htmlContent, attachmentPath = null) {
       {
         "@odata.type": "#microsoft.graph.fileAttachment",
         name: "reporte_direcciones.xlsx",
-        contentType: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        contentType:
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         contentBytes: base64File,
       },
     ];
@@ -106,6 +112,5 @@ async function enviarCorreo(htmlContent, attachmentPath = null) {
     },
   });
 }
-
 
 export default generarReporte;

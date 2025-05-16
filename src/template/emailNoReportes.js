@@ -8,7 +8,7 @@ const emailSinReportes = (fecha) => `
               <td>
                 <h2 style="color:#1a202c; margin-bottom:20px;"><strong>¡Hola!</strong>,</h2>
                 <p style="font-size:16px; line-height:1.6;">
-                  No se encontraron cambios de dirección procesados el <strong>${fecha}</strong>.
+                  No se encontraron cambios de dirección procesados al dia<strong>${fecha}</strong>.
                 </p>
               </td>
             </tr>
