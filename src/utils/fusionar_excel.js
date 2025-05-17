@@ -1,107 +1,103 @@
-import fs from 'fs/promises';
-import path from 'path';
-import xlsx from 'xlsx';
-import Papa from 'papaparse';
+import fs from "fs/promises";
+import path from "path";
+import xlsx from "xlsx";
 
-const NUMERO_CUENTA = 'Numero Cuenta';
-const CUENTA = 'Cuenta';
+const NUMERO_CUENTA = "Numero Cuenta";
+const CUENTA = "Cuenta";
 
 async function fusionarExcel(archivoDatos, archivoBusqueda) {
   try {
-    // 1. Leer archivo CSV
-    const datosCsv = await fs.readFile(archivoDatos, 'utf-8');
-    let archivoDatosParsed = Papa.parse(datosCsv, { header: true, delimiter: ';' }).data;
+    // 1. Leer archivo Excel de datos
+    const archivoDatosParsed = xlsx.readFile(archivoDatos);
+    const sheetDatos =
+      archivoDatosParsed.Sheets[archivoDatosParsed.SheetNames[0]];
+    const datosParsed = xlsx.utils.sheet_to_json(sheetDatos);
 
-    // 1.1 Limpiar las llaves (cabeceras) del archivo CSV
-    archivoDatosParsed = archivoDatosParsed.map(row => {
-      const cleanedRow = {};
-      for (const key in row) {
-        const cleanKey = key.trim(); // Quita espacios en los encabezados
-        cleanedRow[cleanKey] = row[key];
-      }
-      return cleanedRow;
-    });
-
-    // 2. Leer archivo Excel
+    // 2. Leer archivo Excel de búsqueda
     const archivoBusquedaParsed = xlsx.readFile(archivoBusqueda);
-    const sheet = archivoBusquedaParsed.Sheets[archivoBusquedaParsed.SheetNames[0]];
-    const archivoBusquedaData = xlsx.utils.sheet_to_json(sheet);
+    const sheetBusqueda =
+      archivoBusquedaParsed.Sheets[archivoBusquedaParsed.SheetNames[0]];
+    const archivoBusquedaData = xlsx.utils.sheet_to_json(sheetBusqueda);
 
-    // 3. Limpiar columnas (cuentas)
-    archivoDatosParsed.forEach((row) => {
-      if (row[NUMERO_CUENTA]) {
-        row[NUMERO_CUENTA] = row[NUMERO_CUENTA].toString().trim().replace('.0', '');
-      }
-    });
+    // 3. Limpiar campos clave (cuentas)
+    const cuentasBusquedaSet = new Set(
+      archivoBusquedaData
+        .map((row) => row[CUENTA]?.toString().trim())
+        .filter(Boolean)
+    );
 
-    archivoBusquedaData.forEach((row) => {
-      if (row[CUENTA]) {
-        row[CUENTA] = row[CUENTA].toString().trim();
-      }
-    });
+    const cuentasDatosSet = new Set(
+      datosParsed
+        .map((row) => row[NUMERO_CUENTA]?.toString().trim())
+        .filter(Boolean)
+    );
 
-    // 4. Crear mapa de dirección
-    const mapaDireccionAfianzados = new Map();
-    archivoBusquedaData.forEach((row) => {
-      if (row[CUENTA] && row['Direccion']) {
-        mapaDireccionAfianzados.set(row[CUENTA], row['Direccion']);
-      }
-    });
+    // 4. Filtrar cuentas coincidentes
+    const busquedaMap = new Map(
+      archivoBusquedaData.map((row) => [row[CUENTA]?.toString().trim(), row])
+    );
 
-    // 5. Fusionar datos
-    const archivoUnido = archivoDatosParsed.map((dato) => {
-      if (mapaDireccionAfianzados.has(dato[NUMERO_CUENTA])) {
+    const datosFusionados = datosParsed
+      .filter((row) => busquedaMap.has(row[NUMERO_CUENTA]?.toString().trim())) // solo si hay coincidencia
+      .map((row) => {
+        const cuenta = row[NUMERO_CUENTA]?.toString().trim();
+        const datosBusqueda = busquedaMap.get(cuenta);
+
+        // Fusionar ambos objetos (datos + búsqueda)
         return {
-          ...dato,
-          'Direccion': mapaDireccionAfianzados.get(dato[NUMERO_CUENTA])
+          ...row, // datos originales
+          ...datosBusqueda, // datos de búsqueda (sobrescriben si hay campos iguales)
         };
-      } else {
-        return dato;
-      }
+      });
+
+    // Después de crear datosFusionados
+    const columnasDeseadas = [
+      "Inmobiliaria",
+      "Nit Inmobliaria",
+      "Cuenta",
+      "Identificacion Tercero",
+      "Nombres / Siglas",
+      "Apellidos / Razon Social",
+      "Tipo Amparo",
+      "Cobertura",
+      "Direccion",
+      "Ciudad",
+      "Estado",
+      "Estado Cobro",
+    ];
+
+    // Filtrar las columnas deseadas
+    const datosFiltrados = datosFusionados.map((row) => {
+      const obj = {};
+      columnasDeseadas.forEach((col) => {
+        obj[col] = row[col] ?? "";
+      });
+      return obj;
     });
 
-    // 6. Filtrar registros que tengan dirección
-    const archivoFiltrado = archivoUnido.filter((row) => row['Direccion']);
 
-    // 7. Seleccionar columnas con los nombres exactos
-    const archivoUnidoSeleccionado = archivoFiltrado.map((row) => ({
-      'Inmobiliaria': row['Inmobiliaria'] || '',
-      'Nit Inmobiliaria': row['Nit Inmobiliaria'] || '',  // <- corregí la falta de 'i'
-      'Cuenta': row['Cuenta'] || '',
-      'Identificacion Tercero': row['Identificacion Tercero'] || '',
-      'Nombres / Siglas': row['Nombres / Siglas'] || '',
-      'Apellidos / Razon Social': row['Apellidos / Razon Social'] || '',
-      'Tipo Amparo': row['Tipo Amparo'] || '',
-      'Cobertura': row['Cobertura'] || '',
-      'Direccion': row['Direccion'] || '',
-      'Ciudad_y': row['Ciudad_y'] || '',
-      'Estado': row['Estado'] || '',
-      'ETAPA DE COBRO ACTUAL': row['ETAPA DE COBRO ACTUAL'] || ''
-    }));
-
-    // 8. Crear carpeta 'processed'
-    const processedFolder = path.join(process.cwd(), 'processed');
+    // 5. Crear carpeta 'processed'
+    const processedFolder = path.join(process.cwd(), "processed");
     await fs.mkdir(processedFolder, { recursive: true });
 
-    // 9. Guardar Excel
-    const outputPath = path.join(processedFolder, 'excel_fusionado.xlsx');
-    const finalWorksheet = xlsx.utils.json_to_sheet(archivoUnidoSeleccionado);
-    const finalWorkbook = xlsx.utils.book_new();
-    xlsx.utils.book_append_sheet(finalWorkbook, finalWorksheet, 'Fusionado');
+    // 6. Guardar resultado en Excel
+    const outputPath = path.join(processedFolder, "excel_fusionado.xlsx");
+    const worksheet = xlsx.utils.json_to_sheet(datosFiltrados);
+    const workbook = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(workbook, worksheet, "Fusionado");
 
-    await xlsx.writeFile(finalWorkbook, outputPath);
+    await xlsx.writeFile(workbook, outputPath);
 
-    console.log(`✅ Archivo procesado creado en: ${outputPath}`);
+    console.log(`✅ Archivo creado con cuentas coincidentes: ${outputPath}`);
 
     return {
       success: true,
-      message: 'Archivos procesados exitosamente.',
-      downloadUrl: '/excel_fusionado.xlsx'
+      message: "Cuentas coincidentes extraídas correctamente.",
+      downloadUrl: "/excel_fusionado.xlsx",
     };
-
   } catch (error) {
-    console.error('❌ Error al procesar los archivos:', error);
-    throw new Error('Ocurrió un error al procesar los archivos');
+    console.error("❌ Error al procesar los archivos:", error);
+    throw new Error("Ocurrió un error al procesar los archivos");
   }
 }
 
