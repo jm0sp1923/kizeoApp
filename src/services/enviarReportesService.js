@@ -57,8 +57,8 @@ async function generarReporte() {
 
     await enviarCorreo(htmlContent, archivoExcel);
 
-    console.log("Correo con reporte enviado exitosamente.");
-    return "Correo con reporte enviado exitosamente.";
+    console.log(`Correo con reporte enviado exitosamente.`);
+    return `Correo con reporte enviado exitosamente. Con ${reportes_errores.length} reportes.`;
   } catch (error) {
     throw new Error("Error al crear el reporte: " + error.message);
   }
