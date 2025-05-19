@@ -35,6 +35,10 @@ const reportes = new mongoose.Schema({
         type: Date,
         required: true,
     },
+    tipo_solicitud: {
+        type: String,
+    },
+
     cuenta: {
         type: String,
         required: true,

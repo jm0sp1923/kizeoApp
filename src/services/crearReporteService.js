@@ -13,6 +13,7 @@ async function crearReporte(data) {
       new_direccion: data.fields.direccion_a_corregir.result.value,
       new_ciudad: data.fields.ciudad_a_corregir.result.value,
       fecha_solicitud: data.fields.fecha_de_la_solicitud.result.value.date,
+      tipo_solicitud: data.fields.tipo_de_diligencia?.result?.value?.code.trim(),
       cuenta: cuenta,
     };
 
