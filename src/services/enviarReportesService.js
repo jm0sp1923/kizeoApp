@@ -2,7 +2,7 @@ import getAccessToken from "../config/tokenTenant.js";
 import axios from "axios";
 import fs from "fs";
 import reportes from "../models/reportes.js";
-import generarExcelReportes from "../utils/crearExcelReportes.js";
+import { generarExcelReportes } from "../utils/crearExcelReportes.js";
 import emailReporte from "../template/emailReportesTemplate.js";
 import emailSinReportes from "../template/emailSinReportesTemplate.js";
 import remitentes from "../models/remitentes.js";
@@ -45,8 +45,13 @@ async function generarReporte() {
 
     const fechaFormateada = ayer.toLocaleDateString(); // si quieres el string formateado
 
+    const remitenteData = await remitentes.findOne({
+      area: "OPERACIONES",
+    });
+
     if (reportes_errores.length === 0) {
-      const htmlSinReporte = emailSinReportes(fechaFormateada);
+      const htmlSinReporte = emailSinReportes(fechaFormateada, remitenteData);
+
       await enviarCorreo(htmlSinReporte); // Sin adjunto
       console.log("Correo de reporte vacío enviado exitosamente.");
       return "Correo de reporte vacío enviado exitosamente.";
@@ -64,9 +69,7 @@ async function generarReporte() {
   }
 }
 
-async function enviarCorreo(htmlContent, attachmentPath = null) {
-  const remitenteData = await remitentes.findOne({});
-
+async function enviarCorreo(htmlContent, remitenteData, attachmentPath = null) {
   if (!remitenteData) {
     throw new Error(
       "No se encontró un remitente configurado en la base de datos."

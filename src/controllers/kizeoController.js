@@ -4,6 +4,8 @@ import updateListServices from "../services/updateListServices.js";
 import fusionarExcel from "../services/fusionarExcelServices.js";
 import { crearReporte } from "../services/crearReporteService.js";
 import generarReporte from "../services/enviarReportesService.js";
+import updateHistoricoDb from "../services/Informes/actulizarHistoricoDb.js";
+import enviarReporteHistoricos from "../services/Informes/enviarReporteHistoricos.js";
 
 const subirActaController = async (req, res) => {
   try {
@@ -39,11 +41,9 @@ const getListKizeoController = async (req, res) => {
     const response = await getListServices();
     res.status(200).json(response);
   } catch (error) {
-    res
-      .status(400)
-      .json({
-        message: "Error al obtener la lista de Kizeo: " + error.message,
-      });
+    res.status(400).json({
+      message: "Error al obtener la lista de Kizeo: " + error.message,
+    });
   }
 };
 
@@ -55,12 +55,10 @@ const updateListController = async (req, res) => {
     const result = await updateListServices(listType, file);
     res.status(200).json(result);
   } catch (error) {
-    res
-      .status(400)
-      .json({
-        success: false,
-        message: "Error al subir el acta: " + error.message,
-      });
+    res.status(400).json({
+      success: false,
+      message: "Error al subir el acta: " + error.message,
+    });
   }
 };
 
@@ -74,6 +72,26 @@ async function fusionarArchivosController(req, res) {
   }
 }
 
+async function updateHistoricoController(req, res) {
+  try {
+    const result = await updateHistoricoDb();
+    res.status(200).json({"Mensaje": result});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
+async function enviarReporteHistoricoController(req, res) {
+  try {
+    const result = await enviarReporteHistoricos();
+    res.status(200).json({"Mensaje": result});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+}
+
 export {
   subirActaController,
   getListKizeoController,
@@ -81,4 +99,6 @@ export {
   fusionarArchivosController,
   crearReporteController,
   enviarReporteController,
+  updateHistoricoController,
+  enviarReporteHistoricoController
 };

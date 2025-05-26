@@ -12,6 +12,8 @@ import {
   fusionarArchivosController,
   crearReporteController,
   enviarReporteController,
+  updateHistoricoController,
+  enviarReporteHistoricoController,
 } from "../controllers/kizeoController.js";
 
 //Ruta para el manejo de las actas al sharepoint
@@ -34,6 +36,16 @@ router.post(
     { name: "baseCartera", maxCount: 1 },
   ]),
   fusionarArchivosController
+);
+
+router.post(
+  "/updateHistorico",
+  updateHistoricoController
+);
+
+router.post(
+  "/enviarHistorico",
+  enviarReporteHistoricoController
 );
 
 export default router;

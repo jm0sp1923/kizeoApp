@@ -1,10 +1,8 @@
 import * as XLSX from "xlsx";
-import fs, { Dir } from "fs";
 import path from "path";
-import os from "os"; // Agregado
+import os from "os"; 
 
 function generarExcelReportes(lista_reportes) {
-
   function formatFecha(fecha) {
     const d = new Date(fecha);
     const dia = String(d.getUTCDate()).padStart(2, "0");
@@ -35,4 +33,32 @@ function generarExcelReportes(lista_reportes) {
   return filePath;
 }
 
-export default generarExcelReportes;
+function generarExcelHistorico(lista_reportes) {
+  try {
+
+    const data = lista_reportes.map((r) => ({
+    id_historico: r.data.external_id,
+    _form_id: r.data._form_id,
+    _create_time: r.data._create_time,
+    _update_time: r.data._update_time,
+    _history: r.data._history,
+    _user_name: r.data._user_name,
+    tipo_de_diligencia: r.data.tipo_de_diligencia,
+    acta_de_diligencia: r.data.acta_de_diligencia,
+  }));
+
+
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Historico");
+
+    const filePath = path.join(os.tmpdir(), "historico_reportes.xlsx");
+    XLSX.writeFile(workbook, filePath);
+    return filePath;
+  } catch (error) {
+    console.error("Error al generar el Excel del histórico:", error);
+    throw error; // Lanza el error para que pueda ser manejado por el llamador
+  }
+}
+
+export { generarExcelReportes, generarExcelHistorico };
