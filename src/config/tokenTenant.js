@@ -6,6 +6,18 @@ const { CLIENT_ID_AD, CLIENT_SECRET_AD, TENANT_ID_AD } = process.env;
 // 🔹 Obtener el token de acceso
 // Este código obtiene un token de acceso para la API de Microsoft Graph.
 const getAccessToken = async () => {
+
+    console.log("Obteniendo token de acceso para la API de Microsoft Graph...");
+    // Verifica que las variables de entorno necesarias estén definidas
+    console.log("Variables de entorno:", {
+        CLIENT_ID_AD,
+        CLIENT_SECRET_AD,
+        TENANT_ID_AD
+    });
+
+    if (!CLIENT_ID_AD || !CLIENT_SECRET_AD || !TENANT_ID_AD) {
+        throw new Error("Faltan las variables de entorno CLIENT_ID_AD, CLIENT_SECRET_AD o TENANT_ID_AD");
+    }
     const tokenUrl = `https://login.microsoftonline.com/${TENANT_ID_AD}/oauth2/v2.0/token`;
   
     const params = new URLSearchParams();

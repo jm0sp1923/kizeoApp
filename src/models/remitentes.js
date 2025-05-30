@@ -9,7 +9,7 @@ const remitenteSchema = new mongoose.Schema({
     area:{
         type: String,
         required: true,
-        enum: ["Comercial", "Administración", "OPERACIONES", "RCI"]
+        enum: [ "OPERACIONES", "RCI"]
     }
 
 })
