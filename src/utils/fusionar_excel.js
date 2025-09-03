@@ -64,6 +64,7 @@ async function fusionarExcel(archivoDatos, archivoBusqueda) {
       "Ciudad",
       "Estado",
       "Estado Cobro",
+      "Codigo Empresa",
     ];
 
     // Filtrar las columnas deseadas
