@@ -45,11 +45,19 @@ const firstNonEmpty = (...arr) => {
 // fecha desde {date, hour, timezone}
 const dateTimeFromKizeo = (v) => {
   if (!v || typeof v !== "object") return null;
-  const date = v.date, hour = v.hour || "00:00:00", tz = v.timezone;
-  const base = `${date} ${hour}`;
-  const d = tz
-    ? dayjs.tz(`${base} ${tz}`, "YYYY-MM-DD HH:mm:ss Z", TZ)
-    : dayjs.tz(base, "YYYY-MM-DD HH:mm:ss", TZ);
+  const date = v.date;
+  const hour = v.hour || "00:00:00";
+  const tz = v.timezone; // ej: "-05:00"
+
+  let d;
+  if (tz) {
+    // Si Kizeo trae offset, construimos ISO y NO pasamos TZ para evitar doble aplicación
+    const iso = `${date}T${hour}${tz}`; // "YYYY-MM-DDTHH:mm:ss-05:00"
+    d = dayjs(iso);
+  } else {
+    // Sin offset: interpretamos en la zona del servidor (Bogotá por defecto)
+    d = dayjs.tz(`${date} ${hour}`, "YYYY-MM-DD HH:mm:ss", TZ);
+  }
   return d.isValid() ? d.toDate() : null;
 };
 
@@ -138,16 +146,22 @@ export async function guardarVisitaDesdeWebhook(payload) {
   // Tipo llamada
   const TipoLlamada = "M";
 
-  // Duracion llamada = form_update_time - fecha_y_hora_de_la_visita (segundos)
-  const formUpdate = parseDateLoose(payload?.form_update_time || flat?.form_update_time || flat?._update_time);
-  // Calculamos duración en MINUTOS
-  let DuracionLlamada = null;
+  // --- FIN de la gestión: prioriza update_answer_time sobre otros timestamps ---
+  const finRaw =
+    payload?.update_answer_time ||
+    flat?.update_answer_time ||
+    payload?.form_update_time ||
+    flat?.form_update_time ||
+    flat?._update_time ||
+    payload?._update_time;
 
+  const formUpdate = parseDateLoose(finRaw);
+
+  // Calculamos duración en MINUTOS (usando round; si prefieres 1 min mínimo cuando hay segundos, cambia a Math.ceil)
+  let DuracionLlamada = null;
   if (formUpdate && FechaDeGestion) {
-    const minutos = Math.max(
-      0,
-      Math.round((formUpdate.getTime() - FechaDeGestion.getTime()) / 60000)
-    );
+    const deltaMs = formUpdate.getTime() - FechaDeGestion.getTime();
+    const minutos = Math.max(0, Math.round(deltaMs / 60000));
     DuracionLlamada = `${minutos} minutos`;
   }
 
@@ -187,7 +201,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
     Cuenta, TipoDeGestion, Resultado1, FechaDeGestion,
     Observacion, Resultado2, telefono, empresa
   });
-  
+
   // Inserta SIEMPRE (no upsert)
   const r = await KizeoVisita.create(doc);
   return { ok: true, mode: "insert", id: r._id.toString() };
