@@ -48,4 +48,21 @@ router.post(
   enviarReporteHistoricoController
 );
 
+import { kizeoVisitasWebhookController } from "../controllers/kizeoVisitasController.js";
+
+// Webhook dedicado a VISITAS (no colisiona con tu /webhook existente)
+router.post("/webhook/visitas", kizeoVisitasWebhookController);
+
+import {
+  generarExcelVisitasAyerController,
+  generarExcelVisitasPorFechaController,
+} from "../controllers/visitasReportController.js";
+
+// Genera Excel con los registros de AYER
+router.post("/reportes/visitas/ayer", generarExcelVisitasAyerController);
+
+// (opcional) Genera Excel por fecha específica
+router.post("/reportes/visitas", generarExcelVisitasPorFechaController); // ?date=YYYY-MM-DD
+
+
 export default router;
