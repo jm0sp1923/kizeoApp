@@ -183,6 +183,11 @@ export async function guardarVisitaDesdeWebhook(payload) {
     raw: payload, // auditoría
   };
 
+  console.log("Visita recibida:", {
+    Cuenta, TipoDeGestion, Resultado1, FechaDeGestion,
+    Observacion, Resultado2, telefono, empresa
+  });
+  
   // Inserta SIEMPRE (no upsert)
   const r = await KizeoVisita.create(doc);
   return { ok: true, mode: "insert", id: r._id.toString() };
