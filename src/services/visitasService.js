@@ -114,8 +114,8 @@ export async function guardarVisitaDesdeWebhook(payload) {
     flat.observacion
   );
 
-  // fecha de proxima gestion  (según tu instrucción: igual a observación)
-  const FechaProximaGestion = Observacion || "";
+  // fecha de proxima gestion (vacío)
+  const FechaProximaGestion = "";
 
   // proxima gestion (vacío)
   const ProximaGestion = "";
