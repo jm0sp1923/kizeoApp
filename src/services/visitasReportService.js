@@ -13,6 +13,7 @@ const TZ = process.env.TZ || "America/Bogota";
 
 import KizeoVisita from "../models/kizeoVisita.js";
 
+// 👇 CAMBIO: el segundo encabezado ahora es "Resultado 2"
 const HEADERS = [
   "Cuenta",
   "Tipo de gestion",
@@ -21,7 +22,7 @@ const HEADERS = [
   "Observacion",
   "fecha de proxima gestion",
   "proxima gestion",
-  "Resultado",               // 2do Resultado (duplicada en Excel)
+  "Resultado 2",             // 2do Resultado (antes decía "Resultado")
   "Tipo llamada",
   "Duracion llamada",
   "telefono",
@@ -32,6 +33,7 @@ function ensureDir(p) {
   if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true });
 }
 
+// Rango del día en la zona de Bogotá (convierte a Date en UTC)
 function rangeForDate(yyyy_mm_dd) {
   const base = dayjs.tz(yyyy_mm_dd, TZ);
   if (!base.isValid()) throw new Error("fecha inválida (YYYY-MM-DD)");
@@ -40,12 +42,25 @@ function rangeForDate(yyyy_mm_dd) {
 
 async function fetchByDate(yyyy_mm_dd) {
   const { start, end } = rangeForDate(yyyy_mm_dd);
-  // Filtramos por el campo Date real que guardamos: "Fecha de gestion"
   return await KizeoVisita
     .find({ "Fecha de gestion": { $gte: start, $lte: end } })
     .sort({ "Fecha de gestion": 1 })
     .lean();
 }
+
+// 👇 CAMBIO: formateador en hora de Bogotá para el reporte (no UTC)
+const fmtBogotaCorto = (d) => {
+  if (!d) return "";
+  return new Intl.DateTimeFormat("es-CO", {
+    timeZone: TZ,
+    year: "2-digit",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(new Date(d));
+};
 
 export async function generarExcelVisitasPorFecha(yyyy_mm_dd) {
   const { base } = rangeForDate(yyyy_mm_dd);
@@ -54,21 +69,21 @@ export async function generarExcelVisitasPorFecha(yyyy_mm_dd) {
   const wb = new ExcelJS.Workbook();
   const ws = wb.addWorksheet("Visitas");
 
-  // Encabezados EXACTOS (incluye 2 columnas “Resultado”)
+  // Encabezados EXACTOS
   ws.addRow(HEADERS);
 
   for (const r of rows) {
     ws.addRow([
       r["Cuenta"] ?? "",
       r["Tipo de gestion"] ?? "",
-      r["Resultado"] ?? "",                                 // 1er Resultado
-      r["Fecha de gestion"] ? dayjs(r["Fecha de gestion"]).format("YYYY-MM-DD HH:mm") : "",
+      r["Resultado"] ?? "",                               // 1er Resultado
+      fmtBogotaCorto(r["Fecha de gestion"]),              // 👈 CAMBIO: fecha en zona Bogotá
       r["Observacion"] ?? "",
       r["fecha de proxima gestion"] ?? "",
       r["proxima gestion"] ?? "",
-      r["Resultado 2"] ?? "",                               // 2do Resultado
+      r["Resultado 2"] ?? "",                             // 2do Resultado
       r["Tipo llamada"] ?? "",
-      r["Duracion llamada"] ?? "",                          // ya viene “X minutos”
+      r["Duracion llamada"] ?? "",                        // ya viene “X minutos”
       r["telefono"] ?? "",
       r["empresa"] ?? "",
     ]);

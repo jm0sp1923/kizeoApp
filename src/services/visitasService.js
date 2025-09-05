@@ -26,12 +26,6 @@ const codeOf = (fields, name) => {
   if (v && typeof v === "object" && v.code != null) return String(v.code).trim();
   return undefined;
 };
-const columnOf = (fields, name, i = 1) => {
-  const v = valueOf(fields, name);
-  const cols = v?.columns;
-  if (Array.isArray(cols) && cols[i] != null) return String(cols[i]);
-  return undefined;
-};
 const phoneOf = (fields, name) => {
   const v = valueOf(fields, name);
   if (v == null) return undefined;
@@ -64,7 +58,13 @@ const dateTimeFromKizeo = (v) => {
 // parse suelto por si llega en plano
 const parseDateLoose = (s) => {
   if (!s) return null;
-  const fmts = ["YYYY-MM-DD HH:mm", "YYYY-MM-DD HH:mm:ss", "YYYY-MM-DDTHH:mm:ssZ", "YYYY-MM-DD", "YYYY/MM/DD HH:mm:ss"];
+  const fmts = [
+    "YYYY-MM-DD HH:mm",
+    "YYYY-MM-DD HH:mm:ss",
+    "YYYY-MM-DDTHH:mm:ssZ",
+    "YYYY-MM-DD",
+    "YYYY/MM/DD HH:mm:ss"
+  ];
   for (const f of fmts) {
     const d = dayjs.tz(String(s).trim(), f, TZ);
     if (d.isValid()) return d.toDate();
@@ -82,14 +82,13 @@ export async function guardarVisitaDesdeWebhook(payload) {
 
   // Cuenta
   const Cuenta = firstNonEmpty(
-    codeOf(fields, "cuenta"),                // "1044"
+    codeOf(fields, "cuenta"),
     flat.cuenta
   );
 
-  // Tipo de gestion
+  // Tipo de gestion (preferimos el CODE del select; si no, el texto del campo código)
   const TipoDeGestion = firstNonEmpty(
     textOf(fields, "codigo_lugar_visita"),   // "0042 " (texto visible)
-    codeOf(fields, "lugar_de_la_visita"),    // code "0042 "
     flat.codigo_lugar_visita
   );
 
@@ -105,7 +104,10 @@ export async function guardarVisitaDesdeWebhook(payload) {
 
   // Fecha de gestion
   const vFecha = valueOf(fields, "fecha_y_hora_de_la_visita"); // {date, hour, timezone}
-  const FechaDeGestion = dateTimeFromKizeo(vFecha) || parseDateLoose(flat.fecha_y_hora_de_la_visita) || null;
+  const FechaDeGestion =
+    dateTimeFromKizeo(vFecha) ||
+    parseDateLoose(flat.fecha_y_hora_de_la_visita) ||
+    null;
 
   // Observacion
   const Observacion = firstNonEmpty(
@@ -114,7 +116,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
     flat.observacion
   );
 
-  // fecha de proxima gestion (vacío)
+  // fecha de proxima gestion (vacío por especificación actual)
   const FechaProximaGestion = "";
 
   // proxima gestion (vacío)
@@ -124,14 +126,14 @@ export async function guardarVisitaDesdeWebhook(payload) {
   const Resultado2 = firstNonEmpty(
     textOf(fields, "codigo_resultado_visita_inmub"),
     textOf(fields, "codigo_resultado_visita_inmue"),
-    textOf(fields, "codigo_resultado_visita_al_in1"),
-    textOf(fields, "codigo_resultado_visita_al_in3"),
+    textOf(fields, "codigo_resultado_visita_al_in1"),   // ej. "001"
+    textOf(fields, "codigo_resultado_visita_al_in3"),   // ej. "0001"
     textOf(fields, "resultado_de_la_gestion1"),
     textOf(fields, "codigo_resultado_visita_traba1"),
     textOf(fields, "codigo_resultado_visita_traba2"),
     textOf(fields, "resultado_de_la_gestion_conta2"),
     textOf(fields, "resultado_de_la_gestion_conta"),
-    // fallback plano si viniera
+    // fallbacks planos
     flat.codigo_resultado_visita_inmub,
     flat.codigo_resultado_visita_inmue,
     flat.codigo_resultado_visita_al_in1,
@@ -157,8 +159,8 @@ export async function guardarVisitaDesdeWebhook(payload) {
 
   const formUpdate = parseDateLoose(finRaw);
 
-  // Calculamos duración en MINUTOS (usando round; si prefieres 1 min mínimo cuando hay segundos, cambia a Math.ceil)
-  let DuracionLlamada = null;
+  // Duración en MINUTOS
+  let DuracionLlamada = "0 minutos";
   if (formUpdate && FechaDeGestion) {
     const deltaMs = formUpdate.getTime() - FechaDeGestion.getTime();
     const minutos = Math.max(0, Math.round(deltaMs / 60000));
@@ -174,20 +176,18 @@ export async function guardarVisitaDesdeWebhook(payload) {
   // empresa
   let empresa = textOf(fields, "empresa");
   if (empresa == null && typeof flat.empresa === "string") {
-    empresa = flat.empresa; // fallback solo si viene plano (no v4)
+    empresa = flat.empresa;
   }
-  // normalizamos: si es string vacío o espacios, lo guardamos vacío
   empresa = (typeof empresa === "string" && empresa.trim() !== "") ? empresa.trim() : "";
 
-
-  // Construimos documento con SOLO las columnas pedidas
+  // Documento final (solo columnas requeridas)
   const doc = {
     Cuenta,
     "Tipo de gestion": TipoDeGestion || "",
     "Resultado": Resultado1 || "",
     "Fecha de gestion": FechaDeGestion || null,
     "Observacion": Observacion || "",
-    "fecha de proxima gestion": FechaProximaGestion || "",
+    "fecha de proxima gestion": FechaProximaGestion,
     "proxima gestion": ProximaGestion,
     "Resultado 2": Resultado2 || "",
     "Tipo llamada": TipoLlamada,
