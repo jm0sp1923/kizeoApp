@@ -36,6 +36,26 @@ const firstNonEmpty = (...arr) => {
   return undefined;
 };
 
+const codeOrText = (fields, name) => {
+  const v = valueOf(fields, name);
+  if (v == null) return undefined;
+  if (typeof v === "string") {
+    const t = v.trim();
+    return t !== "" ? t : undefined;
+  }
+  if (typeof v === "object") {
+    if (v.code != null) {
+      const t = String(v.code).trim();
+      return t !== "" ? t : undefined;
+    }
+    if (v.text != null) {
+      const t = String(v.text).trim();
+      return t !== "" ? t : undefined;
+    }
+  }
+  return undefined;
+};
+
 // fecha desde {date, hour, timezone}
 const dateTimeFromKizeo = (v) => {
   if (!v || typeof v !== "object") return null;
@@ -74,11 +94,8 @@ const parseDateLoose = (s) => {
 };
 
 export async function guardarVisitaDesdeWebhook(payload) {
-  // El JSON real nos llega en data.fields (o en fields a nivel raíz)
   const fields = payload?.data?.fields || payload?.fields || {};
   const flat   = payload?.data || payload || {};
-
-  // === Campos requeridos por tu plantilla ===
 
   // Cuenta
   const Cuenta = firstNonEmpty(
@@ -86,13 +103,13 @@ export async function guardarVisitaDesdeWebhook(payload) {
     flat.cuenta
   );
 
-  // Tipo de gestion (preferimos el CODE del select; si no, el texto del campo código)
+  // Tipo de gestion -> SOLO el código que envían en ##codigo_lugar_visita##
   const TipoDeGestion = firstNonEmpty(
-    textOf(fields, "codigo_lugar_visita"),   // "0042 " (texto visible)
+    textOf(fields, "codigo_lugar_visita"), // "0042 " (queda trim con firstNonEmpty)
     flat.codigo_lugar_visita
   );
 
-  // Resultado (grupo 1)
+  // Resultado (1)
   const Resultado1 = firstNonEmpty(
     textOf(fields, "codigo_resultado_visita_al_in"),
     textOf(fields, "codigo_resultado_visita_al_lu"),
@@ -102,12 +119,25 @@ export async function guardarVisitaDesdeWebhook(payload) {
     flat.resultado_de_la_gestion_visit
   );
 
-  // Fecha de gestion
-  const vFecha = valueOf(fields, "fecha_y_hora_de_la_visita"); // {date, hour, timezone}
-  const FechaDeGestion =
-    dateTimeFromKizeo(vFecha) ||
+  // ===== FECHAS =====
+  // 1) Fecha de la VISITA (formulario)
+  const vFechaVisita = valueOf(fields, "fecha_y_hora_de_la_visita"); // {date,hour,timezone}
+  const FechaVisita =
+    dateTimeFromKizeo(vFechaVisita) ||
     parseDateLoose(flat.fecha_y_hora_de_la_visita) ||
     null;
+
+  //  2) Fecha de registro real (cuando finaliza la visita)
+  const registroRaw =
+    payload?.data?.update_answer_time ||
+    payload?.update_answer_time ||
+    flat?.update_answer_time ||
+    payload?.data?.answer_time ||
+    payload?.answer_time ||
+    flat?.answer_time ||
+    null;
+
+  const FechaRegistro = parseDateLoose(registroRaw) || new Date();
 
   // Observacion
   const Observacion = firstNonEmpty(
@@ -116,53 +146,53 @@ export async function guardarVisitaDesdeWebhook(payload) {
     flat.observacion
   );
 
-  // fecha de proxima gestion (vacío por especificación actual)
-  const FechaProximaGestion = "";
+  const FechaProximaGestion = ""; // vacío
+  const ProximaGestion = "";      // vacío
 
-  // proxima gestion (vacío)
-  const ProximaGestion = "";
+  // Resultado (2) — concatenar múltiples códigos en un solo string: "001 0001 ..."
+  const res2PartsRaw = [
+    // desde fields (prioritario)
+    codeOrText(fields, "codigo_resultado_visita_inmub"),
+    codeOrText(fields, "codigo_resultado_visita_inmue"),
+    codeOrText(fields, "codigo_resultado_visita_al_in1"),
+    codeOrText(fields, "codigo_resultado_visita_al_in3"),
+    codeOrText(fields, "resultado_de_la_gestion1"),
+    codeOrText(fields, "codigo_resultado_visita_traba1"),
+    codeOrText(fields, "codigo_resultado_visita_traba2"),
+    codeOrText(fields, "resultado_de_la_gestion_conta2"),
+    codeOrText(fields, "resultado_de_la_gestion_conta"),
 
-  // Resultado (grupo 2)
-  const Resultado2 = firstNonEmpty(
-    textOf(fields, "codigo_resultado_visita_inmub"),
-    textOf(fields, "codigo_resultado_visita_inmue"),
-    textOf(fields, "codigo_resultado_visita_al_in1"),   // ej. "001"
-    textOf(fields, "codigo_resultado_visita_al_in3"),   // ej. "0001"
-    textOf(fields, "resultado_de_la_gestion1"),
-    textOf(fields, "codigo_resultado_visita_traba1"),
-    textOf(fields, "codigo_resultado_visita_traba2"),
-    textOf(fields, "resultado_de_la_gestion_conta2"),
-    textOf(fields, "resultado_de_la_gestion_conta"),
-    // fallbacks planos
-    flat.codigo_resultado_visita_inmub,
-    flat.codigo_resultado_visita_inmue,
-    flat.codigo_resultado_visita_al_in1,
-    flat.codigo_resultado_visita_al_in3,
-    flat.resultado_de_la_gestion1,
-    flat.codigo_resultado_visita_traba1,
-    flat.codigo_resultado_visita_traba2,
-    flat.resultado_de_la_gestion_conta2,
-    flat.resultado_de_la_gestion_conta
-  );
+    // fallbacks planos por si vinieran al ras
+    flat?.codigo_resultado_visita_inmub,
+    flat?.codigo_resultado_visita_inmue,
+    flat?.codigo_resultado_visita_al_in1,
+    flat?.codigo_resultado_visita_al_in3,
+    flat?.resultado_de_la_gestion1,
+    flat?.codigo_resultado_visita_traba1,
+    flat?.codigo_resultado_visita_traba2,
+    flat?.resultado_de_la_gestion_conta2,
+    flat?.resultado_de_la_gestion_conta,
+  ];
+
+  // normaliza: quita vacíos y duplicaods, preservando orden
+  const res2Clean = [];
+  const seen = new Set();
+  for (const x of res2PartsRaw) {
+    const t = (x ?? "").toString().trim();
+    if (!t) continue;
+    if (seen.has(t)) continue;
+    seen.add(t);
+    res2Clean.push(t);
+  }
+  const Resultado2 = res2Clean.join(" ");
 
   // Tipo llamada
   const TipoLlamada = "M";
 
-  // --- FIN de la gestión: prioriza update_answer_time sobre otros timestamps ---
-  const finRaw =
-    payload?.update_answer_time ||
-    flat?.update_answer_time ||
-    payload?.form_update_time ||
-    flat?.form_update_time ||
-    flat?._update_time ||
-    payload?._update_time;
-
-  const formUpdate = parseDateLoose(finRaw);
-
-  // Duración en MINUTOS
+  // Duración (minutos) = FechaRegistro - FechaVisita
   let DuracionLlamada = "0 minutos";
-  if (formUpdate && FechaDeGestion) {
-    const deltaMs = formUpdate.getTime() - FechaDeGestion.getTime();
+  if (FechaRegistro && FechaVisita) {
+    const deltaMs = FechaRegistro.getTime() - FechaVisita.getTime();
     const minutos = Math.max(0, Math.round(deltaMs / 60000));
     DuracionLlamada = `${minutos} minutos`;
   }
@@ -175,17 +205,15 @@ export async function guardarVisitaDesdeWebhook(payload) {
 
   // empresa
   let empresa = textOf(fields, "empresa");
-  if (empresa == null && typeof flat.empresa === "string") {
-    empresa = flat.empresa;
-  }
+  if (empresa == null && typeof flat.empresa === "string") empresa = flat.empresa;
   empresa = (typeof empresa === "string" && empresa.trim() !== "") ? empresa.trim() : "";
 
-  // Documento final (solo columnas requeridas)
+  // Documento final
   const doc = {
     Cuenta,
     "Tipo de gestion": TipoDeGestion || "",
     "Resultado": Resultado1 || "",
-    "Fecha de gestion": FechaDeGestion || null,
+    "Fecha de gestion": FechaRegistro || null,
     "Observacion": Observacion || "",
     "fecha de proxima gestion": FechaProximaGestion,
     "proxima gestion": ProximaGestion,
@@ -194,15 +222,15 @@ export async function guardarVisitaDesdeWebhook(payload) {
     "Duracion llamada": DuracionLlamada,
     "telefono": telefono || "",
     "empresa": empresa || "",
-    raw: payload, // auditoría
+    raw: payload,
   };
 
   console.log("Visita recibida:", {
-    Cuenta, TipoDeGestion, Resultado1, FechaDeGestion,
+    Cuenta, TipoDeGestion, Resultado1,
+    FechaVisita, FechaRegistro,
     Observacion, Resultado2, telefono, empresa
   });
 
-  // Inserta SIEMPRE (no upsert)
   const r = await KizeoVisita.create(doc);
   return { ok: true, mode: "insert", id: r._id.toString() };
 }
