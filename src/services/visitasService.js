@@ -170,19 +170,20 @@ const Resultado2 =
   // Tipo llamada
   const TipoLlamada = "M";
 
-  // Duración (minutos) = FechaRegistro - FechaVisita
-  let DuracionLlamada = "00:00";
+  // Duración = FechaRegistro - FechaVisita en HH:mm:ss
+  let DuracionLlamada = "00:00:00";
   if (FechaRegistro && FechaVisita) {
     const deltaMs = FechaRegistro.getTime() - FechaVisita.getTime();
-    const totalMinutos = Math.max(0, Math.round(deltaMs / 60000));
-    const horas = Math.floor(totalMinutos / 60);
-    const minutos = totalMinutos % 60;
+    const totalSec = Math.max(0, Math.round(deltaMs / 1000));
+    const horas    = Math.floor(totalSec / 3600);
+    const minutos  = Math.floor((totalSec % 3600) / 60);
+    const segundos = totalSec % 60;
 
-    // Formatea en HH:mm siempre con dos dígitos
     const hh = String(horas).padStart(2, "0");
     const mm = String(minutos).padStart(2, "0");
+    const ss = String(segundos).padStart(2, "0");
 
-    DuracionLlamada = `${hh}:${mm}`;
+    DuracionLlamada = `${hh}:${mm}:${ss}`;
   }
 
   // telefono
