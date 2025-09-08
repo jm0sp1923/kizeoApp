@@ -186,16 +186,16 @@ const Resultado2 =
     DuracionLlamada = `${hh}:${mm}:${ss}`;
   }
 
-  // telefono
-  const telefono = firstNonEmpty(
+  // Telefono
+  const Telefono = firstNonEmpty(
     phoneOf(fields, "celular_del_inquilino"),
-    flat.celular_del_inquilino, flat.telefono, flat.phone
+    flat.celular_del_inquilino, flat.Telefono, flat.phone
   );
 
-  // empresa
-  let empresa = textOf(fields, "empresa");
-  if (empresa == null && typeof flat.empresa === "string") empresa = flat.empresa;
-  empresa = (typeof empresa === "string" && empresa.trim() !== "") ? empresa.trim() : "";
+  // Empresa
+  let Empresa = textOf(fields, "Empresa");
+  if (Empresa == null && typeof flat.Empresa === "string") Empresa = flat.Empresa;
+  Empresa = (typeof Empresa === "string" && Empresa.trim() !== "") ? Empresa.trim() : "";
 
   // Documento final
   const doc = {
@@ -205,19 +205,19 @@ const Resultado2 =
     "Fecha de gestion": FechaRegistro || null,
     "Observacion": Observacion || "",
     "Fecha de proxima gestion": FechaProximaGestion,
-    "proxima gestion": ProximaGestion,
+    "Proxima gestion": ProximaGestion,
     "Resultado 2": Resultado2 || "",
     "Tipo llamada": TipoLlamada,
     "Duracion llamada": DuracionLlamada,
-    "Telefono": telefono || "",
-    "Empresa": empresa || "",
+    "Telefono": Telefono || "",
+    "Empresa": Empresa || "",
     raw: payload,
   };
 
   console.log("Visita recibida:", {
     Cuenta, TipoDeGestion, Resultado1,
     FechaVisita, FechaRegistro,
-    Observacion, Resultado2, telefono, empresa
+    Observacion, Resultado2, Telefono, Empresa
   });
 
   const r = await KizeoVisita.create(doc);

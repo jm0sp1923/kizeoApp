@@ -20,7 +20,7 @@ const HEADERS = [
   "Fecha de gestion",
   "Observacion",
   "Fecha de proxima gestion",
-  "proxima gestion",
+  "Proxima gestion",
   "Resultado 2",
   "Tipo llamada",
   "Duracion llamada",
