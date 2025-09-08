@@ -97,6 +97,18 @@ export async function guardarVisitaDesdeWebhook(payload) {
   const fields = payload?.data?.fields || payload?.fields || {};
   const flat   = payload?.data || payload || {};
 
+  // ✅ SOLO procesar Visita Ocular
+  const tipoDiligencia =
+    (codeOf(fields, "tipo_de_diligencia") ||
+     textOf(fields, "tipo_de_diligencia") ||
+     flat?.tipo_de_diligencia ||
+     "").trim();
+
+  if (tipoDiligencia.toLowerCase() !== "visita ocular") {
+    console.log("Webhook ignorado: tipo_de_diligencia =", tipoDiligencia);
+    return { ok: true, skipped: true, reason: "tipo_de_diligencia != 'Visita Ocular'" };
+  }
+  
   // Cuenta
   const Cuenta = firstNonEmpty(
     codeOf(fields, "cuenta"),
@@ -149,52 +161,28 @@ export async function guardarVisitaDesdeWebhook(payload) {
   const FechaProximaGestion = ""; // vacío
   const ProximaGestion = "";      // vacío
 
-  // Resultado (2) — concatenar múltiples códigos en un solo string: "001 0001 ..."
-  const res2PartsRaw = [
-    // desde fields (prioritario)
-    codeOrText(fields, "codigo_resultado_visita_inmub"),
-    codeOrText(fields, "codigo_resultado_visita_inmue"),
-    codeOrText(fields, "codigo_resultado_visita_al_in1"),
-    codeOrText(fields, "codigo_resultado_visita_al_in3"),
-    codeOrText(fields, "resultado_de_la_gestion1"),
-    codeOrText(fields, "codigo_resultado_visita_traba1"),
-    codeOrText(fields, "codigo_resultado_visita_traba2"),
-    codeOrText(fields, "resultado_de_la_gestion_conta2"),
-    codeOrText(fields, "resultado_de_la_gestion_conta"),
-
-    // fallbacks planos por si vinieran al ras
-    flat?.codigo_resultado_visita_inmub,
-    flat?.codigo_resultado_visita_inmue,
-    flat?.codigo_resultado_visita_al_in1,
-    flat?.codigo_resultado_visita_al_in3,
-    flat?.resultado_de_la_gestion1,
-    flat?.codigo_resultado_visita_traba1,
-    flat?.codigo_resultado_visita_traba2,
-    flat?.resultado_de_la_gestion_conta2,
-    flat?.resultado_de_la_gestion_conta,
-  ];
-
-  // normaliza: quita vacíos y duplicaods, preservando orden
-  const res2Clean = [];
-  const seen = new Set();
-  for (const x of res2PartsRaw) {
-    const t = (x ?? "").toString().trim();
-    if (!t) continue;
-    if (seen.has(t)) continue;
-    seen.add(t);
-    res2Clean.push(t);
-  }
-  const Resultado2 = res2Clean.join(" ");
+// Resultado (2) — SOLO tomamos el valor de codigo_resultado_visita_inmub
+const Resultado2 =
+  codeOrText(fields, "codigo_resultado_visita_inmub") ||
+  flat?.codigo_resultado_visita_inmub ||
+  "";
 
   // Tipo llamada
   const TipoLlamada = "M";
 
   // Duración (minutos) = FechaRegistro - FechaVisita
-  let DuracionLlamada = "0 minutos";
+  let DuracionLlamada = "00:00";
   if (FechaRegistro && FechaVisita) {
     const deltaMs = FechaRegistro.getTime() - FechaVisita.getTime();
-    const minutos = Math.max(0, Math.round(deltaMs / 60000));
-    DuracionLlamada = `${minutos} minutos`;
+    const totalMinutos = Math.max(0, Math.round(deltaMs / 60000));
+    const horas = Math.floor(totalMinutos / 60);
+    const minutos = totalMinutos % 60;
+
+    // Formatea en HH:mm siempre con dos dígitos
+    const hh = String(horas).padStart(2, "0");
+    const mm = String(minutos).padStart(2, "0");
+
+    DuracionLlamada = `${hh}:${mm}`;
   }
 
   // telefono

@@ -1,3 +1,5 @@
+// src/controllers/kizeoVisitasController.js
+
 import { guardarVisitaDesdeWebhook } from "../services/visitasService.js";
 
 export async function kizeoVisitasWebhookController(req, res) {
