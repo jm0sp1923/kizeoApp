@@ -19,13 +19,13 @@ const HEADERS = [
   "Resultado",
   "Fecha de gestion",
   "Observacion",
-  "fecha de proxima gestion",
+  "Fecha de proxima gestion",
   "proxima gestion",
   "Resultado 2",
   "Tipo llamada",
   "Duracion llamada",
-  "telefono",
-  "empresa",
+  "Telefono",
+  "Empresa",
 ];
 
 function ensureDir(p) {
@@ -75,13 +75,13 @@ export async function generarExcelVisitasPorFecha(yyyy_mm_dd) {
       r["Resultado"] ?? "",
       fmtBogotaCorto(r["Fecha de gestion"]),
       r["Observacion"] ?? "",
-      r["fecha de proxima gestion"] ?? "",
-      r["proxima gestion"] ?? "",
+      r["Fecha de proxima gestion"] ?? "",
+      r["Proxima gestion"] ?? "",
       r["Resultado 2"] ?? "",
       r["Tipo llamada"] ?? "",
       r["Duracion llamada"] ?? "",
-      r["telefono"] ?? "",
-      r["empresa"] ?? "",
+      r["Telefono"] ?? "",
+      r["Empresa"] ?? "",
     ]);
   }
 

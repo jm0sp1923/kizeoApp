@@ -7,13 +7,13 @@ const VisitaSchema = new mongoose.Schema({
   "Resultado": String,              // primer Resultado (grupo AL_IN / AL_LU / VISIT)
   "Fecha de gestion": Date,
   "Observacion": String,
-  "fecha de proxima gestion": String, // según tu mapeo: misma observación
-  "proxima gestion": String,          // vacío por ahora
+  "Fecha de proxima gestion": String, // según tu mapeo: misma observación
+  "Proxima gestion": String,          // vacío por ahora
   "Resultado 2": String,              // segundo Resultado (grupo INMUB...CONTA)
   "Tipo llamada": { type: String, default: "M" },
   "Duracion llamada": String,         // segundos
-  "telefono": String,
-  "empresa": String,
+  "Telefono": String,
+  "Empresa": String,
 
   // auditoría
   raw: Object,

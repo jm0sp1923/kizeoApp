@@ -204,13 +204,13 @@ const Resultado2 =
     "Resultado": Resultado1 || "",
     "Fecha de gestion": FechaRegistro || null,
     "Observacion": Observacion || "",
-    "fecha de proxima gestion": FechaProximaGestion,
+    "Fecha de proxima gestion": FechaProximaGestion,
     "proxima gestion": ProximaGestion,
     "Resultado 2": Resultado2 || "",
     "Tipo llamada": TipoLlamada,
     "Duracion llamada": DuracionLlamada,
-    "telefono": telefono || "",
-    "empresa": empresa || "",
+    "Telefono": telefono || "",
+    "Empresa": empresa || "",
     raw: payload,
   };
 
