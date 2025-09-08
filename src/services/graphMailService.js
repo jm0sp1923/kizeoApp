@@ -80,7 +80,7 @@ export async function graphSendMail(opts) {
   }
 
   const message = {
-    subject: opts.subject || "Reporte Visitas",
+    subject: opts.subject || "Reporte Visitas Oculares",
     body: {
       contentType: opts.html ? "HTML" : "Text",
       content: opts.html || opts.text || "Adjunto reporte de visitas.",

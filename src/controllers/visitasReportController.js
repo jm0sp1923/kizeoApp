@@ -53,7 +53,7 @@ export async function enviarExcelVisitasAyerController(req, res) {
     const total = await countVisitasByDate(dateSlug);
 
     const { pretty } = normalizeDate(dateSlug);
-    const subject = req.body?.subject || `Reporte Visitas – ${pretty}`;
+    const subject = req.body?.subject || `Reporte Visitas Oculares – ${pretty}`;
     const html = visitasEmailHTML({
       prettyDate: pretty,
       total,
@@ -79,7 +79,7 @@ export async function enviarExcelVisitasPorFechaController(req, res) {
     const total = await countVisitasByDate(date);
 
     const { pretty } = normalizeDate(date);
-    const subject = req.body?.subject || `Reporte Visitas – ${pretty}`;
+    const subject = req.body?.subject || `Reporte Visitas Oculares – ${pretty}`;
     const html = visitasEmailHTML({
       prettyDate: pretty,
       total,
