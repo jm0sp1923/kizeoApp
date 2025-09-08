@@ -20,7 +20,7 @@ const HEADERS = [
   "Fecha de gestion",
   "Observacion",
   "Fecha de proxima gestion",
-  "Proxima gestion",
+  "proxima gestion",
   "Resultado 2",
   "Tipo llamada",
   "Duracion llamada",
@@ -46,17 +46,14 @@ async function fetchByDate(yyyy_mm_dd) {
     .lean();
 }
 
-const fmtBogotaCorto = (d) => {
+// Fecha en Bogotá para Excel: DD/MM/AAAA
+const fmtBogotaSoloFecha = (d) => {
   if (!d) return "";
-  return new Intl.DateTimeFormat("es-CO", {
-    timeZone: TZ,
-    year: "2-digit",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  }).format(new Date(d));
+  const nd = new Date(d);
+  const dd = String(nd.toLocaleString("es-CO", { timeZone: TZ, day: "2-digit" }));
+  const mm = String(nd.toLocaleString("es-CO", { timeZone: TZ, month: "2-digit" }));
+  const yyyy = nd.toLocaleString("es-CO", { timeZone: TZ, year: "numeric" });
+  return `${dd}/${mm}/${yyyy}`; // <- Si prefieres con ":" cambia por `${dd}:${mm}:${yyyy}`
 };
 
 export async function generarExcelVisitasPorFecha(yyyy_mm_dd) {
@@ -73,7 +70,7 @@ export async function generarExcelVisitasPorFecha(yyyy_mm_dd) {
       r["Cuenta"] ?? "",
       r["Tipo de gestion"] ?? "",
       r["Resultado"] ?? "",
-      fmtBogotaCorto(r["Fecha de gestion"]),
+      fmtBogotaSoloFecha(r["Fecha de gestion"]),
       r["Observacion"] ?? "",
       r["Fecha de proxima gestion"] ?? "",
       r["Proxima gestion"] ?? "",

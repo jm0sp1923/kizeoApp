@@ -205,7 +205,7 @@ const Resultado2 =
     "Fecha de gestion": FechaRegistro || null,
     "Observacion": Observacion || "",
     "Fecha de proxima gestion": FechaProximaGestion,
-    "Proxima gestion": ProximaGestion,
+    "proxima gestion": ProximaGestion,
     "Resultado 2": Resultado2 || "",
     "Tipo llamada": TipoLlamada,
     "Duracion llamada": DuracionLlamada,
