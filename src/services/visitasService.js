@@ -65,11 +65,9 @@ const dateTimeFromKizeo = (v) => {
 
   let d;
   if (tz) {
-    // Si Kizeo trae offset, construimos ISO y NO pasamos TZ para evitar doble aplicación
     const iso = `${date}T${hour}${tz}`; // "YYYY-MM-DDTHH:mm:ss-05:00"
     d = dayjs(iso);
   } else {
-    // Sin offset: interpretamos en la zona del servidor (Bogotá por defecto)
     d = dayjs.tz(`${date} ${hour}`, "YYYY-MM-DD HH:mm:ss", TZ);
   }
   return d.isValid() ? d.toDate() : null;
@@ -108,16 +106,13 @@ export async function guardarVisitaDesdeWebhook(payload) {
     console.log("Webhook ignorado: tipo_de_diligencia =", tipoDiligencia);
     return { ok: true, skipped: true, reason: "tipo_de_diligencia != 'Visita Ocular'" };
   }
-  
+
   // Cuenta
-  const Cuenta = firstNonEmpty(
-    codeOf(fields, "cuenta"),
-    flat.cuenta
-  );
+  const Cuenta = firstNonEmpty(codeOf(fields, "cuenta"), flat.cuenta);
 
   // Tipo de gestion -> SOLO el código que envían en ##codigo_lugar_visita##
   const TipoDeGestion = firstNonEmpty(
-    textOf(fields, "codigo_lugar_visita"), // "0042 " (queda trim con firstNonEmpty)
+    textOf(fields, "codigo_lugar_visita"),
     flat.codigo_lugar_visita
   );
 
@@ -139,7 +134,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
     parseDateLoose(flat.fecha_y_hora_de_la_visita) ||
     null;
 
-  //  2) Fecha de registro real (cuando finaliza la visita)
+  // 2) Fecha de registro real (cuando finaliza la visita)
   const registroRaw =
     payload?.data?.update_answer_time ||
     payload?.update_answer_time ||
@@ -158,14 +153,33 @@ export async function guardarVisitaDesdeWebhook(payload) {
     flat.observacion
   );
 
-  const FechaProximaGestion = ""; // vacío
-  const ProximaGestion = "";      // vacío
+  const FechaProximaGestion = "";
+  const ProximaGestion = "";
 
-// Resultado (2) — SOLO tomamos el valor de codigo_resultado_visita_inmub
-const Resultado2 =
-  codeOrText(fields, "codigo_resultado_visita_inmub") ||
-  flat?.codigo_resultado_visita_inmub ||
-  "";
+  // ✅ Resultado (2) — SOLO un código: el PRIMERO no vacío de la lista (sin concatenar)
+  const Resultado2 = firstNonEmpty(
+    // Prioridad: campos dentro de fields
+    codeOrText(fields, "codigo_resultado_visita_inmub"),
+    codeOrText(fields, "codigo_resultado_visita_inmue"),
+    codeOrText(fields, "codigo_resultado_visita_al_in1"),
+    codeOrText(fields, "codigo_resultado_visita_al_in3"),
+    codeOrText(fields, "resultado_de_la_gestion1"),
+    codeOrText(fields, "codigo_resultado_visita_traba1"),
+    codeOrText(fields, "codigo_resultado_visita_traba2"),
+    codeOrText(fields, "resultado_de_la_gestion_conta2"),
+    codeOrText(fields, "resultado_de_la_gestion_conta"),
+
+    // Fallbacks “planos”
+    flat?.codigo_resultado_visita_inmub,
+    flat?.codigo_resultado_visita_inmue,
+    flat?.codigo_resultado_visita_al_in1,
+    flat?.codigo_resultado_visita_al_in3,
+    flat?.resultado_de_la_gestion1,
+    flat?.codigo_resultado_visita_traba1,
+    flat?.codigo_resultado_visita_traba2,
+    flat?.resultado_de_la_gestion_conta2,
+    flat?.resultado_de_la_gestion_conta
+  ) || "";
 
   // Tipo llamada
   const TipoLlamada = "M";
@@ -173,7 +187,7 @@ const Resultado2 =
   // Duración = FechaRegistro - FechaVisita en HH:mm:ss
   let DuracionLlamada = "00:00:00";
   if (FechaRegistro && FechaVisita) {
-    const deltaMs = FechaRegistro.getTime() - FechaVisita.getTime();
+    const deltaMs  = FechaRegistro.getTime() - FechaVisita.getTime();
     const totalSec = Math.max(0, Math.round(deltaMs / 1000));
     const horas    = Math.floor(totalSec / 3600);
     const minutos  = Math.floor((totalSec % 3600) / 60);
