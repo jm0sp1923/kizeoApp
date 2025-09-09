@@ -203,11 +203,11 @@ export async function guardarVisitaDesdeWebhook(payload) {
   // Telefono
   const Telefono = firstNonEmpty(
     phoneOf(fields, "celular_del_inquilino"),
-    flat.celular_del_inquilino, flat.Telefono, flat.phone
+    flat.celular_del_inquilino
   );
 
   // Empresa
-  let Empresa = textOf(fields, "Empresa");
+  let Empresa = textOf(fields, "empresa");
   if (Empresa == null && typeof flat.Empresa === "string") Empresa = flat.Empresa;
   Empresa = (typeof Empresa === "string" && Empresa.trim() !== "") ? Empresa.trim() : "";
 
@@ -219,7 +219,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
     "Fecha de gestion": FechaRegistro || null,
     "Observacion": Observacion || "",
     "Fecha de proxima gestion": FechaProximaGestion,
-    "proxima gestion": ProximaGestion,
+    "Proxima gestion": ProximaGestion,
     "Resultado 2": Resultado2 || "",
     "Tipo llamada": TipoLlamada,
     "Duracion llamada": DuracionLlamada,
