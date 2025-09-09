@@ -27,8 +27,8 @@ export function visitasEmailHTML({ prettyDate, total, footerNote }) {
       </div>
 
       <div style="padding:24px">
-        <p style="margin:0 0 12px">Hola,</p>
-        <p style="margin:0 0 16px">Adjuntamos el archivo Excel con las visitas procesadas para la fecha indicada.</p>
+        <p style="margin:0 0 12px">Cordial saludo,</p>
+        <p style="margin:0 0 16px">Adjunto encontrarán el archivo en formato Excel que contiene el detalle de las visitas procesadas correspondientes a la fecha indicada.</p>
 
         <div style="display:inline-block;background:#eef4ff;border:1px solid #d9e6ff;border-radius:10px;padding:14px 16px;margin:12px 0">
           <div style="font-size:13px;color:#3b5bcc;">Resumen</div>
