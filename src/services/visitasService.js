@@ -168,7 +168,6 @@ export async function guardarVisitaDesdeWebhook(payload) {
     codeOrText(fields, "codigo_resultado_visita_traba2"),
     codeOrText(fields, "resultado_de_la_gestion_conta2"),
     codeOrText(fields, "resultado_de_la_gestion_conta"),
-    codeOrText(fields, "resultado_de_la_gestion_visit"),
 
     // Fallbacks “planos”
     flat?.codigo_resultado_visita_inmub,
@@ -179,8 +178,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
     flat?.codigo_resultado_visita_traba1,
     flat?.codigo_resultado_visita_traba2,
     flat?.resultado_de_la_gestion_conta2,
-    flat?.resultado_de_la_gestion_conta,
-    flat?.resultado_de_la_gestion_visit // Resultado De la Gestion - Visitado Al Domicilio
+    flat?.resultado_de_la_gestion_conta
   ) || "";
 
   // Tipo llamada
