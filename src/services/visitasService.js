@@ -116,8 +116,8 @@ export async function guardarVisitaDesdeWebhook(payload) {
     flat.codigo_lugar_visita
   );
 
-  // Resultado (1)
-  const Resultado1 = firstNonEmpty(
+  // Resultado de gestion
+  const Resultado_de_gestion = firstNonEmpty(
     textOf(fields, "codigo_resultado_visita_al_in"),
     textOf(fields, "codigo_resultado_visita_al_lu"),
     textOf(fields, "resultado_de_la_gestion_visit"),
@@ -156,8 +156,8 @@ export async function guardarVisitaDesdeWebhook(payload) {
   const FechaProximaGestion = "";
   const ProximaGestion = "";
 
-  // ✅ Resultado (2) — SOLO un código: el PRIMERO no vacío de la lista (sin concatenar)
-  const Resultado2 = firstNonEmpty(
+  // ✅ Detalle — SOLO un código: el PRIMERO no vacío de la lista (sin concatenar)
+  const Detalle = firstNonEmpty(
     // Prioridad: campos dentro de fields
     codeOrText(fields, "codigo_resultado_visita_inmub"),
     codeOrText(fields, "codigo_resultado_visita_inmue"),
@@ -215,12 +215,12 @@ export async function guardarVisitaDesdeWebhook(payload) {
   const doc = {
     Cuenta,
     "Tipo de gestion": TipoDeGestion || "",
-    "Resultado": Resultado1 || "",
+    "Resultado de gestion": Resultado_de_gestion || "",
     "Fecha de gestion": FechaRegistro || null,
     "Observacion": Observacion || "",
     "Fecha de proxima gestion": FechaProximaGestion,
     "Proxima gestion": ProximaGestion,
-    "Resultado 2": Resultado2 || "",
+    "Detalle": Detalle || "",
     "Tipo llamada": TipoLlamada,
     "Duracion llamada": DuracionLlamada,
     "Telefono": Telefono || "",
@@ -229,9 +229,9 @@ export async function guardarVisitaDesdeWebhook(payload) {
   };
 
   console.log("Visita recibida:", {
-    Cuenta, TipoDeGestion, Resultado1,
+    Cuenta, TipoDeGestion, Resultado_de_gestion,
     FechaVisita, FechaRegistro,
-    Observacion, Resultado2, Telefono, Empresa
+    Observacion, Detalle, Telefono, Empresa
   });
 
   const r = await KizeoVisita.create(doc);

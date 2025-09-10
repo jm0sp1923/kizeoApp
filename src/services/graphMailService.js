@@ -11,6 +11,8 @@ const {
   GRAPH_SCOPE = "https://graph.microsoft.com/.default",
   MAIL_DEFAULT_FROM,
   MAIL_DEFAULT_TO,
+  MAIL_DEFAULT_CC,
+  MAIL_DEFAULT_BCC,
 } = process.env;
 
 // Token app (client credentials)
@@ -40,6 +42,7 @@ async function getGraphToken() {
  * @param {string} [opts.html]
  * @param {string} [opts.filePath] Ruta al adjunto (opcional)
  */
+
 export async function graphSendMail(opts) {
   const token = await getGraphToken();
 
@@ -51,18 +54,15 @@ export async function graphSendMail(opts) {
       ? []
       : Array.isArray(val)
       ? val
-      : String(val)
-          .split(",")
-          .map((x) => x.trim())
-          .filter(Boolean);
+      : String(val).split(",").map((x) => x.trim()).filter(Boolean);
 
-  const toRecipients = normList(opts.to || MAIL_DEFAULT_TO).map((addr) => ({
+  const toRecipients = normList(opts.to ?? MAIL_DEFAULT_TO).map((addr) => ({
     emailAddress: { address: addr },
   }));
-  const ccRecipients = normList(opts.cc).map((addr) => ({
+  const ccRecipients = normList(opts.cc ?? MAIL_DEFAULT_CC).map((addr) => ({
     emailAddress: { address: addr },
   }));
-  const bccRecipients = normList(opts.bcc).map((addr) => ({
+  const bccRecipients = normList(opts.bcc ?? MAIL_DEFAULT_BCC).map((addr) => ({
     emailAddress: { address: addr },
   }));
 
@@ -88,7 +88,6 @@ export async function graphSendMail(opts) {
     toRecipients,
     ccRecipients,
     bccRecipients,
-    // Nota: en /users/{from}/sendMail, "from" se infiere del buzón en la URL
     attachments,
   };
 
