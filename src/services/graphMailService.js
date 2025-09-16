@@ -1,4 +1,3 @@
-// src/services/graphMail.service.js
 import axios from "axios";
 import fs from "fs";
 import path from "path";
@@ -15,7 +14,6 @@ const {
   MAIL_DEFAULT_BCC,
 } = process.env;
 
-// Token app (client credentials)
 async function getGraphToken() {
   const url = `https://login.microsoftonline.com/${TENANT_ID_AD}/oauth2/v2.0/token`;
   const body = new URLSearchParams({
@@ -29,19 +27,6 @@ async function getGraphToken() {
   });
   return data.access_token;
 }
-
-/**
- * Envía correo via Graph con adjunto (<= ~3-4 MB en este método).
- * @param {Object} opts
- * @param {string} opts.from       Emisor (UPN o correo del buzón: user@dominio.com)
- * @param {string|string[]} opts.to Lista de destinatarios (string con comas o array)
- * @param {string} [opts.cc]
- * @param {string} [opts.bcc]
- * @param {string} opts.subject
- * @param {string} [opts.text]
- * @param {string} [opts.html]
- * @param {string} [opts.filePath] Ruta al adjunto (opcional)
- */
 
 export async function graphSendMail(opts) {
   const token = await getGraphToken();
@@ -68,16 +53,17 @@ export async function graphSendMail(opts) {
 
   if (!toRecipients.length) throw new Error("to requerido (MAIL_DEFAULT_TO o body.to)");
 
-  const attachments = [];
-  if (opts.filePath) {
-    const contentBytes = fs.readFileSync(opts.filePath).toString("base64");
-    attachments.push({
-      "@odata.type": "#microsoft.graph.fileAttachment",
-      name: path.basename(opts.filePath),
-      contentType: mime.lookup(opts.filePath) || "application/octet-stream",
-      contentBytes,
-    });
-  }
+  // Soporta uno o varios adjuntos
+  const files = [
+    ...(opts.filePaths ? opts.filePaths : []),
+    ...(opts.filePath ? [opts.filePath] : []),
+  ];
+  const attachments = files.map((fp) => ({
+    "@odata.type": "#microsoft.graph.fileAttachment",
+    name: path.basename(fp),
+    contentType: mime.lookup(fp) || "application/octet-stream",
+    contentBytes: fs.readFileSync(fp).toString("base64"),
+  }));
 
   const message = {
     subject: opts.subject || "Reporte Visitas Oculares",

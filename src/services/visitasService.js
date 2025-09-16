@@ -149,8 +149,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
   // Observacion
   const Observacion = firstNonEmpty(
     textOf(fields, "observacion_de_la_visita1"),
-    flat.observacion_de_la_visita1,
-    flat.observacion
+    flat.observacion_de_la_visita1
   );
 
   const FechaProximaGestion = "";
@@ -163,7 +162,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
     codeOrText(fields, "codigo_resultado_visita_inmue"),
     codeOrText(fields, "codigo_resultado_visita_al_in1"),
     codeOrText(fields, "codigo_resultado_visita_al_in3"),
-    codeOrText(fields, "resultado_de_la_gestion1"),
+    codeOrText(fields, "codigo_resultado_visita_traba"),
     codeOrText(fields, "codigo_resultado_visita_traba1"),
     codeOrText(fields, "codigo_resultado_visita_traba2"),
     codeOrText(fields, "resultado_de_la_gestion_conta2"),
@@ -174,7 +173,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
     flat?.codigo_resultado_visita_inmue,
     flat?.codigo_resultado_visita_al_in1,
     flat?.codigo_resultado_visita_al_in3,
-    flat?.resultado_de_la_gestion1,
+    flat?.codigo_resultado_visita_traba,
     flat?.codigo_resultado_visita_traba1,
     flat?.codigo_resultado_visita_traba2,
     flat?.resultado_de_la_gestion_conta2,

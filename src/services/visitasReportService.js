@@ -1,4 +1,3 @@
-// src/services/visitasReportService.js
 import fs from "fs";
 import path from "path";
 import ExcelJS from "exceljs";
@@ -29,7 +28,7 @@ const HEADERS = [
 ];
 
 function ensureDir(p) {
-  if (!fs.existsSync(p)) fs.mkdirmkdirSync(p, { recursive: true });
+  if (!fs.existsSync(p)) fs.mkdirSync(p, { recursive: true }); // <- corregido
 }
 
 function rangeForDate(yyyy_mm_dd) {
@@ -53,16 +52,11 @@ const fmtBogotaSoloFecha = (d) => {
   const dd = String(nd.toLocaleString("es-CO", { timeZone: TZ, day: "2-digit" }));
   const mm = String(nd.toLocaleString("es-CO", { timeZone: TZ, month: "2-digit" }));
   const yyyy = nd.toLocaleString("es-CO", { timeZone: TZ, year: "numeric" });
-  return `${dd}/${mm}/${yyyy}`; // <- Si prefieres con ":" cambia por `${dd}:${mm}:${yyyy}`
+  return `${dd}/${mm}/${yyyy}`;
 };
 
-export async function generarExcelVisitasPorFecha(yyyy_mm_dd) {
-  const { base } = rangeForDate(yyyy_mm_dd);
-  const rows = await fetchByDate(yyyy_mm_dd);
-
-  const wb = new ExcelJS.Workbook();
-  const ws = wb.addWorksheet("Visitas");
-
+// Helper para llenar una hoja (permite forzar duración fija opcionalmente)
+function fillWorksheet(ws, rows, { fixedDuration = null } = {}) {
   ws.addRow(HEADERS);
 
   for (const r of rows) {
@@ -76,7 +70,7 @@ export async function generarExcelVisitasPorFecha(yyyy_mm_dd) {
       r["Proxima gestion"] ?? "",
       r["Detalle"] ?? "",
       r["Tipo llamada"] ?? "",
-      r["Duracion llamada"] ?? "",
+      fixedDuration ?? (r["Duracion llamada"] ?? ""),
       r["Telefono"] ?? "",
       r["Empresa"] ?? "",
     ]);
@@ -91,12 +85,44 @@ export async function generarExcelVisitasPorFecha(yyyy_mm_dd) {
     });
     c.width = Math.min(w, 50);
   });
+}
+
+export async function generarExcelVisitasPorFecha(yyyy_mm_dd) {
+  const { base } = rangeForDate(yyyy_mm_dd);
+  const rows = await fetchByDate(yyyy_mm_dd);
+
+  const wb = new ExcelJS.Workbook();
+  const ws = wb.addWorksheet("Visitas");
+  fillWorksheet(ws, rows);
 
   const outDir = path.join(process.cwd(), "uploads", "reports");
   ensureDir(outDir);
   const file = path.join(outDir, `visitas_${base.format("YYYY-MM-DD")}.xlsx`);
   await wb.xlsx.writeFile(file);
   return file;
+}
+
+// NUEVO: genera dos excels (normal + “quasar” con duración fija 00:05:00)
+export async function generarExcelsVisitasPorFecha(yyyy_mm_dd) {
+  const { base } = rangeForDate(yyyy_mm_dd);
+  const rows = await fetchByDate(yyyy_mm_dd);
+
+  const outDir = path.join(process.cwd(), "uploads", "reports");
+  ensureDir(outDir);
+
+  // 1) Normal
+  const wb1 = new ExcelJS.Workbook();
+  fillWorksheet(wb1.addWorksheet("Visitas"), rows);
+  const normal = path.join(outDir, `visitas_${base.format("YYYY-MM-DD")}.xlsx`);
+  await wb1.xlsx.writeFile(normal);
+
+  // 2) Quasar (Duración fija)
+  const wb2 = new ExcelJS.Workbook();
+  fillWorksheet(wb2.addWorksheet("Visitas"), rows, { fixedDuration: "00:05:00" });
+  const quasar = path.join(outDir, `visitas_${base.format("YYYY-MM-DD")}_subir_quasar.xlsx`);
+  await wb2.xlsx.writeFile(quasar);
+
+  return { normal, quasar };
 }
 
 export async function generarExcelVisitasAyer() {

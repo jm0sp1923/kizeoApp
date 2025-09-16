@@ -1,7 +1,7 @@
-// src/controllers/visitasReportController.js
 import {
   generarExcelVisitasAyer,
   generarExcelVisitasPorFecha,
+  generarExcelsVisitasPorFecha, // <- NUEVO
 } from "../services/visitasReportService.js";
 import { graphSendMail } from "../services/graphMailService.js";
 import KizeoVisita from "../models/kizeoVisita.js";
@@ -38,6 +38,7 @@ export async function generarExcelVisitasPorFechaController(req, res) {
   try {
     const { date } = req.query;
     if (!date) return res.status(400).json({ ok: false, error: "falta ?date=YYYY-MM-DD" });
+    // Devuelve SOLO el normal, para mantener compatibilidad en este endpoint
     const file = await generarExcelVisitasPorFecha(date);
     return res.json({ ok: true, file });
   } catch (e) {
@@ -49,11 +50,13 @@ export async function generarExcelVisitasPorFechaController(req, res) {
 export async function enviarExcelVisitasAyerController(req, res) {
   try {
     const dateSlug = dayjs().tz(TZ).subtract(1, "day").format("YYYY-MM-DD");
-    const file = await generarExcelVisitasPorFecha(dateSlug);
+
+    // Genera ambos
+    const { normal, quasar } = await generarExcelsVisitasPorFecha(dateSlug);
     const total = await countVisitasByDate(dateSlug);
 
     const { pretty } = normalizeDate(dateSlug);
-    const subject = req.body?.subject || `Reporte Visitas Oculares – ${pretty}`;
+    const subject = req.body?.subject || `Reporte Visitas Oculares - ${pretty}`;
     const html = visitasEmailHTML({
       prettyDate: pretty,
       total,
@@ -61,9 +64,12 @@ export async function enviarExcelVisitasAyerController(req, res) {
     });
 
     const { from, to, cc, bcc, text } = req.body || {};
-    await graphSendMail({ from, to, cc, bcc, subject, html, text, filePath: file });
+    await graphSendMail({
+      from, to, cc, bcc, subject, html, text,
+      filePaths: [normal, quasar], // <- adjunta ambos
+    });
 
-    return res.json({ ok: true, file, sent: true, total, date: dateSlug, via: "graph" });
+    return res.json({ ok: true, files: { normal, quasar }, sent: true, total, date: dateSlug, via: "graph" });
   } catch (e) {
     console.error("enviarExcelVisitasAyerController:", e);
     return res.status(400).json({ ok: false, error: e.message });
@@ -75,11 +81,12 @@ export async function enviarExcelVisitasPorFechaController(req, res) {
     const { date } = req.query;
     if (!date) return res.status(400).json({ ok: false, error: "falta ?date=YYYY-MM-DD" });
 
-    const file = await generarExcelVisitasPorFecha(date);
+    // Genera ambos
+    const { normal, quasar } = await generarExcelsVisitasPorFecha(date);
     const total = await countVisitasByDate(date);
 
     const { pretty } = normalizeDate(date);
-    const subject = req.body?.subject || `Reporte Visitas Oculares – ${pretty}`;
+    const subject = req.body?.subject || `Reporte Visitas Oculares - ${pretty}`;
     const html = visitasEmailHTML({
       prettyDate: pretty,
       total,
@@ -87,9 +94,12 @@ export async function enviarExcelVisitasPorFechaController(req, res) {
     });
 
     const { from, to, cc, bcc, text } = req.body || {};
-    await graphSendMail({ from, to, cc, bcc, subject, html, text, filePath: file });
+    await graphSendMail({
+      from, to, cc, bcc, subject, html, text,
+      filePaths: [normal, quasar], // <- adjunta ambos
+    });
 
-    return res.json({ ok: true, file, sent: true, total, date, via: "graph" });
+    return res.json({ ok: true, files: { normal, quasar }, sent: true, total, date, via: "graph" });
   } catch (e) {
     console.error("enviarExcelVisitasPorFechaController:", e);
     return res.status(400).json({ ok: false, error: e.message });
