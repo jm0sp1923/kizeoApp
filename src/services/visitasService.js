@@ -135,7 +135,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
     flat.resultado_de_la_gestion_visit
   );
 
-  // ===== FECHAS (SOLO dos fuentes) =====
+  // ===== FECHAS =====
   // 1) Fecha de la VISITA (formulario)
   const vFechaVisita = valueOf(fields, "fecha_y_hora_de_la_visita"); // {date,hour,timezone}
   const FechaVisita =
@@ -143,35 +143,22 @@ export async function guardarVisitaDesdeWebhook(payload) {
     parseDateLoose(flat.fecha_y_hora_de_la_visita) ||
     null;
 
-  // 2) Fecha de registro = answer_time (ISO con offset)
-  const answerTimeRaw =
-    flat?.answer_time ||
-    payload?.answer_time ||
+  // 2) Fecha de registro real (cuando finaliza la visita)
+  // Prioriza update_answer_time > answer_time (ambas traen segundos)
+  const registroRaw =
+    payload?.data?.update_answer_time ||
     payload?.data?.answer_time ||
+    payload?.update_answer_time ||
+    payload?.answer_time ||
+    flat?.update_answer_time ||
+    flat?.answer_time ||
     null;
 
-  const FechaRegistro = parseDateLoose(answerTimeRaw) || null;
+  const FechaRegistro = parseDateLoose(registroRaw) || new Date();
 
-  // Duración = fecha_y_hora_de_la_visita - answer_time
-  // Regla: si visita < answer_time (error del gestor), dejar "00:00:00"
-  let DuracionLlamada = "00:00:00";
-  if (FechaVisita && FechaRegistro) {
-    const diffMs = FechaRegistro.getTime() - FechaVisita.getTime(); // literal: answer_time - visita
-    if (diffMs >= 0) {
-      const totalSec = Math.floor(diffMs / 1000);
-      const hh = String(Math.floor(totalSec / 3600)).padStart(2, "0");
-      const mm = String(Math.floor((totalSec % 3600) / 60)).padStart(2, "0");
-      const ss = String(totalSec % 60).padStart(2, "0");
-      DuracionLlamada = `${hh}:${mm}:${ss}`;
-    } else {
-      // Caso error: visita antes que answer_time
-      DuracionLlamada = "00:00:00";
-    }
-  }
-
-  console.log("FechaVisita ISO  =", FechaVisita?.toISOString?.());
-  console.log("FechaRegistro ISO=", FechaRegistro?.toISOString?.());
-  console.log("⏱ DuracionLlamada (visita - answer_time, clamp<0 a 00:00:00) =", DuracionLlamada);
+  // 3) Inicio real: si existe start_answer_time, úsalo; si no, usa la fecha del formulario
+  const startRaw = flat?.start_answer_time || payload?.start_answer_time || null;
+  const FechaInicio = parseDateLoose(startRaw) || FechaVisita || null;
 
   // Observacion
   const Observacion = firstNonEmpty(
@@ -210,6 +197,29 @@ export async function guardarVisitaDesdeWebhook(payload) {
   // Tipo llamada
   const TipoLlamada = "M";
 
+  // Duración = FechaRegistro - FechaInicio en HH:mm:ss
+  let DuracionLlamada = "00:00:00";
+
+  if (FechaRegistro && FechaInicio) {
+    const diffMs = FechaRegistro.getTime() - FechaInicio.getTime(); // NO usar Math.abs
+
+    if (diffMs > 0) {
+      const totalSec = Math.floor(diffMs / 1000);
+      const hh = String(Math.floor(totalSec / 3600)).padStart(2, "0");
+      const mm = String(Math.floor((totalSec % 3600) / 60)).padStart(2, "0");
+      const ss = String(totalSec % 60).padStart(2, "0");
+      DuracionLlamada = `${hh}:${mm}:${ss}`;
+    } else {
+      // fin antes o igual que inicio ⇒ duración cero
+      DuracionLlamada = "00:00:00";
+    }
+  }
+
+  console.log("FechaVisita ISO  =", FechaVisita?.toISOString?.());
+  console.log("FechaInicio ISO  =", FechaInicio?.toISOString?.());
+  console.log("FechaRegistro ISO =", FechaRegistro?.toISOString?.());
+  console.log("⏱ DuracionLlamada CALCULADA =", DuracionLlamada);
+
   // Telefono
   const Telefono = firstNonEmpty(
     phoneOf(fields, "celular_del_inquilino"),
@@ -221,7 +231,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
   if (Empresa == null && typeof flat.Empresa === "string") Empresa = flat.Empresa;
   Empresa = (typeof Empresa === "string" && Empresa.trim() !== "") ? Empresa.trim() : "";
 
-  // Documento final (mantengo Fecha de gestion = FechaRegistro)
+  // Documento final
   const doc = {
     Cuenta,
     "Tipo de gestion": TipoDeGestion || "",
@@ -240,7 +250,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
 
   console.log("Visita recibida:", {
     Cuenta, TipoDeGestion, Resultado_de_gestion,
-    FechaVisita, FechaRegistro,
+    FechaVisita, FechaInicio, FechaRegistro,
     Observacion, Detalle, Telefono, Empresa
   });
 
