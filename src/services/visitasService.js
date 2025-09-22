@@ -73,21 +73,30 @@ const dateTimeFromKizeo = (v) => {
   return d.isValid() ? d.toDate() : null;
 };
 
-// parse suelto por si llega en plano
+// parse suelto por si llega en plano (respeta segundos si trae offset/Z)
 const parseDateLoose = (s) => {
   if (!s) return null;
+  const str = String(s).trim();
+
+  // Si trae offset o Z, NO fuerces TZ: conserva segundos exactos
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+\-]\d{2}:\d{2})$/.test(str)) {
+    const d = dayjs(str);
+    return d.isValid() ? d.toDate() : null;
+  }
+
+  // Planos -> interprétalos en la TZ del sistema
   const fmts = [
-    "YYYY-MM-DD HH:mm",
     "YYYY-MM-DD HH:mm:ss",
-    "YYYY-MM-DDTHH:mm:ssZ",
-    "YYYY-MM-DD",
-    "YYYY/MM/DD HH:mm:ss"
+    "YYYY-MM-DD HH:mm",
+    "YYYY/MM/DD HH:mm:ss",
+    "YYYY-MM-DD"
   ];
   for (const f of fmts) {
-    const d = dayjs.tz(String(s).trim(), f, TZ);
+    const d = dayjs.tz(str, f, TZ);
     if (d.isValid()) return d.toDate();
   }
-  const d = dayjs.tz(String(s).trim(), TZ);
+
+  const d = dayjs.tz(str, TZ);
   return d.isValid() ? d.toDate() : null;
 };
 
@@ -126,7 +135,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
     flat.resultado_de_la_gestion_visit
   );
 
-  // ===== FECHAS =====
+  // ===== FECHAS (SOLO dos fuentes) =====
   // 1) Fecha de la VISITA (formulario)
   const vFechaVisita = valueOf(fields, "fecha_y_hora_de_la_visita"); // {date,hour,timezone}
   const FechaVisita =
@@ -134,17 +143,35 @@ export async function guardarVisitaDesdeWebhook(payload) {
     parseDateLoose(flat.fecha_y_hora_de_la_visita) ||
     null;
 
-  // 2) Fecha de registro real (cuando finaliza la visita)
-  const registroRaw =
-    payload?.data?.update_answer_time ||
-    payload?.update_answer_time ||
-    flat?.update_answer_time ||
-    payload?.data?.answer_time ||
-    payload?.answer_time ||
+  // 2) Fecha de registro = answer_time (ISO con offset)
+  const answerTimeRaw =
     flat?.answer_time ||
+    payload?.answer_time ||
+    payload?.data?.answer_time ||
     null;
 
-  const FechaRegistro = parseDateLoose(registroRaw) || new Date();
+  const FechaRegistro = parseDateLoose(answerTimeRaw) || null;
+
+  // Duración = fecha_y_hora_de_la_visita - answer_time
+  // Regla: si visita < answer_time (error del gestor), dejar "00:00:00"
+  let DuracionLlamada = "00:00:00";
+  if (FechaVisita && FechaRegistro) {
+    const diffMs = FechaRegistro.getTime() - FechaVisita.getTime(); // literal: answer_time - visita
+    if (diffMs >= 0) {
+      const totalSec = Math.floor(diffMs / 1000);
+      const hh = String(Math.floor(totalSec / 3600)).padStart(2, "0");
+      const mm = String(Math.floor((totalSec % 3600) / 60)).padStart(2, "0");
+      const ss = String(totalSec % 60).padStart(2, "0");
+      DuracionLlamada = `${hh}:${mm}:${ss}`;
+    } else {
+      // Caso error: visita antes que answer_time
+      DuracionLlamada = "00:00:00";
+    }
+  }
+
+  console.log("FechaVisita ISO  =", FechaVisita?.toISOString?.());
+  console.log("FechaRegistro ISO=", FechaRegistro?.toISOString?.());
+  console.log("⏱ DuracionLlamada (visita - answer_time, clamp<0 a 00:00:00) =", DuracionLlamada);
 
   // Observacion
   const Observacion = firstNonEmpty(
@@ -183,22 +210,6 @@ export async function guardarVisitaDesdeWebhook(payload) {
   // Tipo llamada
   const TipoLlamada = "M";
 
-  // Duración = FechaRegistro - FechaVisita en HH:mm:ss
-  let DuracionLlamada = "00:00:00";
-  if (FechaRegistro && FechaVisita) {
-    const deltaMs  = FechaRegistro.getTime() - FechaVisita.getTime();
-    const totalSec = Math.max(0, Math.round(deltaMs / 1000));
-    const horas    = Math.floor(totalSec / 3600);
-    const minutos  = Math.floor((totalSec % 3600) / 60);
-    const segundos = totalSec % 60;
-
-    const hh = String(horas).padStart(2, "0");
-    const mm = String(minutos).padStart(2, "0");
-    const ss = String(segundos).padStart(2, "0");
-
-    DuracionLlamada = `${hh}:${mm}:${ss}`;
-  }
-
   // Telefono
   const Telefono = firstNonEmpty(
     phoneOf(fields, "celular_del_inquilino"),
@@ -210,7 +221,7 @@ export async function guardarVisitaDesdeWebhook(payload) {
   if (Empresa == null && typeof flat.Empresa === "string") Empresa = flat.Empresa;
   Empresa = (typeof Empresa === "string" && Empresa.trim() !== "") ? Empresa.trim() : "";
 
-  // Documento final
+  // Documento final (mantengo Fecha de gestion = FechaRegistro)
   const doc = {
     Cuenta,
     "Tipo de gestion": TipoDeGestion || "",
