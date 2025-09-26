@@ -161,10 +161,17 @@ export async function guardarVisitaDesdeWebhook(payload) {
   const FechaInicio = parseDateLoose(startRaw) || FechaVisita || null;
 
   // Observacion
-  const Observacion = firstNonEmpty(
+  let Observacion = firstNonEmpty(
     textOf(fields, "observacion_de_la_visita1"),
     flat.observacion_de_la_visita1
   );
+
+  if (Observacion) {
+  Observacion = Observacion
+    .replace(/;/g, ",")        // reemplaza punto y coma por coma
+    .replace(/\s*,\s*/g, ", ") // asegura un espacio limpio después de cada coma
+    .trim();                   // elimina espacios al inicio y final
+  }
 
   const FechaProximaGestion = "";
   const ProximaGestion = "";
