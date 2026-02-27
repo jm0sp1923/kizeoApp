@@ -38,6 +38,7 @@ function generarExcelHistorico(lista_reportes) {
 
     const data = lista_reportes.map((r) => ({
     id_historico: r.data.external_id,
+    _cuenta: r.data.cuenta,
     _form_id: r.data._form_id,
     _create_time: r.data._create_time,
     _update_time: r.data._update_time,

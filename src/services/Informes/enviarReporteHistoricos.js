@@ -23,6 +23,8 @@ function formatFechaSimple(fecha) {
 
 async function enviarReporteHistoricos() {
   try {
+
+    console.log("Iniciando proceso para enviar reporte histórico...");
     // Obtener día anterior no domingo
     const ayerNoDomingo = obtenerDiaAnteriorNoDomingo(new Date());
 
@@ -43,6 +45,8 @@ async function enviarReporteHistoricos() {
     const remitenteData = await remitentes.findOne({
       area: "RCI",
     });
+
+    console.log("Remitente encontrado:", remitenteData);  
 
     await enviarCorreo(htmlContent, remitenteData, archivoExcel);
 
