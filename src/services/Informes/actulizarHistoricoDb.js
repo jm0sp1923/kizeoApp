@@ -2,7 +2,7 @@ import "dotenv/config";
 import axios from "axios";
 import historico from "../../models/historico.js";
 
-const token_kizeo = process.env.KIZEO_API_KEY;
+const token_kizeo = process.env.KIZEO_API_KEY?.trim();
 
 
 async function updateHistoricoDb() {
@@ -38,7 +38,7 @@ async function updateHistoricoDb() {
     return  (`✅ Documentos insertados o actualizados: ${actualizados}`);
     
   } catch (error) {
-    throw new Error("❌ Error:", error.response?.data || error.message);
+    throw new Error("❌ Error: " + (error.response?.data ? JSON.stringify(error.response.data) : error.message));
   }
 }
 

@@ -1,7 +1,7 @@
 /**
  * Scheduler para envío automático de reportes históricos
  * 
- * Programa 3 envíos diarios:
+ * Programa 3 envíos diarios:b
  *   - 3:00 AM  (Colombia / America/Bogota)
  *   - 11:00 AM
  *   - 4:00 PM

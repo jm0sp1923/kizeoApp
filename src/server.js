@@ -8,6 +8,9 @@ import connectDB from "./db.js";
 //Importar el scheduler de reportes
 import iniciarScheduler from "./scheduler/reporteHistoricoScheduler.js";
 
+//Importar el scheduler de actualización del histórico
+import iniciarSchedulerActualizacion from "./scheduler/actualizarHistoricoScheduler.js";
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -24,7 +27,8 @@ const PORT = process.env.PORT || 3000;
 
     expressListRoutes(routes,{ prefix: "/api" });
 
-    // Iniciar el scheduler después de que MongoDB esté listo
+    // Iniciar los schedulers después de que MongoDB esté listo
+    iniciarSchedulerActualizacion();
     iniciarScheduler();
   });
 })();
