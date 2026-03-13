@@ -74,7 +74,7 @@ function generarExcelHistorico(lista_reportes) {
       _create_time: r.data._create_time,
       _update_time: r.data._update_time,
       tiempo_diligenciamiento: calcularTiempoDiligenciamiento(
-        r.data._create_time,
+        r.data._answer_time,
         r.data._update_time
       ),
       _history: r.data._history,
