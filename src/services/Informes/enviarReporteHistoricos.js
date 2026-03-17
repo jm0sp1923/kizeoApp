@@ -16,34 +16,50 @@ function formatDateTime(fecha, h, m, s) {
   return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
 }
 
+function formatFechaSimple(fecha) {
+  const yyyy = fecha.getFullYear();
+  const mm = String(fecha.getMonth() + 1).padStart(2, "0");
+  const dd = String(fecha.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+}
+
+function obtenerDiaAnteriorNoDomingo(fecha) {
+  let diaAnterior = new Date(fecha);
+  do {
+    diaAnterior.setDate(diaAnterior.getDate() - 1);
+  } while (diaAnterior.getDay() === 0);
+  return diaAnterior;
+}
+
 function obtenerRangoReporte() {
   // Fecha actual en zona horaria Colombia
   const ahoraStr = new Date().toLocaleString("en-US", { timeZone: "America/Bogota" });
   const ahora = new Date(ahoraStr);
   const horaActual = ahora.getHours();
 
-  let inicio, fin, etiqueta;
+  let filtro, etiqueta;
 
   if (horaActual >= 2 && horaActual < 10) {
-    // Turno 3:00 AM → desde 4:00 PM del día anterior hasta 3:00 AM hoy
-    const ayer = new Date(ahora);
-    ayer.setDate(ayer.getDate() - 1);
-    inicio = formatDateTime(ayer, 16, 0, 0);
-    fin = formatDateTime(ahora, 3, 0, 0);
-    etiqueta = `${formatDateTime(ayer, 16, 0, 0)} - ${formatDateTime(ahora, 3, 0, 0)}`;
+    // Turno 3:00 AM → día anterior completo (saltando domingo)
+    const ayerNoDomingo = obtenerDiaAnteriorNoDomingo(ahora);
+    const fechaRegex = "^" + formatFechaSimple(ayerNoDomingo);
+    etiqueta = ayerNoDomingo.toLocaleDateString("es-CO");
+    filtro = { "data._update_time": { $regex: fechaRegex } };
   } else if (horaActual >= 10 && horaActual < 15) {
     // Turno 11:00 AM → desde 3:00 AM hasta 11:00 AM hoy
-    inicio = formatDateTime(ahora, 3, 0, 0);
-    fin = formatDateTime(ahora, 11, 0, 0);
-    etiqueta = `${formatDateTime(ahora, 3, 0, 0)} - ${formatDateTime(ahora, 11, 0, 0)}`;
+    const inicio = formatDateTime(ahora, 3, 0, 0);
+    const fin = formatDateTime(ahora, 11, 0, 0);
+    etiqueta = `${inicio} - ${fin}`;
+    filtro = { "data._update_time": { $gte: inicio, $lt: fin } };
   } else {
-    // Turno 4:00 PM → desde 11:00 AM hasta 4:00 PM hoy
-    inicio = formatDateTime(ahora, 11, 0, 0);
-    fin = formatDateTime(ahora, 16, 0, 0);
-    etiqueta = `${formatDateTime(ahora, 11, 0, 0)} - ${formatDateTime(ahora, 16, 0, 0)}`;
+    // Turno 4:00 PM → desde 3:00 AM hasta 4:00 PM hoy (acumulado del día)
+    const inicio = formatDateTime(ahora, 3, 0, 0);
+    const fin = formatDateTime(ahora, 16, 0, 0);
+    etiqueta = `${inicio} - ${fin}`;
+    filtro = { "data._update_time": { $gte: inicio, $lt: fin } };
   }
 
-  return { inicio, fin, etiqueta };
+  return { filtro, etiqueta };
 }
 
 async function enviarReporteHistoricos() {
@@ -51,12 +67,12 @@ async function enviarReporteHistoricos() {
 
     console.log("Iniciando proceso para enviar reporte histórico...");
 
-    const { inicio, fin, etiqueta } = obtenerRangoReporte();
-    console.log(`   Rango del reporte: ${inicio} → ${fin}`);
+    const { filtro, etiqueta } = obtenerRangoReporte();
+    console.log(`   Rango del reporte: ${etiqueta}`);
 
-    // Buscar reportes en el rango de horas con _direction "received"
+    // Buscar reportes en el rango con _direction "received"
     const historicoReportes = await historico.find({
-      "data._update_time": { $gte: inicio, $lt: fin },
+      ...filtro,
       "data._direction": "received",
     });
 
