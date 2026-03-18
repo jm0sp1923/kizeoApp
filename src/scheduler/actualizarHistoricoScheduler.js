@@ -11,6 +11,7 @@ import cron from "node-cron";
 import updateHistoricoDb from "../services/Informes/actulizarHistoricoDb.js";
 
 const TZ = process.env.TZ || "America/Bogota";
+let schedulerIniciado = false;
 
 async function ejecutarActualizacion(etiqueta) {
   console.log(`\n🔄 [${etiqueta}] Iniciando actualización del histórico en MongoDB...`);
@@ -25,6 +26,9 @@ async function ejecutarActualizacion(etiqueta) {
 }
 
 function iniciarSchedulerActualizacion() {
+  if (schedulerIniciado) return;
+  schedulerIniciado = true;
+
   console.log("⏰ Iniciando scheduler de actualización del histórico...");
   console.log(`   Zona horaria: ${TZ}`);
   console.log("   Horarios programados: 2:55 AM, 10:55 AM, 3:55 PM\n");

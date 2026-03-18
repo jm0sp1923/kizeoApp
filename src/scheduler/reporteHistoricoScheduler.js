@@ -12,6 +12,7 @@ import cron from "node-cron";
 import enviarReporteHistoricos from "../services/Informes/enviarReporteHistoricos.js";
 
 const TZ = process.env.TZ || "America/Bogota";
+let schedulerIniciado = false;
 
 /**
  * Ejecuta el envío del reporte y registra el resultado en consola
@@ -33,6 +34,9 @@ async function ejecutarEnvio(etiqueta) {
  * Inicializa los 3 cron jobs para envío de reportes
  */
 function iniciarScheduler() {
+  if (schedulerIniciado) return;
+  schedulerIniciado = true;
+
   console.log("⏰ Iniciando scheduler de reportes históricos...");
   console.log(`   Zona horaria: ${TZ}`);
   console.log("   Horarios programados: 3:00 AM, 11:00 AM, 4:00 PM\n");
