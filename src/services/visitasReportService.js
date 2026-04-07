@@ -47,6 +47,19 @@ async function fetchByDate(yyyy_mm_dd) {
     .lean();
 }
 
+// Fecha en Bogotá para Excel: YYYY/MM/DD HH:MM:SS
+const fmtBogotaFechaHora = (d) => {
+  if (!d) return "";
+  const nd = new Date(d);
+  const yyyy = nd.toLocaleString("es-CO", { timeZone: TZ, year: "numeric" });
+  const mm = String(nd.toLocaleString("es-CO", { timeZone: TZ, month: "2-digit" }));
+  const dd = String(nd.toLocaleString("es-CO", { timeZone: TZ, day: "2-digit" }));
+  const hh = String(nd.toLocaleString("es-CO", { timeZone: TZ, hour: "2-digit", hour12: false })).padStart(2, "0");
+  const min = String(nd.toLocaleString("es-CO", { timeZone: TZ, minute: "2-digit" })).padStart(2, "0");
+  const sec = String(nd.toLocaleString("es-CO", { timeZone: TZ, second: "2-digit" })).padStart(2, "0");
+  return `${yyyy}/${mm}/${dd} ${hh}:${min}:${sec}`;
+};
+
 export async function generarExcelVisitasPorFecha(yyyy_mm_dd) {
   const { base } = rangeForDate(yyyy_mm_dd);
   const rows = await fetchByDate(yyyy_mm_dd);
@@ -62,7 +75,7 @@ export async function generarExcelVisitasPorFecha(yyyy_mm_dd) {
       r["Cuenta"] ?? "",
       r["Tipo de gestion"] ?? "",
       r["Resultado"] ?? "",                                 // 1er Resultado
-      r["Fecha de gestion"] ? dayjs(r["Fecha de gestion"]).format("YYYY-MM-DD HH:mm") : "",
+      fmtBogotaFechaHora(r["Fecha de gestion"]),
       r["Observacion"] ?? "",
       r["fecha de proxima gestion"] ?? "",
       r["proxima gestion"] ?? "",
@@ -90,6 +103,63 @@ export async function generarExcelVisitasPorFecha(yyyy_mm_dd) {
   await wb.xlsx.writeFile(file);
 
   return file;
+}
+
+// Genera dos excels: normal + "quasar" con duración fija 00:05:00
+export async function generarExcelsVisitasPorFecha(yyyy_mm_dd) {
+  const { base } = rangeForDate(yyyy_mm_dd);
+  const rows = await fetchByDate(yyyy_mm_dd);
+
+  const outDir = path.join(process.cwd(), "uploads", "reports");
+  ensureDir(outDir);
+
+  // 1) Normal
+  const wb1 = new ExcelJS.Workbook();
+  const ws1 = wb1.addWorksheet("Visitas");
+  ws1.addRow(HEADERS);
+  for (const r of rows) {
+    ws1.addRow([
+      r["Cuenta"] ?? "",
+      r["Tipo de gestion"] ?? "",
+      r["Resultado"] ?? "",
+      fmtBogotaFechaHora(r["Fecha de gestion"]),
+      r["Observacion"] ?? "",
+      r["fecha de proxima gestion"] ?? "",
+      r["proxima gestion"] ?? "",
+      r["Resultado 2"] ?? "",
+      r["Tipo llamada"] ?? "",
+      r["Duracion llamada"] ?? "",
+      r["telefono"] ?? "",
+      r["empresa"] ?? "",
+    ]);
+  }
+  const normal = path.join(outDir, `visitas_${base.format("YYYY-MM-DD")}.xlsx`);
+  await wb1.xlsx.writeFile(normal);
+
+  // 2) Quasar (duración fija)
+  const wb2 = new ExcelJS.Workbook();
+  const ws2 = wb2.addWorksheet("Visitas");
+  ws2.addRow(HEADERS);
+  for (const r of rows) {
+    ws2.addRow([
+      r["Cuenta"] ?? "",
+      r["Tipo de gestion"] ?? "",
+      r["Resultado"] ?? "",
+      fmtBogotaFechaHora(r["Fecha de gestion"]),
+      r["Observacion"] ?? "",
+      r["fecha de proxima gestion"] ?? "",
+      r["proxima gestion"] ?? "",
+      r["Resultado 2"] ?? "",
+      r["Tipo llamada"] ?? "",
+      "00:05:00",
+      r["telefono"] ?? "",
+      r["empresa"] ?? "",
+    ]);
+  }
+  const quasar = path.join(outDir, `visitas_${base.format("YYYY-MM-DD")}_subir_quasar.xlsx`);
+  await wb2.xlsx.writeFile(quasar);
+
+  return { normal, quasar };
 }
 
 export async function generarExcelVisitasAyer() {
