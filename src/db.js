@@ -7,10 +7,16 @@ import "dotenv/config";
 // Función asíncrona que se encarga de conectar a la base de datos MongoDB
 const connectDB = async () => {
     try {
-        // Construir la URI completa con el nombre de la BD
-        const mongoURI = `${process.env.MONGODB_URI}${process.env.MONGODB_DB_NAME}`;
-        console.log(`📡 Conectando a MongoDB: ${mongoURI}`);
-        
+        // La URI de conexión ya incluye el nombre de la base de datos
+        const mongoURI = process.env.MONGODB_URI;
+        if (!mongoURI) {
+            throw new Error("Falta la variable de entorno MONGODB_URI");
+        }
+
+        // Log sin exponer las credenciales (usuario:contraseña)
+        const safeURI = mongoURI.replace(/\/\/([^:]+):([^@]+)@/, "//$1:****@");
+        console.log(`📡 Conectando a MongoDB: ${safeURI}`);
+
         // Intentamos establecer la conexión con la base de datos utilizando el URI almacenado en las variables de entorno
         await mongoose.connect(mongoURI);
 
